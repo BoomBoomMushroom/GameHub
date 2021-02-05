@@ -195,6 +195,38 @@
                     <input id="walloff" type="radio" name="wall" value="0"/>
                     <label for="walloff">Off</label>
                 </p>
+                
+                <p>Color:
+                    <input id="red" type="radio" name="color" value="1"/>
+                    <label for="red">Red</label>
+                    
+                    <input id="white" type="radio" name="color" value="2" checked/>
+                    <label for="white">White</label>
+                    
+                    <input id="blue" type="radio" name="color" value="0"/>
+                    <label for="blue">Blue</label>
+                    
+                    <input id="orange" type="radio" name="color" value="0"/>
+                    <label for="orange">Orange</label>
+                    
+                    <input id="yellow" type="radio" name="color" value="0"/>
+                    <label for="yellow">Yellow</label>
+                    
+                    <input id="green" type="radio" name="color" value="0"/>
+                    <label for="green">Green</label>
+                    
+                    <input id="cyan" type="radio" name="color" value="0"/>
+                    <label for="cyan">Cyan</label>
+                    
+                    <input id="purple" type="radio" name="color" value="0"/>
+                    <label for="purple">Purple</label>
+                    
+                    <input id="pink" type="radio" name="color" value="0"/>
+                    <label for="pink">Pink</label>
+                    
+                    <input id="random" type="radio" name="color" value="0"/>
+                    <label for="random">--Rapid Change--</label>
+                </p>
 
             </div>
         
@@ -248,13 +280,48 @@
     var wall_setting;
     
     /////////////////////////////////////////////////////////////
+			const red = "#FF2121"
+      const white = "#FFFFFF"
+      const blue = "#218CFF"
+      const orange = "#FF7821"
+      const yellow = "#FFD721"
+      const green = "#3CFF21"
+      const cyan = "#21FFE1"
+      const purple = "#6E21FF"
+      const pink = "#FF21FC"
+
 
     var activeDot = function(x, y){
-        ctx.fillStyle = "#FFFFFF";
+    		let rainbow = true
+        ctx.fillStyle = randomColor();
         ctx.fillRect(x * 10, y * 10, 10, 10);
     }
     
+    function randomColor(){
+			
+      if (document.getElementById("red").checked){return(red);}
+      if (document.getElementById("white").checked){return(white);}
+      if (document.getElementById("blue").checked){return(blue);}
+      if (document.getElementById("orange").checked){return(orange);}
+      if (document.getElementById("yellow").checked){return(yellow);}
+      if (document.getElementById("green").checked){return(green);}
+      if (document.getElementById("cyan").checked){return(cyan);}
+      if (document.getElementById("purple").checked){return(purple);}
+      if (document.getElementById("pink").checked){return(pink);}
+      if (document.getElementById("random").checked){}
     
+			let rng = Math.floor(Math.random() * 10);
+      
+      if (rng === 1){return red;}
+      else if (rng === 2){return white;}
+      else if (rng === 3){return blue;}
+      else if (rng === 4){return orange;}
+      else if (rng === 5){return yellow;}
+      else if (rng === 6){return green;}
+      else if (rng === 7){return cyan;}
+      else if (rng === 8){return purple;}
+      else if (rng === 9){return pink;}
+    }
     /////////////////////////////////////////////////////////////
 
     var changeDir = function(key){
