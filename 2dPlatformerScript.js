@@ -23,7 +23,7 @@ let item2_top = "20px"
 let item2_left = "25px"
 
 
-let ItemEquipped = false;
+let ItemEquipped = true;
 let HotbarActive = 1
 
 setInterval(callEverySec(), 100)
@@ -75,61 +75,82 @@ document.addEventListener('keydown', function(event) {
     }
     
     else if(event.keyCode == 82){
-    	if (ItemEquipped === true){ItemEquipped = false; callEverySec()}
+    	/*if (ItemEquipped === true){ItemEquipped = false; callEverySec()}
       else if (ItemEquipped === false){ItemEquipped = true; callEverySec()}
+      */
+      ItemEquipped === true
     }
 });
+
+
+function updateHand(){
+	if(ItemEquipped === true && HotbarActive === 1){itemPart1.style.visibility = "visible"; itemPart2.style.visibility = "visible"}
+  else if(ItemEquipped === true && HotbarActive <= 2){
+  	itemPart1.style.visibility = "hidden"; itemPart2.style.visibility = "hidden"
+  }
+  else if(ItemEquipped === false){itemPart1.style.visibility = "hidden"; itemPart2.style.visibility = "hidden"}
+}
 
 function updateHotbar(){
 	if(HotbarActive === 1){
 		document.getElementById("hotbarItem1").style.backgroundColor = "#3FBD0D"
     document.getElementById("hotbarItem10").style.backgroundColor = "#75615D"
     document.getElementById("hotbarItem2").style.backgroundColor = "#75615D"
+    updateHand()
   }
   if(HotbarActive === 2){
 		document.getElementById("hotbarItem2").style.backgroundColor = "#3FBD0D"
     document.getElementById("hotbarItem1").style.backgroundColor = "#75615D"
     document.getElementById("hotbarItem3").style.backgroundColor = "#75615D"
+    updateHand()
   }
   if(HotbarActive === 3){
 		document.getElementById("hotbarItem3").style.backgroundColor = "#3FBD0D"
     document.getElementById("hotbarItem4").style.backgroundColor = "#75615D"
     document.getElementById("hotbarItem2").style.backgroundColor = "#75615D"
+    updateHand()
   }
   if(HotbarActive === 4){
 		document.getElementById("hotbarItem4").style.backgroundColor = "#3FBD0D"
     document.getElementById("hotbarItem5").style.backgroundColor = "#75615D"
     document.getElementById("hotbarItem3").style.backgroundColor = "#75615D"
+    updateHand()
   }
   if(HotbarActive === 5){
 		document.getElementById("hotbarItem5").style.backgroundColor = "#3FBD0D"
     document.getElementById("hotbarItem6").style.backgroundColor = "#75615D"
     document.getElementById("hotbarItem4").style.backgroundColor = "#75615D"
+    updateHand()
   }
   if(HotbarActive === 6){
 		document.getElementById("hotbarItem6").style.backgroundColor = "#3FBD0D"
     document.getElementById("hotbarItem7").style.backgroundColor = "#75615D"
     document.getElementById("hotbarItem5").style.backgroundColor = "#75615D"
+    updateHand()
   }
   if(HotbarActive === 7){
 		document.getElementById("hotbarItem7").style.backgroundColor = "#3FBD0D"
     document.getElementById("hotbarItem8").style.backgroundColor = "#75615D"
     document.getElementById("hotbarItem6").style.backgroundColor = "#75615D"
+    updateHand()
   }
   if(HotbarActive === 8){
 		document.getElementById("hotbarItem8").style.backgroundColor = "#3FBD0D"
     document.getElementById("hotbarItem9").style.backgroundColor = "#75615D"
     document.getElementById("hotbarItem7").style.backgroundColor = "#75615D"
+    updateHand()
   }
   if(HotbarActive === 9){
 		document.getElementById("hotbarItem9").style.backgroundColor = "#3FBD0D"
     document.getElementById("hotbarItem10").style.backgroundColor = "#75615D"
     document.getElementById("hotbarItem8").style.backgroundColor = "#75615D"
+    updateHand()
   }
   if(HotbarActive === 10){
 		document.getElementById("hotbarItem10").style.backgroundColor = "#3FBD0D"
     document.getElementById("hotbarItem1").style.backgroundColor = "#75615D"
     document.getElementById("hotbarItem9").style.backgroundColor = "#75615D"
+    updateHand()
   }
   
 }
