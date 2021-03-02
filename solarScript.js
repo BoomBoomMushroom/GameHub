@@ -1,4 +1,4 @@
-  /*
+/*
    * Gravitational n-body algorithm 
   */
 
@@ -139,6 +139,7 @@
       vz: -0.1524041758922603
     }
   ];
+  
   
   function packSolarSystem(){
   	document.getElementById("solarSystem-unpack-pack").value = JSON.stringify(innerSolarSystem.masses);
@@ -343,6 +344,7 @@
       let jupiterCount = 0;
       let sunCount = 0;
       let redDwarfStarCount = 0;
+      let BlackHoleCount = 0;
   		
       if(document.getElementById("customName").value != 0){
       	innerSolarSystem.masses.push({
@@ -404,6 +406,36 @@
       
       else if(document.getElementById("masses-list").options[document.getElementById("masses-list").selectedIndex].text === "Red Dwarf Star"){
       	redDwarfStarCount = redDwarfStarCount + 1
+      	innerSolarSystem.masses.push({
+        m: parseFloat(massesList.value),
+        name: document.getElementById("masses-list").options[document.getElementById("masses-list").selectedIndex].text,
+        x,
+        y,
+        z,
+        vx,
+        vy,
+        vz,
+        manifestation: new Manifestation(ctx, trailLength, radius)
+      	});
+      }
+      
+      else if(document.getElementById("masses-list").options[document.getElementById("masses-list").selectedIndex].text === "Black Hole with 6.5 Solar Masses"){
+      	BlackHoleCount = BlackHoleCount + 1
+      	innerSolarSystem.masses.push({
+        m: parseFloat(massesList.value),
+        name: document.getElementById("masses-list").options[document.getElementById("masses-list").selectedIndex].text,
+        x,
+        y,
+        z,
+        vx,
+        vy,
+        vz,
+        manifestation: new Manifestation(ctx, trailLength, radius)
+      	});
+      }
+      
+      else if(document.getElementById("masses-list").options[document.getElementById("masses-list").selectedIndex].text === "Black Hole with 10 Solar Masses"){
+      	BlackHoleCount = BlackHoleCount + 1
       	innerSolarSystem.masses.push({
         m: parseFloat(massesList.value),
         name: document.getElementById("masses-list").options[document.getElementById("masses-list").selectedIndex].text,
