@@ -11,11 +11,11 @@ shiny: false,
 mega: false,
 sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/382.png",
 
-primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/382-primal.png",
+megaSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/382-primal.png",
 
 shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/382.png",
 
-shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/382-primal.png",
+shinyMegaSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/382-primal.png",
 
 move1: {
 moveName: "Scary Face",
