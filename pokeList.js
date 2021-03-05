@@ -1,7 +1,7 @@
 var kyoger = {
 name: "Kyoger",
-maxHealth: 100,
-health: 100, 
+maxHealth: 340,
+health: 340, 
 type: "Water", 
 weakness1: "Grass", 
 weakness2: "Electric",
@@ -11,11 +11,11 @@ shiny: false,
 mega: false,
 sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/382.png",
 
-megaSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/382-primal.png",
+primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/382-primal.png",
 
 shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/382.png",
 
-shinyMegaSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/382-primal.png",
+shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/382-primal.png",
 
 move1: {
 moveName: "Scary Face",
