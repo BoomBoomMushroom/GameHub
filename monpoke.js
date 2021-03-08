@@ -1,5 +1,3 @@
-alert("UPDATE WILL BE COMING BY HE END OF THE DAY (8th of march 2021)")
-
 var bTrans1 = document.getElementById("bTrans1")
 var bTrans2 = document.getElementById("bTrans2")
 
