@@ -1,21 +1,15 @@
-var myStorage = window.localStorage;
+alert("UPDATE WILL BE COMING BY HE END OF THE DAY (8th of march 2021)")
+
 var bTrans1 = document.getElementById("bTrans1")
 var bTrans2 = document.getElementById("bTrans2")
 
 var routeNumber = -1;
-var possibleEntitys = [kyoger]
+var possibleEntitys = [kyoger, groudon]
 var entityPoke = null;
 
 const titleArea = document.getElementById("titleArea")
 const battleGrounds = document.getElementById("battlegrounds")
 const gameSpace = document.getElementById("gameSpace")
-
-var poke1;
-var poke2;
-var poke3;
-var poke4;
-var poke5;
-var poke6;
 
 function play() {
   titleArea.style.display = 'none'
@@ -23,7 +17,6 @@ function play() {
 }
 
 function encounterEntity() {
-
   function shinyCalculate(pokemon) {
     if (randomNum(1, 8192/*8192*/) === 1) {
       pokemon.shiny = true
@@ -82,7 +75,7 @@ function encounterEntity() {
 	function calculateBar(pokemon){
   	return (pokemon.health/pokemon.maxHealth)*100
   }
-
+  
   anim()
   possibleEntitysUpdate()
   entityPoke = generateRandomPoke()
@@ -94,7 +87,7 @@ firstStartLoad()
 
 function possibleEntitysUpdate() {
   if (routeNumber === -1) {
-    possibleEntitys = [kyoger]
+    possibleEntitys = [kyoger, groudon]
   }
 }
 
