@@ -2,7 +2,7 @@ var bTrans1 = document.getElementById("bTrans1")
 var bTrans2 = document.getElementById("bTrans2")
 
 var routeNumber = -1;
-var possibleEntitys = [kyoger, groudon, rayquaza]
+var possibleEntitys = [kyoger, groudon, raquaza]
 var entityPoke = null;
 
 const titleArea = document.getElementById("titleArea")
@@ -105,7 +105,7 @@ firstStartLoad()
 
 function possibleEntitysUpdate() {
   if (routeNumber === -1) {
-    possibleEntitys = [kyoger, groudon, rayquaza]
+    possibleEntitys = [kyoger, groudon, raquaza]
   }
 }
 
