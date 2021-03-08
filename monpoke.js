@@ -21,13 +21,33 @@ function encounterEntity() {
     } else {
       pokemon.shiny = false
     }
+    if(randomNum(1, 5000 /*5000*/) === 1){
+    	pokemon.mega = true
+    }
+    else{
+    	pokemon.mega = false
+    }
   }
   function loadEntity(pokemon) {
     var enemyEntitySpawn = document.getElementById("enemyEntity")
     if (pokemon.shiny == true) {
-      enemyEntitySpawn.src = pokemon.shinySprite
-    } else {
-      enemyEntitySpawn.src = pokemon.sprite
+    
+    	if(pokemon.mega == true){
+      	enemyEntitySpawn.src = pokemon.shinyPrimalSprite
+      }
+      else{
+      	enemyEntitySpawn.src = pokemon.shinySprite
+      
+      }
+      
+    } 
+    else if(pokemon.shiny == false) {
+    	if(pokemon.mega == false){
+      	enemyEntitySpawn.src = pokemon.sprite
+      }
+      else{
+      	enemyEntitySpawn.src = pokemon.primalSprite
+      }
     }
   }
   function anim() {
