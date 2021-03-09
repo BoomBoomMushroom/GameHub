@@ -2,7 +2,7 @@ var bTrans1 = document.getElementById("bTrans1")
 var bTrans2 = document.getElementById("bTrans2")
 
 var routeNumber = -1;
-var possibleEntitys = [kyoger, groudon, raquaza]
+var possibleEntitys = [kyoger, groudon, raquaza, shinx, luxio]
 var entityPoke = null;
 
 var shinyChance = 8192;
@@ -154,19 +154,66 @@ function clearAllData(){
 	myStorage.clear()
 }
 
+function loadPokemonPics(){
+	autoLoad();
+  if(poke1 != null){
+  	if(poke1.mega){
+    	document.getElementByClassName('poke1img').src = poke1.primalSprite
+    }
+    else if(poke1.shiny){
+    	document.getElementByClassName('poke1img').src = poke1.shinySprite
+    }
+    else if(poke1.shiny && poke1.mega){
+    	document.getElementByClassName('poke1img').src = poke1.sinyPrimalSprite
+    }
+  }
+}
+
 function catchMon(){
 	var d = new Date();
   var e = d.getMonth()+1+"/"+d.getDate()+"/"+d.getFullYear()
   
+  var win = window.open()
+  win.document.write("Caught by "+name+", on "+e+"<img src='"+document.getElementById("enemyEntity").src+"'>")
+  
+  if (poke1 == null){
+  	saveData("poke1", entityPoke)
+    autoLoad()
+  }
+  else if (poke2 == null){
+  	saveData("poke2", entityPoke)
+    autoLoad()
+  }
+  else if (poke3 == null){
+  	saveData("poke3", entityPoke)
+    autoLoad()
+  }
+  else if (poke5 == null){
+  	saveData("poke4", entityPoke)
+    autoLoad()
+  }
+  else if (poke5 == null){
+  	saveData("poke5", entityPoke)
+    autoLoad()
+  }
+  else if (poke6 == null){
+  	saveData("poke6", entityPoke)
+    autoLoad()
+  }
+  
+  loadPokemonPics();
+  
+  /*
   document.getElementById("name").innerHTML = "Caught by "+name+", on "+e
   
   document.getElementById("monGot").src = document.getElementById("enemyEntity").src
   
   battleGrounds.style.display = 'none'
+  */
 }
 function possibleEntitysUpdate() {
   if (routeNumber === -1) {
-    possibleEntitys = [kyoger, groudon, raquaza]
+    possibleEntitys = [kyoger, groudon, raquaza, shinx, luxio]
   }
 }
 function randomNum(min, max) {
