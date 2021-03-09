@@ -15,12 +15,6 @@ var poke4 = null
 var poke5 = null
 var poke6 = null
 
-poke1 = null
-poke2 = null
-poke3 = null
-poke4 = null
-poke5 = null
-poke6 = null
 myStorage = window.localStorage;
 
 var name = "UNDEFINED"
@@ -179,6 +173,14 @@ function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 function firstStartLoad() {
+
+	poke1 = null
+  poke2 = null
+  poke3 = null
+  poke4 = null
+  poke5 = null
+  poke6 = null
+
   titleArea.style.display = 'block'
   gameSpace.style.display = 'none'
   battleGrounds.style.display = 'none'
