@@ -133,6 +133,51 @@ accuracy: null,
 },
 itemHeld: null,
 }
+var jirachi = {
+name: "Jirachi",
+maxHealth: 340,
+health: 340, 
+type: "Water", 
+weakness1: "Grass", 
+weakness2: "Electric",
+level: 60, 
+indexNum: 382,
+shiny: false,
+mega: false,
+sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/385.png",
+
+primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/385.png",
+
+shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/385.png",
+
+shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/385.png",
+
+move1: {
+moveName: "Scary Face",
+pp: 10,
+power: null,
+accuracy: 100,
+},
+move2: {
+moveName: "Origin Pulse",
+pp: 10,
+power: 110,
+accuracy: 85,
+},
+move3: {
+moveName: "Ice Beam",
+pp: 10,
+power: 90,
+accuracy: 100,
+},
+move4: {
+moveName: "Aqua Ring",
+pp: 20,
+power: null,
+accuracy: null,
+},
+itemHeld: null,
+}
 var shinx = {
   name: "Shinx",
   maxHealth: 45,
