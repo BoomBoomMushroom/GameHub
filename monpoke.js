@@ -166,6 +166,9 @@ function loadPokemonPics(){
     else if(poke1.shiny && poke1.mega){
     	document.getElementByClassName('poke1img').src = poke1.sinyPrimalSprite
     }
+    else{
+    	document.getElementByClassName('poke1img').src = poke1.spite
+    }
   }
 }
 
