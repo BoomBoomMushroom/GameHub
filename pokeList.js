@@ -178,6 +178,186 @@ accuracy: null,
 },
 itemHeld: null,
 }
+var deoxysN = {
+name: "Deoxys *NORMAL*",
+maxHealth: 340,
+health: 340, 
+type: "Water", 
+weakness1: "Grass", 
+weakness2: "Electric",
+level: 60, 
+indexNum: 382,
+shiny: false,
+mega: false,
+sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-normal.png",
+
+primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-normal.png",
+
+shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-normal.png",
+
+shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-normal.png",
+
+move1: {
+moveName: "Scary Face",
+pp: 10,
+power: null,
+accuracy: 100,
+},
+move2: {
+moveName: "Origin Pulse",
+pp: 10,
+power: 110,
+accuracy: 85,
+},
+move3: {
+moveName: "Ice Beam",
+pp: 10,
+power: 90,
+accuracy: 100,
+},
+move4: {
+moveName: "Aqua Ring",
+pp: 20,
+power: null,
+accuracy: null,
+},
+itemHeld: null,
+}
+var deoxysA = {
+name: "Deoxys *ATTACK*",
+maxHealth: 340,
+health: 340, 
+type: "Water", 
+weakness1: "Grass", 
+weakness2: "Electric",
+level: 60, 
+indexNum: 382,
+shiny: false,
+mega: false,
+sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-attack.png",
+
+primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-attack.png",
+
+shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-attack.png",
+
+shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-attack.png",
+
+move1: {
+moveName: "Scary Face",
+pp: 10,
+power: null,
+accuracy: 100,
+},
+move2: {
+moveName: "Origin Pulse",
+pp: 10,
+power: 110,
+accuracy: 85,
+},
+move3: {
+moveName: "Ice Beam",
+pp: 10,
+power: 90,
+accuracy: 100,
+},
+move4: {
+moveName: "Aqua Ring",
+pp: 20,
+power: null,
+accuracy: null,
+},
+itemHeld: null,
+}
+var deoxysD = {
+name: "Deoxys *DEFENCE*",
+maxHealth: 340,
+health: 340, 
+type: "Water", 
+weakness1: "Grass", 
+weakness2: "Electric",
+level: 60, 
+indexNum: 382,
+shiny: false,
+mega: false,
+sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-defence.png",
+
+primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-defence.png",
+
+shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-defence.png",
+
+shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-defence.png",
+
+move1: {
+moveName: "Scary Face",
+pp: 10,
+power: null,
+accuracy: 100,
+},
+move2: {
+moveName: "Origin Pulse",
+pp: 10,
+power: 110,
+accuracy: 85,
+},
+move3: {
+moveName: "Ice Beam",
+pp: 10,
+power: 90,
+accuracy: 100,
+},
+move4: {
+moveName: "Aqua Ring",
+pp: 20,
+power: null,
+accuracy: null,
+},
+itemHeld: null,
+}
+var deoxysS = {
+name: "Deoxys *SPEED*",
+maxHealth: 340,
+health: 340, 
+type: "Water", 
+weakness1: "Grass", 
+weakness2: "Electric",
+level: 60, 
+indexNum: 382,
+shiny: false,
+mega: false,
+sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-speed.png",
+
+primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-speed.png",
+
+shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-speed.png",
+
+shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-speed.png",
+
+move1: {
+moveName: "Scary Face",
+pp: 10,
+power: null,
+accuracy: 100,
+},
+move2: {
+moveName: "Origin Pulse",
+pp: 10,
+power: 110,
+accuracy: 85,
+},
+move3: {
+moveName: "Ice Beam",
+pp: 10,
+power: 90,
+accuracy: 100,
+},
+move4: {
+moveName: "Aqua Ring",
+pp: 20,
+power: null,
+accuracy: null,
+},
+itemHeld: null,
+}
 var shinx = {
   name: "Shinx",
   maxHealth: 45,
