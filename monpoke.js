@@ -31,12 +31,12 @@ function play() {
 function encounterEntity() {
 	autoSave()
   function shinyCalculate(pokemon) {
-    if (randomNum(1, 10/*8192*/) === 1) {
+    if (randomNum(1, 8192/*8192*/) === 1) {
       pokemon.shiny = true
     } else {
       pokemon.shiny = false
     }
-    if(randomNum(1, 10 /*5000*/) === 1){
+    if(randomNum(1, 5000 /*5000*/) === 1){
     	pokemon.mega = true
     }
     else{
