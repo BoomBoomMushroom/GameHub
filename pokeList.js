@@ -258,3 +258,48 @@ var luxio = {
   },
   itemHeld: null,
 }
+
+var tauros = {
+  name: "Tauros",
+  maxHealth: 75,
+  health: 75, 
+  type: "Normal", 
+  weakness1: "Fighting", 
+  level: 60, 
+  indexNum: 128,
+  shiny: false,
+  mega: false,
+  sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/128.png",
+  
+  primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/128.png",
+
+  shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/128.png",
+
+  shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/128.png",
+
+  move1: {
+  moveName: "Zen headbutt",
+  pp: 15,
+  power: 80,
+  accuracy: 90,
+  },
+  move2: {
+  moveName: "Thrash",
+  pp: 10,
+  power: 120,
+  accuracy: 100,
+  },
+  move3: {
+  moveName: "Double edge",
+  pp: 15,
+  power: 120,
+  accuracy: 100,
+  },
+  move4: {
+  moveName: "Swager",
+  pp: 15,
+  power: null,
+  accuracy: 85,
+  },
+  itemHeld: null,
+}
