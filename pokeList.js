@@ -358,6 +358,52 @@ accuracy: null,
 },
 itemHeld: null,
 }
+var victini = {
+  name: "Victini",
+  maxHealth: 100,
+  health: 100, 
+  type: "Phsycic", 
+  weakness1: "Ghost",
+  weakness2: "dark",
+  level: 70, 
+  indexNum: 494,
+  shiny: false,
+  mega: false,
+  sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/494.png",
+  
+primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/494.png",
+
+shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/494.png",
+
+shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/494.png",
+
+move1: {
+moveName: "Scary Face",
+pp: 10,
+power: null,
+accuracy: 100,
+},
+move2: {
+moveName: "Headbutt",
+pp: 15,
+power: 70,
+accuracy: 100,
+},
+move3: {
+moveName: "Double edge",
+pp: 15,
+power: 120,
+accuracy: 100,
+},
+move4: {
+moveName: "Flare bitz",
+pp: 15,
+power: 120,
+accuracy: 100,
+},
+itemHeld: null,
+}
+
 var shinx = {
   name: "Shinx",
   maxHealth: 45,
