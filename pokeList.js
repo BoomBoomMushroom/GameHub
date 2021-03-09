@@ -279,13 +279,13 @@ level: 60,
 indexNum: 382,
 shiny: false,
 mega: false,
-sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-defence.png",
+sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-defense.png",
 
-primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-defence.png",
+primalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/386-defense.png",
 
-shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-defence.png",
+shinySprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-defense.png",
 
-shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-defence.png",
+shinyPrimalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/386-defense.png",
 
 move1: {
 moveName: "Scary Face",
