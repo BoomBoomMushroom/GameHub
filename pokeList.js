@@ -144,8 +144,9 @@ var shinx = {
   shiny: false,
   mega: false,
   sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/403.png",
+  shintSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/403.png",
 	pirmalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/403.png",
-  shinyPrimalSprite:"https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/female/403.png",
+  shinyPrimalSprite:"https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/403.png",
   move1: {
   moveName: "Scary Face",
   pp: 10,
