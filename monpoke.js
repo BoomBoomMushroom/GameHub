@@ -2,7 +2,7 @@ var bTrans1 = document.getElementById("bTrans1")
 var bTrans2 = document.getElementById("bTrans2")
 
 var routeNumber = -1;
-var possibleEntitys = [kyoger, groudon, raquaza, shinx, luxio]
+var possibleEntitys = [kyoger, groudon, raquaza, shinx, luxio, jirachi, tauros]
 var entityPoke = null;
 
 var shinyChance = 8192;
@@ -213,7 +213,7 @@ function catchMon(){
 }
 function possibleEntitysUpdate() {
   if (routeNumber === -1) {
-    possibleEntitys = [kyoger, groudon, raquaza, shinx, luxio]
+    possibleEntitys = [kyoger, groudon, raquaza, shinx, luxio, jirachi, tauros]
   }
 }
 function randomNum(min, max) {
