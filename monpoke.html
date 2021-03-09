@@ -1,4 +1,10 @@
-<link rel="stylesheet" href="https://gameshub.netlify.app/monpoke.css">
+<div id="adminPanel">
+  <textarea id="setShinyValue" placeholder="Update shiny value"></textarea>
+  
+  <button onclick="updateShinyValue()" id="upSV">Update shiny value</button>
+  
+  <button onclick="closePanel()" style="position:absolute; color:red; right:0px;">X</button>
+</div>
 
 <body></body>
 
@@ -10,6 +16,16 @@
     <button id="playButton" onclick="play()">Play</button>
   </div>
 </center>
+
+<div id="catchMon">
+  <textarea id="nameInput" placeholder="Put name here before hitting 'PLAY':" style="display:block"></textarea>
+  <center>
+    <img id="monGot" src="">
+    <br>
+    <label id="name"></label>
+  </center>
+  
+</div>
 
 <div id="battleTransition">
   <div id="bTrans1"></div>
@@ -33,8 +49,14 @@
   <br>
   
   <img id="enemyEntity">
+  
+  <br>
+  <br>
+  
+  <button id="catchMonButton" onclick="catchMon()">Catch!</button>
 </div>
 
-<script src="https://gameshub.netlify.app/pokelist.js"></script>
 
-<script src="https://gameshub.netlify.app/monpoke.js"></script>
+<button onclick="adminLogin()" id="adminButton">π</button>
+
+<script src="https://gameshub.netlify.app/pokelist.js" id="pokeList.js"></script>
