@@ -88,7 +88,6 @@ accuracy: null,
 },
 itemHeld: null,
 }
-
 var raquaza = {
 name: "Rayquaza",
 maxHealth: 340,
@@ -133,4 +132,42 @@ power: null,
 accuracy: null,
 },
 itemHeld: null,
+}
+var shinx = {
+  name: "Shinx",
+  maxHealth: 45,
+  health: 45, 
+  type: "Electric", 
+  weakness1: "Ground", 
+  level: 14, 
+  indexNum: 403,
+  shiny: false,
+  sprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/403.png",
+	pirmalSprite: "https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/403.png",
+  shinyPrimalSprite:"https://veekun.com/dex/media/pokemon/main-sprites/ultra-sun-ultra-moon/shiny/female/403.png",
+  move1: {
+  moveName: "Scary Face",
+  pp: 10,
+  power: null,
+  accuracy: 100,
+  },
+  move2: {
+  moveName: "tackle",
+  pp: 35,
+  power: 60,
+  accuracy: 100,
+  },
+  move3: {
+  moveName: "Thunder shock",
+  pp: 30,
+  power: 40,
+  accuracy: 100,
+  },
+  move4: {
+  moveName: "Bite",
+  pp: 25,
+  power: 60,
+  accuracy: 100,
+  },
+  itemHeld: null,
 }
