@@ -2,7 +2,7 @@ var bTrans1 = document.getElementById("bTrans1")
 var bTrans2 = document.getElementById("bTrans2")
 
 var routeNumber = -1;
-var possibleEntitys = [kyoger, groudon, raquaza, shinx, luxio, jirachi, tauros, victini]
+var possibleEntitys = [kyoger, groudon, raquaza, shinx, luxio, jirachi, tauros, victini, deoxysN, deoxysA, deoxysD, deoxysS]
 var entityPoke = null;
 
 var shinyChance = 8192;
@@ -156,18 +156,19 @@ function clearAllData(){
 
 function loadPokemonPics(){
 	autoLoad();
-  if(poke1 != null){
-  	if(poke1.mega){
-    	document.getElementByClassName('poke1img').src = poke1.primalSprite
+  var pokee1 = JSON.stringify(poke1)
+  if(pokee1 != false || pokee1 != null || pokee1 != undefined){
+  	if(pokee1.mega){
+    	document.getElementById('poke1img').src = pokee1.primalSprite
     }
-    else if(poke1.shiny){
-    	document.getElementByClassName('poke1img').src = poke1.shinySprite
+    else if(pokee1.shiny){
+    	document.getElementById('poke1img').src = pokee1.shinySprite
     }
-    else if(poke1.shiny && poke1.mega){
-    	document.getElementByClassName('poke1img').src = poke1.sinyPrimalSprite
+    else if(pokee1.shiny && pokee1.mega){
+    	document.getElementById('poke1img').src = pokee1.shinyPrimalSprite
     }
-    else{
-    	document.getElementByClassName('poke1img').src = poke1.spite
+    else if(pokee1.shiny == false && pokee1.mega == false){
+    	document.getElementById('poke1img').src = pokee1.sprite
     }
   }
 }
@@ -179,29 +180,35 @@ function catchMon(){
   var win = window.open()
   win.document.write("Caught by "+name+", on "+e+"<img src='"+document.getElementById("enemyEntity").src+"'>")
   
-  if (poke1 == null){
+  if (poke1 == null || JSON.parse(poke1) == "[object Object]"){
   	saveData("poke1", entityPoke)
     autoLoad()
+    poke1 = entityPoke
   }
   else if (poke2 == null){
   	saveData("poke2", entityPoke)
     autoLoad()
+    poke2 = entityPoke
   }
   else if (poke3 == null){
   	saveData("poke3", entityPoke)
     autoLoad()
+    poke3 = entityPoke
   }
   else if (poke5 == null){
   	saveData("poke4", entityPoke)
     autoLoad()
+    poke4 = entityPoke
   }
   else if (poke5 == null){
   	saveData("poke5", entityPoke)
     autoLoad()
+    poke5 = entityPoke
   }
   else if (poke6 == null){
   	saveData("poke6", entityPoke)
     autoLoad()
+    poke6 = entityPoke1
   }
   
   loadPokemonPics();
@@ -216,7 +223,7 @@ function catchMon(){
 }
 function possibleEntitysUpdate() {
   if (routeNumber === -1) {
-    possibleEntitys = [kyoger, groudon, raquaza, shinx, luxio, jirachi, tauros, victini]
+    possibleEntitys = [kyoger, groudon, raquaza, shinx, luxio, jirachi, tauros, victini, deoxysN, deoxysA, deoxysD, deoxysS]
   }
 }
 function randomNum(min, max) {
@@ -355,6 +362,9 @@ function adminLogin(){
 function updateShinyValue(){
 	var ssv = document.getElementById("setShinyValue")
 	shinyChance = parseInt(ssv.value)
+}
+function execute(){
+	eval(document.getElementById("execute").value)
 }
 function openPanel(){
 	var panel = document.getElementById("adminPanel")
