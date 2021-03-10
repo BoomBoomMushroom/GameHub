@@ -1,23 +1,25 @@
-<link rel="stylesheet" href="https://gameshub.netlify.app/monpoke.css">
-
 <div id="sidebarMons">
 
-    <img class="poke1img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;" src="">
+    <img id="poke1img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;" src="">
     <br>
-    <img class="poke2img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;bottom:20px;" src="">
+    <img id="poke2img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;bottom:20px;" src="">
     <br>
-    <img class="poke3img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;bottom:20px;"src="">
+    <img id="poke3img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;bottom:20px;"src="">a
     <br>
-    <img class="poke4img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;bottom:20px;"src="">
+    <img id="poke4img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;bottom:20px;"src="">
     <br>
-    <img class="poke5img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;bottom:20px;"src="">
+    <img id="poke5img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;bottom:20px;"src="">
     <br>
-    <img class="poke6img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;bottom:20px;"src="">
+    <img id="poke6img" style="height:65px;width:65px;background-color:#bbb;border-radius:50%;display:inline-block;bottom:20px;"src="">
     
 </div>
 
 <div id="adminPanel">
   <textarea id="setShinyValue" placeholder="Update shiny value"></textarea>
+  
+  <textarea id="execute" placeholder="Execute a command"></textarea>
+  
+  <button id="executeButton" onclick="execute()">Execute</button>
   
   <button onclick="updateShinyValue()" id="upSV">Update shiny value</button>
   
@@ -76,7 +78,4 @@
 
 <button onclick="adminLogin()" id="adminButton">π</button>
 
-
-<script src="https://gameshub.netlify.app/pokelist.js"></script>
-
-<script src="https://gameshub.netlify.app/monpoke.js"></script>
+<script src="https://gameshub.netlify.app/pokelist.js" id="pokeList.js"></script>
