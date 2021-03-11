@@ -403,6 +403,51 @@ accuracy: 100,
 },
 itemHeld: null,
 }
+var derp = {
+  name: "Derp",
+  maxHealth: 1,
+  health: 2, 
+  type: "Phsycic", 
+  weakness1: "Ghost",
+  weakness2: "dark",
+  level: 100, 
+  indexNum: 420,
+  shiny: false,
+  mega: false,
+  sprite: "https://previews.dropbox.com/p/thumb/ABGxl9gRMLEVHNEtTQPOdiUi0h_CfLgd3HB7f3j8pEk6sJo4d0PFGt5SSXwD85CmeRwu8rb1EadoHzSMwC0dMsuqA30ucqwDTFyqC9YP-9Sl_1B0aWx1eidoOy7drxiC-Rmq3uHCId7gy-MEqbScaJnCgp8cdUqTUKy-k-2oaw0lOk4Ghsozon5sjv5sjrNNOEpKLQCmiqIH9CKlMTSvoda1q87uZW4JvdWAPi3fP8tqWlxOr26Ll_fhiHILt_QpVPFG95eRV-2sOQRe3hFm9Aunr4bcaZUYJTcxJlRbcMe3t-0dcfWfTBtSTne2JtNU8KPc1Co0UEeOFs8B6lsOpgQd/p.png?size=100x100&size_mode=10",
+  
+primalSprite: "https://previews.dropbox.com/p/thumb/ABE25g8un9mHOP4XINPwt8RtpDWEjJGcR5WebJfAVJVkoiTtokQsBCeRVKhCVdQbKZ1TiWRg2JMJwucK4MzqrxX2nSP83ywYw1loIy-hCv5xRkY9NvLqSNs_yxGDc0KIhCP3sZPfm14qrbNRDAxe3-9uuroL9wfoYU5aFSKD-t6WMK4Va5c6pwU3GjCR5IUe2vLGCrX_G5ew4Yh9HUEyXIAPGTZo8XiyaLf3AU8M-E6MTyknVQYwvZSRhOpUYJnohrSJljjSzNyg1JsQToUubsry9PPlXfq7cxLQofn22Ssf8NSN5waPC0M4_Qu7Exh959IA8j9soCR34OjUgDXZUVdl/p.png?size=100x100&size_mode=10",
+
+shinySprite: "https://previews.dropbox.com/p/thumb/ABENcvujihBJ5oSNf_zo76P5RSQnm8Aim550HZabBhsgNtxsSLkuLPpdA-WRvbkuro2JrWNSUtmsKXg48BsnjPsqTupWH7Uf4Bj-YTYVXrWnfmpu8pcYQIAt8ROEJLAM83lFKOIgesKq8sPiPTCBXPwKzJGG7DVxODHipLylykwIpy2yjq7cQPWEzgsio97avtI1hmVJ63zohnH8BzLOW02ercHwcY2yDa-XDt5bUGzVTl_A0uT-Ylecfq7R7fLEabDhpPYJp0sg1-XsYV4bvCFN80FbIGpEN1Yv1VPl3Whf4SXLdsqcpEbqeC7qkpeMrT62z4ayxE5Yp3UEWFGfYM4F/p.png?size=100x100&size_mode=10",
+
+shinyPrimalSprite: "https://previews.dropbox.com/p/thumb/ABGC7vx9CNGDjauwI-cQWH8CBO2uzUmVIoS_xBbbQaCN7JOa765kPCtHoC7jxtP2cSno_SQZMM8WN0z08wlpoNGSZwyZktnp8eSbkc_Dcvcb4GHoA-myDTV8J6qKpxDSBHas5lyPL_bPRxAmkBikYkrt1sfE3QFIP0RSeTPUZDbHK1hklDVUpe8QrO3GztMmFK94bVgTozcQ8ixfL6lTKdyLuwpQFB8M9TGYttJlBmsHBaRo19ISvbhhKC_WvrM42Dwc2soGfN3Xwt7NtHPvE6J-jFEOzPOXGuV9m2SS8Iur19IJ8QC2io77SKI9T_KpNP2wWYfeXW8uruO3De5_599J/p.png?size=100x100&size_mode=10",
+
+move1: {
+moveName: "Scary Face",
+pp: 10,
+power: null,
+accuracy: 100,
+},
+move2: {
+moveName: "Headbutt",
+pp: 15,
+power: 70,
+accuracy: 100,
+},
+move3: {
+moveName: "Double edge",
+pp: 15,
+power: 120,
+accuracy: 100,
+},
+move4: {
+moveName: "Flare bitz",
+pp: 15,
+power: 120,
+accuracy: 100,
+},
+itemHeld: null,
+}
 
 var shinx = {
   name: "Shinx",
