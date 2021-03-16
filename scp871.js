@@ -36,19 +36,19 @@ function logout(){
 	save()
 }
 function start(e){
+	$(e).remove();
 	var date = new Date()
 	save();
   document.getElementById('c').style.display = 'none';
 	epochLastSpawn = Math.round(date/1000);
   epochNextSpawn = epochLastSpawn + timeBetween;
   updateTimer();
-  $(e).remove();
   newCake()
 }
 function continueSave(e){
+	$(e).remove();
 	load()
   document.getElementById('s').style.display = 'none';
-	$(e).remove();
   newCake()
   updateTimer()
 }
