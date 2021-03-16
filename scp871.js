@@ -55,6 +55,7 @@ function continueSave(e){
 function updateTimer(){
 	var now = new Date()
   var epoch = now/1000
+  cakeCount = document.getElementsByClassName("cakearea").length
   timeLeft = epochNextSpawn - epoch
   save()
   
