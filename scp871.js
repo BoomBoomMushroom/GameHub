@@ -1,6 +1,6 @@
 var cakeCount=1;
 var regenCakesAmount=1;
-var timeBetween = 86400;
+var timeBetween = 1800;
 var epochNextSpawn;
 var epochLastSpawn;
 var timeLeft = 86400;
