@@ -36,7 +36,7 @@ function logout(){
 	save()
 }
 function start(e){
-	$(e).remove();
+	e.remove();
 	var date = new Date()
 	save();
   document.getElementById('c').style.display = 'none';
@@ -46,7 +46,7 @@ function start(e){
   newCake()
 }
 function continueSave(e){
-	$(e).remove();
+	e.remove();
 	load()
   document.getElementById('s').style.display = 'none';
   newCake()
@@ -59,7 +59,7 @@ function updateTimer(){
   save()
   
   if(timeLeft === 0 || timeLeft < 0){
-  	if( $(".cakearea").length === 0 ){
+  	if( document.getElementsByClassName("cakearea").length === 0 ){
     	cakeCount = regenCakesAmount;
       epochLastSpawn = epoch;
       epochNextSpawn = epochLastSpawn+timeBetween
@@ -78,7 +78,7 @@ function updateTimer(){
 	setTimeout(updateTimer, 1000)
 }
 function rmo(e){
-	$(e).remove()
+	e.remove()
 }
 function format(time) {   
     // Hours, minutes and seconds
