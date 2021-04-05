@@ -51,7 +51,7 @@ var gameOver;
 var generation = 0;
 var dayLength = 5000 // ms
 var dayTime = 0 // ms
-var build = 'Dev-Build 0.1.24'
+var build = 'Build 1.2.25'
 
 //-  πππππππππππ AI STARTING VARIABLE πππππππππππ
 
