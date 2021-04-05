@@ -9,7 +9,7 @@ function Snake(snakeLength, snakeX, snakeY, direction, snakeColor, snakeName) {
 	this.previousPos = [];
 	this.snakeColor = snakeColor;
 	this.snakeName = snakeName;
-  this.food = 0
+	this.score = 0;
 }
 
 //-  πππππππππππ CANVAS ASSIGNMENT πππππππππππ
@@ -26,24 +26,19 @@ var intervalArr = [];
 var velocity = 5;
 var fps = 15;
 var gameOver;
-var generation = 0;
-var dayLength = 5000 // ms
-var dayTime = 0 // ms
 
-//-  πππππππππππ AI STARTING VARIABLE πππππππππππ
+//-  πππππππππππ PLAYER STARTING VARIABLE πππππππππππ
 
-var snakeArr = []
-
+var player = new Snake(3,c.offsetWidth / 2,c.offsetHeight / 2,"right","#8eb9ff","player");
 var ai = new Snake(
-	1,
+	3,
 	c.offsetWidth / 2,
 	c.offsetHeight / 2,
 	"left",
-	"#1d68a1",
-	"ai",
-  0,
+	"#f27657",
+	"ai"
 );
-snakeArr.push(ai)
+
 //-  πππππππππππ CLEAR CANVAS πππππππππππ
 
 function nextFrame() {
@@ -92,8 +87,7 @@ function drawSnake(snake) {
 
 //-  πππππππππππ DRAW FRUIT πππππππππππ
 
-function drawFruit(spawnNew) {
-	if(spawnNew){eat=true}
+function drawFruit() {
 	if (eat) {
 		fruitX = Math.floor(Math.random() * c.offsetWidth - 5 )+ 5;
 		fruitY = Math.floor(Math.random() * c.offsetHeight - 5 )+ 5;
@@ -122,6 +116,36 @@ function detectCollide(snakeX, snakeY, x, y, radius) {
 	}
 }
 
+//-  πππππππππππ KEYDOWN HANDLER πππππππππππ
+
+$(window).on("keydown", function(e) {
+	switch (e.keyCode) {
+		case 37:
+			if (player.direction !== "right") {
+				player.direction = "left";
+			}
+			break;
+
+		case 38:
+			if (player.direction !== "down") {
+				player.direction = "up";
+			}
+			break;
+
+		case 39:
+			if (player.direction !== "left") {
+				player.direction = "right";
+			}
+			break;
+
+		case 40:
+			if (player.direction !== "up") {
+				player.direction = "down";
+			}
+			break;
+	}
+});
+
 //-  πππππππππππ PAINT PIXEL πππππππππππ
 
 function paintPixel(x, y, color) {
@@ -136,21 +160,55 @@ function paintPixel(x, y, color) {
 //-  πππππππππππ GAME LOSE CHECKING πππππππππππ
 
 function gameLoseCheck(snake) {
-	
+	if (
+		snake.snakeX >= c.offsetWidth ||
+		snake.snakeX < 0 ||
+		snake.snakeY >= c.offsetHeight ||
+		snake.snakeY < 0
+	) {
+		gameOver = "Pc Wins";
+		updateScore();
+		stop();
+	}
 }
 
 //-  πππππππππππ GAME OVER BEHAVIOUR πππππππππππ
 
-function stop(){
-
+function stop() {
+	for (var i in intervalArr) {
+		clearInterval(intervalArr[i]);
+	}
 }
 
 //-  πππππππππππ EAT CHECKING πππππππππππ
 
 function eatCheck(snake) {
 	if (detectCollide(snake.snakeX, snake.snakeY, fruitX, fruitY, 5)) {
-		snake.food += 1;
+		snake.snakeLength += 5;
+		snake.score++;
 		eat = true;
+	}
+}
+
+//-  πππππππππππ SELF COLLISION DETECTION πππππππππππ
+
+function collideCheck(snake, crashSnake) {
+	for (var i = 0; i < crashSnake.snakeLength; i++) {
+		if (crashSnake.previousPos[i]) {
+			if (
+				detectCollide(
+					snake.snakeX,
+					snake.snakeY,
+					crashSnake.previousPos[i].x,
+					crashSnake.previousPos[i].y,
+					2
+				)
+			) {
+				gameOver = snake.snakeName + " Is DEFEATED";
+				updateScore();
+				stop();
+			}
+		}
 	}
 }
 
@@ -232,6 +290,22 @@ function possibleMoveFilter(snake, moveArr) {
 					}
 				}
 
+				for (var i = 0; i < player.snakeLength; i++) {
+					if (player.previousPos[i]) {
+						if (
+							detectCollide(
+								currentX - velocity,
+								currentY,
+								player.previousPos[i].x,
+								player.previousPos[i].y,
+								3
+							)
+						) {
+							count++;
+						}
+					}
+				}
+
 				if (!count) {
 					validation++;
 				}
@@ -248,6 +322,22 @@ function possibleMoveFilter(snake, moveArr) {
 								currentY,
 								snake.previousPos[i].x,
 								snake.previousPos[i].y,
+								3
+							)
+						) {
+							count++;
+						}
+					}
+				}
+
+				for (var i = 0; i < player.snakeLength; i++) {
+					if (player.previousPos[i]) {
+						if (
+							detectCollide(
+								currentX + velocity,
+								currentY,
+								player.previousPos[i].x,
+								player.previousPos[i].y,
 								3
 							)
 						) {
@@ -280,6 +370,22 @@ function possibleMoveFilter(snake, moveArr) {
 					}
 				}
 
+				for (var i = 0; i < player.snakeLength; i++) {
+					if (player.previousPos[i]) {
+						if (
+							detectCollide(
+								currentX,
+								currentY - velocity,
+								player.previousPos[i].x,
+								player.previousPos[i].y,
+								3
+							)
+						) {
+							count++;
+						}
+					}
+				}
+
 				if (!count) {
 					validation++;
 				}
@@ -304,6 +410,22 @@ function possibleMoveFilter(snake, moveArr) {
 					}
 				}
 
+				for (var i = 0; i < player.snakeLength; i++) {
+					if (player.previousPos[i]) {
+						if (
+							detectCollide(
+								currentX,
+								currentY + velocity,
+								player.previousPos[i].x,
+								player.previousPos[i].y,
+								3
+							)
+						) {
+							count++;
+						}
+					}
+				}
+
 				if (!count) {
 					validation++;
 				}
@@ -317,85 +439,67 @@ function possibleMoveFilter(snake, moveArr) {
 	return newArr;
 }
 
-//-  πππππππππππ Create New Snake πππππππππππ
-function addSnake(){
-	var e = new Snake(
-  1,
-  c.offsetWidth / 2,
-  c.offsetHeight / 2,
-  "left",
-  "#1d68a1",
-  "ai",
-  0
-  )
-  snakeArr.push(e)
-  return(e)
-}
-
-//-  πππππππππππ Day Counter πππππππππππ
-function dayCounter(){
-	if(dayTime > dayLength){
-  	for(var x=0;x<snakeArr.length;x++){
-    	var snake = snakeArr[x]
-      if(snake.food >= 1){
-      	if(snake.food > 2){
-        	var newSnake = addSnake()
-          console.log(newSnake)
-        }
-      }
-      else if(snake.food<1){ snakeArr.splice(x,1) }
-    }
-    for(var x=0;x<snakeArr.length;x++){
-    	snakeArr[x].food = 0
-      x++
-    }
-    dayTime=0
-  }
-  
-  setTimeout(dayCounter, 1)
+function updateScore() {
+	if (gameOver) {
+		$(".scoreboard").html(gameOver);
+	} else {
+		var scoreText = "Player : " + player.score + "</br>PC : " + ai.score;
+		$(".scoreboard").html(scoreText);
+	}
 }
 
 //-  πππππππππππ MERGE EVERYTHING TOGETHER πππππππππππ
 function run() {
-	generation = 1
-  dayCounter()
 	intervalArr.push(
 		setInterval(function() {
 			nextFrame();
-			dayTime+=1
-  		for(var o=0;o<snakeArr.length;o++){
-      	AiHandler(snakeArr[o])
-        drawSnake(snakeArr[o])
-        drawFruit();
-				eatCheck(snakeArr[o]);
-        o++
-      }
-      
+			updateScore();
+
+			drawSnake(player);
+
+			AiHandler(ai);
+			drawSnake(ai);
+
+			drawFruit();
+
+			eatCheck(player);
+			eatCheck(ai);
+
+			collideCheck(player, player);
+			collideCheck(player, ai);
+
+			collideCheck(ai, ai);
+			collideCheck(ai, player);
+
+			gameLoseCheck(player);
+
+			// gameLoseCheck(player);
 		}, 1000 / fps)
 	);
 }
 
 run();
-reset();
 
-function reset() {
+$("#reset").on("click", function() {
 
-	if(!gameOver){}
-  else{
 
-    ai = new Snake(
-      1,
-      c.offsetWidth / 2,
-      c.offsetHeight / 2,
-      "left",
-      "#1d68a1",
-      "ai"
-    );
+	player = new Snake(
+		3,
+		c.offsetWidth / 2,
+		c.offsetHeight / 2,
+		"right",
+		"#8eb9ff",
+		"player"
+	);
+	ai = new Snake(
+		3,
+		c.offsetWidth / 2,
+		c.offsetHeight / 2,
+		"left",
+		"#f27657",
+		"ai"
+	);
 
-    gameOver = false;
-    run();
-    generation+=1
-  }
-  
-  setTimeout(reset, 50)
-};
+	gameOver = false;
+	run();
+});
