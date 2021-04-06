@@ -22,7 +22,7 @@ function addNew(){
 
 //-  πππππππππππ SNAKE CONSTRUCTOR πππππππππππ
 
-function Snake(snakeLength, snakeX, snakeY, direction, snakeColor, snakeName, food) {
+function Snake(snakeLength, snakeX, snakeY, direction, snakeColor, snakeName, food, muteChance) {
 	this.snakeLength = snakeLength;
 	this.snakeX = snakeX;
 	this.snakeY = snakeY;
@@ -31,7 +31,8 @@ function Snake(snakeLength, snakeX, snakeY, direction, snakeColor, snakeName, fo
 	this.previousPos = [];
 	this.snakeColor = snakeColor;
 	this.snakeName = snakeName;
-  this.food = food
+  this.food = food;
+  this.muteChance = muteChance;
 }
 
 //-  πππππππππππ CANVAS ASSIGNMENT πππππππππππ
@@ -51,7 +52,8 @@ var gameOver;
 var generation = 0;
 var dayLength = 5000 // ms
 var dayTime = 0 // ms
-var build = 'Build 1.2.25'
+var build = 'Build 2.3.30'
+var colorArr = ['#f54290','#1d68a1','#40eb34']
 
 //-  πππππππππππ AI STARTING VARIABLE πππππππππππ
 
@@ -62,8 +64,9 @@ var ai = new Snake(
 	c.offsetWidth / 2,
 	c.offsetHeight / 2,
 	"left",
-	"#1d68a1",
+	"#f54290",
 	"ai",
+  1,
   1,
 );
 snakeArr.push(ai)
@@ -77,7 +80,7 @@ function nextFrame() {
 
 function drawSnake(snake) {
 	ctx.fillStyle = "#000000";
-	paintPixel(snake.snakeX, snake.snakeY);
+	paintPixel(snake.snakeX, snake.snakeY, snake.snakeColor);
 
 	snake.previousPos.unshift({ x: snake.snakeX, y: snake.snakeY });
 	snake.previousDir.unshift(snake.direction);
@@ -173,24 +176,15 @@ function stop(){
 function eatCheck(snake) {
 	if (detectCollide(snake.snakeX, snake.snakeY, fruitX, fruitY, 5)) {
 		snake.food += 1;
+    if(snake.snakeLength === 0){
+    	snake.snakeLength+=2
+    }
+    else{
+    	snake.snakeLength+=1
+    }
 		eat = true;
 	}
 }
-
-//-  πππππππππππ CLICK EVENT HANDLER πππππππππππ
-
-function applyKey(el, keyCode) {
-	var e = jQuery.Event("keydown");
-	e.keyCode = keyCode;
-	el.click(function() {
-		el.trigger(e);
-	});
-}
-
-applyKey($("#left"), 37);
-applyKey($("#up"), 38);
-applyKey($("#right"), 39);
-applyKey($("#down"), 40);
 
 //-  πππππππππππ AI BEHAVIOUR πππππππππππ
 
@@ -349,20 +343,17 @@ function addSnake(){
   "left",
   "#1d68a1",
   "ai",
-  1
+  1,
+  0.05,
   )
+  mutate(e)
   snakeArr.push(e)
+  return(e)
 }
 
 //-  πππππππππππ Generate Integer πππππππππππ
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-//-  πππππππππππ Repos Fruit πππππππππππ
-function reposFruit(){
-	drawFruit(true)
-	setTimeout(reposFruit, 20000)
 }
 
 //-  πππππππππππ Update Stats πππππππππππ
@@ -376,6 +367,63 @@ function updateStats(){
   buildEle.innerHTML = 'Build: '+build
 }
 
+//-  πππππππππππ Calculate Every Combonation πππππππππππ
+function combo(arr){
+	var arr2 = []
+	for(var x=0;x<arr.length;x++){
+  	if( arr[x-1] != undefined ){
+    	collideCheck(arr[x], arr[x-1])
+      if( arr[x+1] != undefined ){
+    		collideCheck(arr[x], arr[x+1])
+    	}
+    }
+    else if( arr[x+1] != undefined ){
+    	collideCheck(arr[x], arr[x+1])
+    }
+  }
+}
+
+//-  πππππππππππ SELF COLLISION DETECTION πππππππππππ
+function collideCheck(snake, crashSnake) {
+	for (var i = 0; i < crashSnake.snakeLength; i++) {
+		if (crashSnake.previousPos[i]) {
+			if (
+				detectCollide(
+					snake.snakeX,
+					snake.snakeY,
+					crashSnake.previousPos[i].x,
+					crashSnake.previousPos[i].y,
+					2
+				)
+			) {
+				// do something
+			}
+		}
+	}
+}
+
+//-  πππππππππππ Mutate πππππππππππ
+function mutate(snake){
+	for(var x=0;x<snakeArr.length;x++){
+    var muteChance = snake.muteChance*100
+    var int = randomInt(0, 100)
+    if(int<=muteChance){
+    	var possibleMutes = ['color','muteChance']
+      var int2 = randomInt(0,possibleMutes.length-1)
+      var res= possibleMutes[int2]
+      if(res==='color'){
+      	snake.snakeColor = colorArr[randomInt(0,colorArr.length-1)]
+      }
+      else if(res==='muteChance'){
+      	var interval = randomInt(0,1)
+        var inter = randomInt(1,5)
+        if(interval===1){snake.muteChance+=(inter/100)}
+        else{snake.muteChance-=(inter/100)}
+      }
+    }
+  }
+}
+
 //-  πππππππππππ Day Counter πππππππππππ
 function dayCounter(){
   for(var x=0;x<snakeArr.length;x++){
@@ -383,17 +431,21 @@ function dayCounter(){
     if(snake.food>0){
     	if(snake.food>1){snek();snek();}
     }
+    else{
+    	//snakeArr.splice(x,)
+    }
+    snake.snakeLength = 0
     snake.food = 0
   }
   addNew()
+  drawFruit(true)
   dayTime+=1
-  setTimeout(dayCounter, 10000)
+  setTimeout(dayCounter, 20000)
 }
 
 //-  πππππππππππ MERGE EVERYTHING TOGETHER πππππππππππ
 function run() {
 	generation = 1
-  reposFruit()
   dayCounter()
 	intervalArr.push(
 		setInterval(function() {
@@ -401,6 +453,7 @@ function run() {
   		for(var o=0;o<snakeArr.length;o++){
       	AiHandler(snakeArr[o])
         drawSnake(snakeArr[o])
+        combo(snakeArr);
         drawFruit();
 				eatCheck(snakeArr[o]);
         updateStats()
@@ -414,26 +467,9 @@ function run() {
 run();
 reset();
 function snek(){
-	addSnake()
+	var e = addSnake()
+  return(e)
 }
 function reset() {
-
-	if(!gameOver){}
-  else{
-
-    ai = new Snake(
-      1,
-      c.offsetWidth / 2,
-      c.offsetHeight / 2,
-      "left",
-      "#1d68a1",
-      "ai"
-    );
-
-    gameOver = false;
-    run();
-    generation+=1
-  }
-  
-  setTimeout(reset, 50)
-};
+	
+}
