@@ -1,0 +1,23 @@
+<p id="socketStatus">Socket status: Not Connected</p>
+
+<script>
+  var connection = new WebSocket('ws://gameshub.netlify.app/w',['soap','xmpp'])
+  // When the connection is open, send some data to the server
+  connection.onopen = function () {
+    connection.send('Ping'); // Send the message 'Ping' to the server
+  };
+  // Log errors
+  connection.onerror = function (error) {
+    console.log('WebSocket Error '+error)
+  };
+  // Log messages from the Server
+  connection.onmessage = function (e) {
+    console.log('Server: '+e.data)
+  };
+
+  connection.send('your message');
+
+  // Sending file as Blob
+  var file  = document.querySelector('input[type="file"]').files[0];
+  connection.send(file)
+</script>
