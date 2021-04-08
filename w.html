@@ -1,23 +1,66 @@
-<p id="socketStatus">Socket status: Not Connected</p>
+ <!DOCTYPE html>
+  <meta charset="utf-8" />
+  <title>WebSocket Test</title>
+  <script language="javascript" type="text/javascript">
 
-<script>
-  var connection = new WebSocket('ws://gameshub.netlify.app/w',['soap','xmpp'])
-  // When the connection is open, send some data to the server
-  connection.onopen = function () {
-    connection.send('Ping'); // Send the message 'Ping' to the server
-  };
-  // Log errors
-  connection.onerror = function (error) {
-    console.log('WebSocket Error '+error)
-  };
-  // Log messages from the Server
-  connection.onmessage = function (e) {
-    console.log('Server: '+e.data)
-  };
+  var wsUri = "wss://echo.websocket.org/";
+  var output;
 
-  connection.send('your message');
+  function init()
+  {
+    output = document.getElementById("output");
+    testWebSocket();
+  }
 
-  // Sending file as Blob
-  var file  = document.querySelector('input[type="file"]').files[0];
-  connection.send(file)
-</script>
+  function testWebSocket()
+  {
+    websocket = new WebSocket(wsUri);
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+  }
+
+  function onOpen(evt)
+  {
+    writeToScreen("CONNECTED");
+    doSend("WebSocket rocks");
+  }
+
+  function onClose(evt)
+  {
+    writeToScreen("DISCONNECTED");
+  }
+
+  function onMessage(evt)
+  {
+    writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
+    websocket.close();
+  }
+
+  function onError(evt)
+  {
+    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+  }
+
+  function doSend(message)
+  {
+    writeToScreen("SENT: " + message);
+    websocket.send(message);
+  }
+
+  function writeToScreen(message)
+  {
+    var pre = document.createElement("p");
+    pre.style.wordWrap = "break-word";
+    pre.innerHTML = message;
+    output.appendChild(pre);
+  }
+
+  window.addEventListener("load", init, false);
+
+  </script>
+
+  <h2>WebSocket Test</h2>
+
+  <div id="output"></div>
