@@ -1,0 +1,92 @@
+<canvas id='game' width=300 height=300></canvas>
+
+<style>#game{
+  border: 1px solid black;
+}</style>
+<script>const c = document.getElementById('game');
+const ctx = c.getContext('2d');
+
+var loadingSpeed = 1 // in ms
+const loadingAnimation = true;
+const pixelSize = 5
+let fps = 15
+
+var snake = {x:0,y:0,dir:'right'}
+var pixelsArr = []
+
+function nextFrame(){
+	ctx.clearRect(0,0,c.offsetWidth,c.offsetHeight);
+}
+function paintPixel(x,y,color){
+	if(color){
+  	ctx.fillStyle = color
+  } else{
+  	ctx.fillStyle = '#000000'
+  }
+  ctx.fillRect(x,y,pixelSize,pixelSize)
+}
+
+$(window).on('keydown', function(e) {
+	var keycode = e.keyCode
+  if(keycode===(87||keycode===38) ){
+  	snake.dir = 'down'
+  }
+  else if(keycode===(83||keycode===40) ){
+  	snake.dir = 'up'
+  }
+  else if(keycode===(65||keycode===37) ){
+  	snake.dir = 'left'
+  }
+  else if(keycode===68||keycode===39 ){
+  	snake.dir = 'right'
+  }
+})
+
+function move(dir){
+	if(dir==='up'){
+  	snake.y+=pixelSize
+  }
+  else if(dir==='down'){
+  	snake.y-=pixelSize
+  }
+  else if(dir==='left'){
+  	snake.x-=pixelSize
+  }
+  else if(dir==='right'){
+  	snake.x+=pixelSize
+  }
+}
+function borderCheck(){
+	var xPos = snake.x
+  var yPos = snake.y
+  if(yPos<0){
+  	snake.y=0
+  }
+  else if(yPos > (Math.round(c.offsetHieght/5)*5)-5 ){
+  	snake.y = Math.round(c.offsetHeight/5)*5-5
+  }
+  else if(xPos<0){
+  	snake.x = 0
+  }
+  else if(xPos > (Math.round(c.offsetWidth/5)*5)-5 ){
+  	snake.x = Math.round(c.offsetWidth/5)*5-5
+  }
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function run(){
+  runLoop()
+}
+function runLoop(){
+	var interval = window.setInterval(function(){
+  	nextFrame()
+    paintPixel(snake.x,snake.y)
+    move(snake.dir)
+    borderCheck()
+    
+  }, 1000/fps);
+}
+run()</script>
