@@ -1,17 +1,16 @@
 {
-  "name": "UnpleasantSilverPixel",
+  "name": "websocket_server",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Webscoket Server ",
   "main": "index.js",
-  "dependencies": {
-    "http": "0.0.1-security",
-    "websocket": "^1.0.34"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "websocket": "^1.0.34",
+    "ws": "^7.4.5"
+  }
 }
