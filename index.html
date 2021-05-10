@@ -1,27 +1,195 @@
+
 <link rel="icon" href="GamesHubLogo.png">
 
-<h1>Welcome to the brower game place!</h1>
+<h1>Welcome to the browser game place!</h1>
 
-<p>Single Player Games<p/>
-<a href="https://gameshub.netlify.app/snake"><button>Snake</button></a>
-<a href="https://pet-the-dog.netlify.app/"><button>Pet the Dog!</button></a>
-<a href="https://gameshub.netlify.app/solarsystemsimulator"><button>Solar System Simulator</button></a>
-<a href="https://custom-programming-language-creator.netlify.app"><button>Custom Programming Language Crearor</button></a>
-<a href="https://gameshub.netlify.app/market"><button>Market Simulator</button></a>
-<a href="https://gameshub.netlify.app/monpoke"><button>Monpoke</button></a>
-<a href="http://gameshub.netlify.app/pageCounter"><button>Page Counter</button></a>
-<a href="https://gameshub.netlify.app/scp871"><button>Stop the cake! -- SCP-871</button></a>
-<a href="https://gameshub.netlify.app/snakeAiBattle"><button>You v.s Snake AI</button></a>
-<a href="https://gameshub.netlify.app/snakeEcosystem"><button>Snake based Ecosystem</button></a>
-<a href="https://gameshub.netlify.app/existance"><button>Existance Simulator</button></a>
-<a href="https://gameshub.netlify.app/RaycastingTest"><button>Pseudo 3D World -- Raycasting Test</button></a>
-<a href='https://gameshub.netlify.app/appleCollection'><button>The Apple Collection</button></a>
-<a href="http://gameshub.netlify.app/pageCounter3D"><button>Page Counter 3D</button></a>
+<p>Single Player Games</p>
+<a href="https://gameshub.netlify.app/snake"><button onclick='joinGame("snake")'>Snake</button></a>
+<a href="https://pet-the-dog.netlify.app/"><button onclick='joinGame("ptd")'>Pet the Dog!</button></a>
+<a href="https://gameshub.netlify.app/solarsystemsimulator"><button onclick='joinGame("sss")'>Solar System Simulator</button></a>
+<a href="https://custom-programming-language-creator.netlify.app"><button onclick='joinGame("cplc")'>Custom Programming Language Crearor</button></a>
+<a href="https://gameshub.netlify.app/market"><button onclick='joinGame("marketSim")'>Market Simulator</button></a>
+<a href="https://gameshub.netlify.app/monpoke"><button onclick='joinGame("monPoke")'>Monpoke</button></a>
+<a href="http://gameshub.netlify.app/pageCounter"><button onclick='joinGame("pageCounter")'>Page Counter</button></a>
+<a href="https://gameshub.netlify.app/scp871"><button onclick='joinGame("scp871")'>Stop the cake! -- SCP-871</button></a>
+<a href="https://gameshub.netlify.app/snakeAiBattle"><button onclick='joinGame("snakeAi")'>You v.s Snake AI</button></a>
+<a href="https://gameshub.netlify.app/snakeEcosystem"><button onclick='joinGame("sbe")'>Snake based Ecosystem</button></a>
+<a href="https://gameshub.netlify.app/existance"><button onclick='joinGame("existSim")'>Existance Simulator</button></a>
+<a href="https://gameshub.netlify.app/RaycastingTest"><button onclick='joinGame("raycastTest")'>Pseudo 3D World -- Raycasting Test</button></a>
+<a href='https://gameshub.netlify.app/appleCollection'><button onclick='joinGame("appleCollection")'>The Apple Collection</button></a>
+<a href="http://gameshub.netlify.app/pageCounter3D"><button onclick='joinGame("pageCounter_3d")'>Page Counter 3D</button></a>
 
 <br>
 <p>Multiplayer Games</p>
-<a href='https://echo-websocket-ms.herokuapp.com/'><button>Existance Simulator - Multiplayer</button></a>
+<a href='https://echo-websocket-ms.herokuapp.com/'><button onclick='joinGame("existSim_multiplayer")'>Existance Simulator - Multiplayer</button></a>
 
 <br>
 <p>Dev-Build // Testing Builds of games</p>
 <a href='https://gameshub.netlify.app/movement3dTest'><button>THREE js movement build</button></a>
+
+<br>
+<br>
+
+<p id='popGame'>Most popular game: </p>
+<p id='newGame'>Latest release: </p>
+
+<script>
+	let HOST = 'wss://gameshub-stats-ms.herokuapp.com/'
+  let ws = new WebSocket(HOST);
+
+  function heartbeat(){
+		clearTimeout(this.pingTimeout);
+        
+		this.pingTimeout = setTimeout(() => {
+          this.terminate()
+        }, 30000);
+	}
+      
+	ws.onmessage = function incoming(data) {
+		var msg = data.data
+    var msgCount = 0
+    
+    dayData = JSON.parse(msg)
+    displayPopularGames();
+    console.log( JSON.parse(msg) )
+	}
+      
+	ws.on('open', heartbeat);
+  ws.on('ping', heartbeat);
+  ws.on('close', function close() {
+		clearTimeout(this.pingTimeout);
+	})
+</script>
+<script>
+var dayData = [];
+var testBuild = false
+var gamesArr = [
+	{name:'snake',added:0,index:0,displayName:'Snake'},
+  {name:'ptd',added:0,index:1,displayName:'Pet the Dog!'},
+  {name:'sss',added:0,index:2,displayName:'Solar System Simulator'},
+  {name:'cplc',added:0,index:3,displayName:'Custom Programming Language Creator'},
+  {name:'marketSim',added:0,index:4,displayName:'Market Simulator'},
+  {name:'monPoke',added:0,index:5,displayName:'Monpoke'},
+  {name:'pageCounter',added:0,index:6,displayName:'Page Counter'},
+  {name:'scp871',added:0,index:7,diplayName:'Stop the cake! -- SCP-871'},
+  {name:'snakeAi',added:0,index:8,displayName:'Ypu v.s Snake AI'},
+  {name:'sbe',added:0,index:9,displayName:'Snake based Ecosystem'},
+  {name:'existSim',added:0,index:10,displayName:'Existance Simulator'},
+  {name:'raycastTest',added:0,index:11,displayName:'Pseudo 3D World -- Raycasting Test'},
+  {name:'appleCollection',added:0,index:12,displayName:'The Apple Collection'},
+  {name:'pageCounter_3d',added:1,index:13,displayName:'Page Counter 3D'},
+  {name:'existSim_multiplayer',added:0,index:14,displayName:'Existance Simulator - Multiplayer'},
+]
+
+function joinGame(game){
+	console.log(game)
+  var index = gamesArr.findIndex(function(item, i){return item.name===game});
+  console.log(gamesArr[index].displayName)
+  var displayName = gamesArr[index].displayName
+
+  
+	ws.send('UPDATE-'+game+'-'+displayName)
+}
+function displayNewGames(){
+	var latest = null
+  for(var x=0;x<gamesArr.length;x++){
+    var thisGame = gamesArr[x]
+    if(latest===null){
+    	latest = thisGame;
+    }
+    else if(thisGame.added>latest.added){
+    	latest = thisGame;
+    }
+  }
+  document.getElementById('newGame').innerHTML = 'Latest release: '+latest.displayName
+  return(latest)
+}
+function displayPopularGames(){
+  var pop = null;
+  for(var x=0;x<dayData.length;x++){
+  	var thisData = dayData[x];
+    if(pop===null){
+    	pop=thisData
+    }
+    else if(thisData.clicks>pop.clicks){
+    	pop=thisData
+    }
+  }
+  document.getElementById('popGame').innerHTML = 'Most popular game: '+pop.displayName
+  return(pop)
+}
+
+window.onload = function(){
+	if(window.location.host==='fiddle.jshell.net'){
+  	testBuild=true;
+  }
+  displayNewGames()
+}
+</script>
+
+<script>
+var dayData = [];
+var testBuild = false
+var gamesArr = [
+	{name:'snake',added:0,index:0,displayName:'Snake'},
+  {name:'ptd',added:0,index:1,displayName:'Pet the Dog!'},
+  {name:'sss',added:0,index:2,displayName:'Solar System Simulator'},
+  {name:'cplc',added:0,index:3,displayName:'Custom Programming Language Creator'},
+  {name:'marketSim',added:0,index:4,displayName:'Market Simulator'},
+  {name:'monPoke',added:0,index:5,displayName:'Monpoke'},
+  {name:'pageCounter',added:0,index:6,displayName:'Page Counter'},
+  {name:'scp871',added:0,index:7,diplayName:'Stop the cake! -- SCP-871'},
+  {name:'snakeAi',added:0,index:8,displayName:'Ypu v.s Snake AI'},
+  {name:'sbe',added:0,index:9,displayName:'Snake based Ecosystem'},
+  {name:'existSim',added:0,index:10,displayName:'Existance Simulator'},
+  {name:'raycastTest',added:0,index:11,displayName:'Pseudo 3D World -- Raycasting Test'},
+  {name:'appleCollection',added:0,index:12,displayName:'The Apple Collection'},
+  {name:'pageCounter_3d',added:1,index:13,displayName:'Page Counter 3D'},
+  {name:'existSim_multiplayer',added:0,index:14,displayName:'Existance Simulator - Multiplayer'},
+]
+
+function joinGame(game){
+	console.log(game)
+  var index = gamesArr.findIndex(function(item, i){return item.name===game});
+  console.log(gamesArr[index].displayName)
+  var displayName = gamesArr[index].displayName
+
+  
+	ws.send('UPDATE-'+game+'-'+displayName)
+}
+function displayNewGames(){
+	var latest = null
+  for(var x=0;x<gamesArr.length;x++){
+    var thisGame = gamesArr[x]
+    if(latest===null){
+    	latest = thisGame;
+    }
+    else if(thisGame.added>latest.added){
+    	latest = thisGame;
+    }
+  }
+  document.getElementById('newGame').innerHTML = 'Latest release: '+latest.displayName
+  return(latest)
+}
+function displayPopularGames(){
+  var pop = null;
+  for(var x=0;x<dayData.length;x++){
+  	var thisData = dayData[x];
+    if(pop===null){
+    	pop=thisData
+    }
+    else if(thisData.clicks>pop.clicks){
+    	pop=thisData
+    }
+  }
+  document.getElementById('popGame').innerHTML = 'Most popular game: '+pop.displayName
+  return(pop)
+}
+
+window.onload = function(){
+	if(window.location.host==='fiddle.jshell.net'){
+  	testBuild=true;
+  }
+  displayNewGames()
+}
+</script>
