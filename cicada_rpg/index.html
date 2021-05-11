@@ -1,0 +1,229 @@
+<script src='https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.2/dat.gui.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.js'></script>
+  <script src='https://dl.dropboxusercontent.com/s/qxgrvxduynnst3u/OrbitControls.js'></script>
+  
+<script src='https://raw.githubusercontent.com/saucecode/threejs-demos/master/MTLLoader.js'></script>
+<script src='https://raw.githubusercontent.com/saucecode/threejs-demos/master/OBJLoader.js'></script>
+<script src='https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/loaders/STLLoader.js'></script>
+
+<body></body>
+
+<style>
+  body{
+    background-color: black;
+  }
+  *{
+    margin: 0
+  }
+</style>
+
+<script>
+var scene, camera, renderer, mesh;
+var meshFloor;
+
+var acceptedWarning = false
+if(window.location.host==='fiddle.jshell.net'){acceptedWarning=true}
+
+var playerPos = {}
+var topKeysMove = false;
+
+var models_stl = []
+
+var keyboard = {};
+var player = { height:1.8, speed:0.2, turnSpeed:Math.PI*0.02 };
+var USE_WIREFRAME = false;
+
+function init(){
+	scene = new THREE.Scene();
+	camera = new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.1, 1000);
+	
+	mesh = new THREE.Mesh(
+		new THREE.BoxGeometry(1,1,1),
+		new THREE.MeshPhongMaterial({color:0xff4444, wireframe:USE_WIREFRAME})
+	);
+	mesh.position.y += 1;
+	// The cube can have shadows cast onto it, and it can cast shadows
+	mesh.receiveShadow = true;
+	mesh.castShadow = true;
+	scene.add(mesh);
+	
+	meshFloor = new THREE.Mesh(
+		new THREE.PlaneGeometry(10,10, 10,10),
+		// MeshBasicMaterial does not react to lighting, so we replace with MeshPhongMaterial
+		new THREE.MeshPhongMaterial({color:0x17ce35, wireframe:USE_WIREFRAME})
+		// See threejs.org/examples/ for other material types
+	);
+	meshFloor.rotation.x -= Math.PI / 2;
+	// Floor can have shadows cast onto it
+	meshFloor.receiveShadow = true;
+	scene.add(meshFloor);
+	
+	
+	// LIGHTS
+	ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+	scene.add(ambientLight);
+	
+	light = new THREE.PointLight(0xffffff, 0.8, 100);
+	light.position.set(-6,6,-6);
+	light.castShadow = true;
+	// Will not light anything closer than 0.1 units or further than 25 units
+	light.shadow.camera.near = 0.1;
+	light.shadow.camera.far = 25;
+	scene.add(light);
+	
+	
+	camera.position.set(0, player.height, -5);
+	camera.lookAt(new THREE.Vector3(0,player.height,0));
+	
+	renderer = new THREE.WebGLRenderer();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	
+	// Enable Shadows in the Renderer
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMap.type = THREE.BasicShadowMap;
+	
+	document.body.appendChild(renderer.domElement);
+	
+  playerPos = {x:camera.position.x, y:camera.position.y, z:camera.position.z, rotX: camera.position.x, rotY: camera.position.y, rotZ: camera.position.z}
+  
+  setInterval(function(){
+  	var color = '#4444ff'; /* rgbToHex(randomInt(0,255),randomInt(0,255),randomInt(0,255)) */
+  	renderer.setClearColor(color);
+    // mesh.material.color.r = randomInt(0,255)/255;
+    // mesh.material.color.g = randomInt(0,255)/255;
+    // mesh.material.color.b = randomInt(0,255)/255;
+  },1)
+  
+	animate();
+}
+
+function animate(){
+	requestAnimationFrame(animate);
+	mesh.rotation.x += 0.01;
+	mesh.rotation.y += 0.02;
+	
+  playerPos = {x:camera.position.x, y:camera.position.y, z:camera.position.z, rotX: camera.position.x, rotY: camera.position.y, rotZ: camera.position.z}
+  
+  loadPlayer();
+	// Keyboard movement inputs
+	if(keyboard[87]){ // W key
+		camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
+		camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
+	}
+	if(keyboard[83]){ // S key
+		camera.position.x += Math.sin(camera.rotation.y) * player.speed;
+		camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
+	}
+	if(keyboard[65]&&topKeysMove===true){ // A key
+		// Redirect motion by 90 degrees
+		camera.position.x += Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
+		camera.position.z += -Math.cos(camera.rotation.y + Math.PI/2) * player.speed;
+	}
+	if(keyboard[68]&&topKeysMove===true){ // D key
+		camera.position.x += Math.sin(camera.rotation.y - Math.PI/2) * player.speed;
+		camera.position.z += -Math.cos(camera.rotation.y - Math.PI/2) * player.speed;
+	}
+  if(keyboard[65]&&topKeysMove===false){
+  	camera.rotation.y -= player.turnSpeed;
+  }
+  if(keyboard[68]&&topKeysMove===false){
+  	camera.rotation.y += player.turnSpeed;
+  }
+	
+	// Keyboard turn inputs
+	if(keyboard[37]){ // left arrow key
+		camera.rotation.y -= player.turnSpeed;
+	}
+	if(keyboard[39]){ // right arrow key
+		camera.rotation.y += player.turnSpeed;
+	}
+  if(keyboard[81]){ // Q key
+		camera.rotation.y -= player.turnSpeed;
+	}
+	if(keyboard[69]){ // E key
+		camera.rotation.y += player.turnSpeed;
+	}
+	
+	renderer.render(scene, camera);
+}
+
+function keyDown(event){
+	keyboard[event.keyCode] = true;
+}
+function keyUp(event){
+	keyboard[event.keyCode] = false;
+}
+function randomInt(min, max) { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
+function rgbToHex(r,g,b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+function checkCollision(a,b) {
+  let d = [b]; 
+  let e = a.position.clone();
+  let f = a.geometry.vertices.length;
+  let g = a.position;
+  let h = a.matrix;
+  let i = a.geometry.vertices;
+    for (var vertexIndex = f-1; vertexIndex >= 0; vertexIndex--) {      
+        let localVertex = i[vertexIndex].clone();
+        let globalVertex = localVertex.applyMatrix4(h);
+        let directionVector = globalVertex.sub(g);
+        
+        let ray = new THREE.Raycaster(e,directionVector.clone().normalize());
+        let collisionResults = ray.intersectObjects(d);
+        if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) { 
+            return true;
+    }
+    }
+ return false;
+}
+function loadPlayer(){
+	for(var x=scene.children.length-1;x>=0;x--){
+  	obj = scene.children[x];
+    if(obj.typee==='player'){
+    	scene.remove(obj);
+    }
+  }
+  var playerMesh = new THREE.Mesh(
+  	new THREE.BoxGeometry(1,1.8,1),
+    new THREE.MeshPhongMaterial({color:0xff0000,wireframe:USE_WIREFRAME,opacity:0,transparent:true})
+  )
+  playerMesh.receiveShadow = true;
+  playerMesh.castShadow = true;
+  playerMesh.typee = 'player'
+  // Position
+  playerMesh.position.x = playerPos.x
+  playerMesh.position.y = playerPos.y - 0.8
+  playerMesh.position.z = playerPos.z
+  playerMesh.rotation.x = playerPos.rotX
+  playerMesh.rotation.y = playerPos.rotY
+  // playerMesh.rotation.z = playerPos.rotZ
+  scene.add(playerMesh)
+}
+function check(){
+	if(acceptedWarning===true){
+  	init();
+  }
+  else{
+  	var confirm = window.confirm('!! WARNING !!  This game contains flashing lights, press "OK" to continue...')
+    if(confirm===true){
+    	acceptedWarning=true;
+      check();
+		}
+    else{
+    	
+    }
+  }
+}
+
+window.addEventListener('keydown', keyDown);
+window.addEventListener('keyup', keyUp);
+
+window.onload = check()
+</script>
