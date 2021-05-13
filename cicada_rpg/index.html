@@ -1,14 +1,41 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.2/dat.gui.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.js'></script>
-  <script src='https://dl.dropboxusercontent.com/s/qxgrvxduynnst3u/OrbitControls.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.js'></script>
+<script src='https://dl.dropboxusercontent.com/s/qxgrvxduynnst3u/OrbitControls.js'></script>
   
 <script src='https://raw.githubusercontent.com/saucecode/threejs-demos/master/MTLLoader.js'></script>
 <script src='https://raw.githubusercontent.com/saucecode/threejs-demos/master/OBJLoader.js'></script>
-<script src='https://raw.githubusercontent.com/mrdoob/three.js/master/examples/js/loaders/STLLoader.js'></script>
 
 <body></body>
 
+<p id='stage'>Stage 1</p>
+<p id='cheatsText'>Cheats Enabled: false</p>
+<p id='score'>0/0 Apples</p>
+
 <style>
+  #score{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: white;
+    font-size: 20px;
+    user-select: none;
+  }
+  #stage{
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    color: white;
+    font-size: 20px;
+    user-select: none;
+  }
+  #cheatsText{
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    color: white;
+    font-size: 20px;
+    user-select: none;
+  }
   body{
     background-color: black;
   }
@@ -21,209 +48,317 @@
 var scene, camera, renderer, mesh;
 var meshFloor;
 
-var acceptedWarning = false
-if(window.location.host==='fiddle.jshell.net'){acceptedWarning=true}
+var loadMesh = false
 
 var playerPos = {}
+
+var chunksX = 0;
+var chunksY = 0;
+var chunksArr = [];
+
+var apples = [{
+  x: 0,
+  z: 0,
+  rotX: 0,
+  rotY: 0,
+  rotZ: 0,
+  got: false
+}, ]
+var players = []
+
+var stage = 1
+var numApples = randomInt(5, randomInt(5, 100));
+var outOfBound = 30
+
 var topKeysMove = false;
 
-var models_stl = []
-
+var hitboxesEnabled = false
+var cheatsEnabled = false
+var holdingCtrl = false
 var keyboard = {};
-var player = { height:1.8, speed:0.2, turnSpeed:Math.PI*0.02 };
+var player = {
+  height: 1.8,
+  speed: 0.2,
+  turnSpeed: Math.PI * 0.02
+};
 var USE_WIREFRAME = false;
 
-function init(){
-	scene = new THREE.Scene();
-	camera = new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.1, 1000);
-	
-	mesh = new THREE.Mesh(
-		new THREE.BoxGeometry(1,1,1),
-		new THREE.MeshPhongMaterial({color:0xff4444, wireframe:USE_WIREFRAME})
-	);
-	mesh.position.y += 1;
-	// The cube can have shadows cast onto it, and it can cast shadows
-	mesh.receiveShadow = true;
-	mesh.castShadow = true;
-	scene.add(mesh);
-	
-	meshFloor = new THREE.Mesh(
-		new THREE.PlaneGeometry(10,10, 10,10),
-		// MeshBasicMaterial does not react to lighting, so we replace with MeshPhongMaterial
-		new THREE.MeshPhongMaterial({color:0x17ce35, wireframe:USE_WIREFRAME})
-		// See threejs.org/examples/ for other material types
-	);
-	meshFloor.rotation.x -= Math.PI / 2;
-	// Floor can have shadows cast onto it
-	meshFloor.receiveShadow = true;
-	scene.add(meshFloor);
-	
-	
-	// LIGHTS
-	ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
-	scene.add(ambientLight);
-	
-	light = new THREE.PointLight(0xffffff, 0.8, 100);
-	light.position.set(-6,6,-6);
-	light.castShadow = true;
-	// Will not light anything closer than 0.1 units or further than 25 units
-	light.shadow.camera.near = 0.1;
-	light.shadow.camera.far = 25;
-	scene.add(light);
-	
-	
-	camera.position.set(0, player.height, -5);
-	camera.lookAt(new THREE.Vector3(0,player.height,0));
-	
-	renderer = new THREE.WebGLRenderer();
-	renderer.setSize(window.innerWidth, window.innerHeight);
-	
-	// Enable Shadows in the Renderer
-	renderer.shadowMap.enabled = true;
-	renderer.shadowMap.type = THREE.BasicShadowMap;
-	
-	document.body.appendChild(renderer.domElement);
-	
-  playerPos = {x:camera.position.x, y:camera.position.y, z:camera.position.z, rotX: camera.position.x, rotY: camera.position.y, rotZ: camera.position.z}
-  
-  setInterval(function(){
-  	var color = '#4444ff'; /* rgbToHex(randomInt(0,255),randomInt(0,255),randomInt(0,255)) */
-  	renderer.setClearColor(color);
-    // mesh.material.color.r = randomInt(0,255)/255;
-    // mesh.material.color.g = randomInt(0,255)/255;
-    // mesh.material.color.b = randomInt(0,255)/255;
-  },1)
-  
-	animate();
+function init() {
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+  mesh = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1),
+    new THREE.MeshBasicMaterial({
+      color: 0xff4444,
+      wireframe: USE_WIREFRAME
+    })
+  );
+  mesh.position.y += 1; // Move the mesh up 1 meter
+  if (loadMesh === true) {
+    scene.add(mesh);
+  }
+
+  meshFloor = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 20, 10, 10),
+    new THREE.MeshBasicMaterial({
+      color: 0x66ff66,
+      wireframe: USE_WIREFRAME
+    })
+  );
+  meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
+  scene.add(meshFloor);
+
+  camera.position.set(0, player.height, -5);
+  camera.lookAt(new THREE.Vector3(0, player.height, 0));
+
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x4488ff)
+  document.body.appendChild(renderer.domElement);
+
+  setInterval(function() {
+    checkPlayer();
+    populateApples();
+    loadApples();
+    checkApples();
+    updateScore();
+  }, 1)
+  animate();
 }
 
-function animate(){
-	requestAnimationFrame(animate);
-	mesh.rotation.x += 0.01;
-	mesh.rotation.y += 0.02;
-	
-  playerPos = {x:camera.position.x, y:camera.position.y, z:camera.position.z, rotX: camera.position.x, rotY: camera.position.y, rotZ: camera.position.z}
-  
-  loadPlayer();
-	// Keyboard movement inputs
-	if(keyboard[87]){ // W key
-		camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
-		camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
-	}
-	if(keyboard[83]){ // S key
-		camera.position.x += Math.sin(camera.rotation.y) * player.speed;
-		camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
-	}
-	if(keyboard[65]&&topKeysMove===true){ // A key
-		// Redirect motion by 90 degrees
-		camera.position.x += Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
-		camera.position.z += -Math.cos(camera.rotation.y + Math.PI/2) * player.speed;
-	}
-	if(keyboard[68]&&topKeysMove===true){ // D key
-		camera.position.x += Math.sin(camera.rotation.y - Math.PI/2) * player.speed;
-		camera.position.z += -Math.cos(camera.rotation.y - Math.PI/2) * player.speed;
-	}
-  if(keyboard[65]&&topKeysMove===false){
-  	camera.rotation.y -= player.turnSpeed;
+function animate() {
+  requestAnimationFrame(animate);
+
+  for (var i = 0; i < apples.length; i++) {
+    var apple = apples[i];
+    apple.rotX += 0.01;
+    apple.rotY += 0.02;
   }
-  if(keyboard[68]&&topKeysMove===false){
-  	camera.rotation.y += player.turnSpeed;
+
+  if (loadMesh === true) {
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.02;
   }
-	
-	// Keyboard turn inputs
-	if(keyboard[37]){ // left arrow key
-		camera.rotation.y -= player.turnSpeed;
-	}
-	if(keyboard[39]){ // right arrow key
-		camera.rotation.y += player.turnSpeed;
-	}
-  if(keyboard[81]){ // Q key
-		camera.rotation.y -= player.turnSpeed;
-	}
-	if(keyboard[69]){ // E key
-		camera.rotation.y += player.turnSpeed;
-	}
-	
-	renderer.render(scene, camera);
+
+  playerPos = {
+    x: camera.position.x,
+    y: camera.position.y,
+    z: camera.position.z,
+    rotX: camera.position.x,
+    rotY: camera.position.y,
+    rotZ: camera.position.z
+  }
+
+  // Keyboard movement inputs
+  if (keyboard[87]) { // W key
+    camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
+    camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
+  }
+  if (keyboard[83]) { // S key
+    camera.position.x += Math.sin(camera.rotation.y) * player.speed;
+    camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
+  }
+  if (keyboard[65] && topKeysMove === true) { // A key
+    // Redirect motion by 90 degrees
+    camera.position.x += Math.sin(camera.rotation.y + Math.PI / 2) * player.speed;
+    camera.position.z += -Math.cos(camera.rotation.y + Math.PI / 2) * player.speed;
+  }
+  if (keyboard[68] && topKeysMove === true) { // D key
+    camera.position.x += Math.sin(camera.rotation.y - Math.PI / 2) * player.speed;
+    camera.position.z += -Math.cos(camera.rotation.y - Math.PI / 2) * player.speed;
+  }
+  if (keyboard[65] && topKeysMove === false) {
+    camera.rotation.y -= player.turnSpeed;
+  }
+  if (keyboard[68] && topKeysMove === false) {
+    camera.rotation.y += player.turnSpeed;
+  }
+
+  // Keyboard turn inputs
+  if (keyboard[37]) { // left arrow key
+    camera.rotation.y -= player.turnSpeed;
+  }
+  if (keyboard[39]) { // right arrow key
+    camera.rotation.y += player.turnSpeed;
+  }
+  if (keyboard[81]) { // Q key
+    if (topKeysMove === true && holdingCtrl === false) {
+      camera.rotation.y -= player.turnSpeed;
+    }
+  }
+  if (keyboard[69]) { // E key
+    camera.rotation.y += player.turnSpeed;
+  }
+
+  // Admin keys
+  if (keyboard[81]) {
+    if (holdingCtrl === true) {
+      cheatsEnabled = true
+      for (var x = 0; x < apples.length; x++) {
+        apples[x].x = camera.position.x
+        apples[x].z = camera.position.z
+      }
+    }
+  }
+  if (keyboard[66]) {
+    if (holdingCtrl === true) {
+      for (var x = 0; x < apples.length; x++) {
+        if (hitboxesEnabled === false) {
+          hitboxesEnabled = true
+        } else {
+          hitboxesEnabled = false
+        }
+      }
+    }
+  }
+  renderer.render(scene, camera);
 }
 
-function keyDown(event){
-	keyboard[event.keyCode] = true;
-}
-function keyUp(event){
-	keyboard[event.keyCode] = false;
-}
-function randomInt(min, max) { // min and max included 
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-function componentToHex(c) {
-  var hex = c.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
-}
-function rgbToHex(r,g,b) {
-  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-}
-function checkCollision(a,b) {
-  let d = [b]; 
-  let e = a.position.clone();
-  let f = a.geometry.vertices.length;
-  let g = a.position;
-  let h = a.matrix;
-  let i = a.geometry.vertices;
-    for (var vertexIndex = f-1; vertexIndex >= 0; vertexIndex--) {      
-        let localVertex = i[vertexIndex].clone();
-        let globalVertex = localVertex.applyMatrix4(h);
-        let directionVector = globalVertex.sub(g);
-        
-        let ray = new THREE.Raycaster(e,directionVector.clone().normalize());
-        let collisionResults = ray.intersectObjects(d);
-        if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) { 
-            return true;
-    }
-    }
- return false;
-}
-function loadPlayer(){
-	for(var x=scene.children.length-1;x>=0;x--){
-  	obj = scene.children[x];
-    if(obj.typee==='player'){
-    	scene.remove(obj);
+function loadApples() {
+  for (var i = scene.children.length - 1; i >= 0; i--) {
+    obj = scene.children[i];
+    if (obj.typee !== undefined) {
+      scene.remove(obj);
     }
   }
-  var playerMesh = new THREE.Mesh(
-  	new THREE.BoxGeometry(1,1.8,1),
-    new THREE.MeshPhongMaterial({color:0xff0000,wireframe:USE_WIREFRAME,opacity:0,transparent:true})
-  )
-  playerMesh.receiveShadow = true;
-  playerMesh.castShadow = true;
-  playerMesh.typee = 'player'
-  // Position
-  playerMesh.position.x = playerPos.x
-  playerMesh.position.y = playerPos.y - 0.8
-  playerMesh.position.z = playerPos.z
-  playerMesh.rotation.x = playerPos.rotX
-  playerMesh.rotation.y = playerPos.rotY
-  // playerMesh.rotation.z = playerPos.rotZ
-  scene.add(playerMesh)
-}
-function check(){
-	if(acceptedWarning===true){
-  	init();
-  }
-  else{
-  	var confirm = window.confirm('!! WARNING !!  This game contains flashing lights, press "OK" to continue...')
-    if(confirm===true){
-    	acceptedWarning=true;
-      check();
-		}
-    else{
-    	
+  for (var x = 0; x < apples.length; x++) {
+    var apple = apples[x];
+    var appleMesh = new THREE.Mesh(
+      new THREE.BoxGeometry(1, 1, 1),
+      new THREE.MeshBasicMaterial({
+        color: 0x5c390b,
+        wireframe: USE_WIREFRAME,
+      })
+    );
+
+    appleMesh.position.y += 1; // Move the mesh up 1 meter
+    appleMesh.position.x = apple.x
+    appleMesh.position.z = apple.z
+    appleMesh.rotation.x = apple.rotX
+    appleMesh.rotation.y = apple.rotY
+    appleMesh.rotation.z = apple.rotZ
+    appleMesh.typee = 'apple'
+    if (apple.got === false) {
+      scene.add(appleMesh);
     }
+  }
+  if (hitboxesEnabled === true){
+    for (var x = 0; x < apples.length; x++) {
+      var apple = apples[x];
+      var appleMesh = new THREE.Mesh(
+        new THREE.BoxGeometry(1, 1, 1),
+        new THREE.MeshBasicMaterial({
+          color: 0x4b9ede,
+          wireframe: USE_WIREFRAME,
+          transparent: true,
+          opacity: 0.7
+        })
+      );
+      appleMesh.position.y += 1; // Move the mesh up 1 meter
+      appleMesh.position.x = apple.x
+      appleMesh.position.z = apple.z
+      appleMesh.typee = 'hitbox'
+      if (apple.got === false) {
+        scene.add(appleMesh);
+      }
+    }
+  }
+}
+
+function checkApples() {
+  for (var x = 0; x < apples.length; x++) {
+    const apple = apples[x];
+    if (playerPos.x > apple.x - 1 && playerPos.x < apple.x + 1 && playerPos.z > apple.z - 1 && playerPos.z < apple.z + 1 && apple.got === false) {
+      // console.log('Ate apple')
+      apple.got = true
+    }
+  }
+  for (var x = 0; x < apples.length; x++) {
+    var apple = apples[x]
+    if (apple.x >= outOfBound || apple.z >= outOfBound || apple.x <= parseInt('-' + outOfBound) || apple.z <= parseInt('-' + outOfBound)) {
+      apples[x].z = randomInt(parseInt('-' + outOfBound - 5), outOfBound - 5)
+      apples[x].x = randomInt(parseInt('-' + outOfBound - 5), outOfBound - 5)
+    }
+  }
+}
+
+function updateScore() {
+  const scoreElement = document.getElementById('score');
+  const stageElement = document.getElementById('stage');
+  const cheatsElement = document.getElementById('cheatsText');
+
+  var collected = 0
+  for (var x = 0; x < apples.length; x++) {
+    var apple = apples[x];
+    if (apple.got === true) {
+      collected += 1
+    }
+  }
+  if (collected === apples.length) {
+    numApples = randomInt(5, randomInt(5, 100));
+    stage += 1
+    apples = []
+  }
+  cheatsElement.innerHTML = 'Cheats Enabled: ' + JSON.parse(cheatsEnabled)
+  stageElement.innerHTML = 'Stage ' + stage
+  score.innerHTML = collected + '/' + apples.length + ' Cicadas'
+}
+
+function populateApples() {
+  if (apples.length < numApples) {
+    apples.push(appleConst())
+  }
+}
+
+function checkPlayer() {
+  if (playerPos.x >= outOfBound || playerPos.z >= outOfBound || playerPos.x <= parseInt('-' + outOfBound) || playerPos.z <= parseInt('-' + outOfBound)) {
+    camera.position.z = 0
+    camera.position.x = 0
+  }
+}
+
+function keyDown(event) {
+  if (event.keyCode === 17) {
+    holdingCtrl = true
+  }
+  keyboard[event.keyCode] = true;
+}
+
+function keyUp(event) {
+  if (event.keyCode === 17) {
+    holdingCtrl = false
+  }
+  keyboard[event.keyCode] = false;
+}
+
+function randomInt(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+// Apple Constructor
+function appleConst() {
+  /*
+    this.x = randomInt(-20,20);
+    this.z = randomInt(-20,20);
+    this.rotX = 0
+    this.rotY = 0
+    this.rotZ = 0
+    this.got = false
+  */
+  return {
+    x: randomInt(parseInt('-' + outOfBound - 5), outOfBound - 5),
+    z: randomInt(parseInt('-' + outOfBound - 5), outOfBound - 5),
+    rotX: 0,
+    rotY: 0,
+    rotZ: 0,
+    got: false
   }
 }
 
 window.addEventListener('keydown', keyDown);
 window.addEventListener('keyup', keyUp);
 
-window.onload = check()
+window.onload = init;
+
 </script>
