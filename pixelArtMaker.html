@@ -1,0 +1,171 @@
+<canvas id='stampCenter' onmousemove='paintPixelHover(event)' onclick='paintPixel22(event)' width=300 height=300 onmousedown='++holdingMouse' onmouseup='--holdingMouse'></canvas>
+
+<br>
+
+<button onclick='stamp=[]'>Clear Canvas</button>
+<button onclick='change()' id='modee'>Change mode to: Erase</button>
+<input type='color' id='colorInput'>
+<button onclick='copyText(JSON.stringify(stamp))'>Export Stamp Arr</button>
+
+<style>
+  #stampCenter{
+    border: 1px solid black;
+    
+  }
+</style>
+
+<script>
+const c = document.getElementById('stampCenter');
+const ctx = c.getContext('2d');
+
+// animation(leafDrop)
+
+const pixelSize = 5
+var lastHover = {x:-5,y:-5,color:'#000000'}
+var lastAction = {action:'add',pixel:{x:-5,y:-5,color:'#ffffff'},}
+var holdingMouse = 0
+
+var stamp = []
+var mode = 'pencil'
+var holdingCtrl = false
+
+function nextFrame(){
+	ctx.clearRect(0,0,c.width,c.height)
+}
+function paintPixel(x,y,color){
+	if(color){
+  	ctx.fillStyle = color
+  }
+  else{
+  	ctx.fillStyle = '#000000'
+  }
+  ctx.fillRect(x,y,pixelSize,pixelSize);
+}
+function paintPixelHover(e){
+	var color = document.getElementById('colorInput').value
+	ctx.fillStyle = color
+  var x = Math.floor(e.clientX/pixelSize)*pixelSize-(10)
+  var y = Math.floor(e.clientY/pixelSize)*pixelSize-(15)
+  // ctx.fillRect(e.clientX,e.clientY,5,5);
+  if(e.which===1){
+  	paintPixel22(e)
+  }
+  ctx.fillRect(x,y,pixelSize,pixelSize);
+  lastHover = {x:x,y:y,color:color}
+}
+function paintPixel22(e){
+	ctx.fillStyle = '#000000'
+  var x = Math.round(e.clientX/5)*5-(10)
+  var y = Math.round(e.clientY/5)*5-(15)
+  // ctx.fillRect(e.clientX,e.clientY,5,5);
+  if(mode==='pencil'){
+  	if(checkPixel(x,y)===false){
+      var stampJSON = {x:x,y:y,color:document.getElementById('colorInput').value}
+      stamp.push(stampJSON)
+      lastAction = {action:'add',pixel:stampJSON}
+    }
+  }
+  else{
+  	// lastAction = {action:'remove',pixel:stamp[i]}
+  	removePixel(x,y)  
+  }
+}
+function paintPixel23(x,y,color){
+  var color2
+  if (color){
+  	ctx.fillStyle=color
+    color2 = color
+  }
+  else{
+  	ctx.fillStyle = '#000000'
+    color2 = '#000000'
+  }
+  var stampJSON = {x:x,y:y,color:color2}
+  stamp.push(stampJSON)
+}
+function removePixel(x,y){
+	if(checkPixel(x,y)){
+		for(var i=0;i<stamp.length;i++){
+  	var sp = stamp[i];
+    if(sp.x===x&&sp.y===y){
+    	stamp.splice(i,1)
+    }
+  }
+  }
+}
+function checkPixel(x,y){
+	for(var i=0;i<stamp.length;i++){
+  	var sp = stamp[i];
+    if(sp.x===x&&sp.y===y){
+    	return true
+    }
+  }
+  return false
+}
+function checkPixelReturn(x,y){
+	for(var i=0;i<stamp.length;i++){
+  	var sp = stamp[i];
+    if(sp.x===x&&sp.y===y){
+    	return i
+    }
+  }
+  return false
+}
+function paintStamp(s){
+	for(var i=0;i<s.length;i++){
+  	var sp = s[i];
+    if(sp.color){paintPixel(sp.x,sp.y,sp.color)}
+    else{paintPixel(sp.x,sp.y)}
+  }
+}
+function copyText(text){
+	var dummy = document.createElement('textarea');
+  document.body.appendChild(dummy);
+  dummy.value = text
+  dummy.select();
+  document.execCommand("copy");
+  document.body.removeChild(dummy);
+}
+function change(){
+	if(mode==="pencil"){
+  	mode="erase";
+    document.getElementById("modee").innerHTML = "Change mode to: Pencil"
+	}
+  else{
+  	mode="pencil";
+    document.getElementById("modee").innerHTML = "Change mode to: Erase"}
+}
+function undo(){
+	if(lastAction.action==='add' && stamp.length > 0){
+  	removePixel(stamp[stamp.length-1].x,stamp[stamp.length-1].y)
+  }
+  else if(lastAction.action==='remove'){
+  	paintPixel23(lastAction.pixel.x,lastAction.pixel.y,lastAction.color.color)
+  }
+}
+function lastHoverDraw(){
+	paintPixel(lastHover.x,lastHover.y,lastHover.color)
+}
+
+function run(){
+	nextFrame();
+  lastHoverDraw();
+  paintStamp(stamp);
+}
+
+document.addEventListener("keydown", event => {
+	if(event.keyCode===17){
+  	holdingCtrl = true
+  }
+  else if(event.keyCode===90){
+  	undo()
+  }
+})
+document.addEventListener("keyup", event => {
+	if(event.keyCode===17){
+  	holdingCtrl = false
+  }
+})
+
+setInterval(run, 1)
+</script>
