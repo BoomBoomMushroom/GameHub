@@ -368,12 +368,7 @@ function aiBrain(){
 }
 
 function runVisuals(){
-	getFps(); // Updates the FPS
-	nextFrame(); // clears the frame for new image to load
-	drawSnake(); // draws all the snake parts onto the board
-  drawApple(); // draws apple on the board
-  aiVisualsFunct(); // draws a line from snake head to apple
-  updateScoreBoard(); // updates the score board
+	
 }
 function run(){
 	if( gameStatusUpdate() ){
@@ -387,6 +382,12 @@ function run(){
       generation+=1
     }
 	} // check if the snake has died
+	getFps(); // Updates the FPS
+	nextFrame(); // clears the frame for new image to load
+	drawSnake(); // draws all the snake parts onto the board
+  drawApple(); // draws apple on the board
+  aiVisualsFunct(); // draws a line from snake head to apple
+  updateScoreBoard(); // updates the score board
   updateTickSpeed(); // updates the tick speed at whitch the game runs
   aiBrain(); // calculates the best move
   moveSnake(); // updates the snake pos
