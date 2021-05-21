@@ -54,11 +54,22 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<div id="myMessage">
-	<h2>Please <a href="https://disableadblock.com/">Disable AdBlock</a></h2>
-</div>
-	
-<script src='ads.js'></script>
+<div id="wrapper">
+		<div class="adBar">
+			&nbsp;
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			setTimeout(function() {
+				if (document.getElementById("wrapper").offsetHeight) {
+					document.getElementById("wrapper").innerHTML = 'No AdBlock';
+				} else {
+					document.getElementById("wrapper").innerHTML = 'AdBlock Detected';
+				}
+			}, 1000)
+		});
+	</script>
 	
 </body>
 
