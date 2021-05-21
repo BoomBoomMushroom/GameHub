@@ -53,6 +53,24 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<div id="wrapper">
+		<div class="adBar">
+			&nbsp;
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			setTimeout(function() {
+				if (document.getElementById("wrapper").offsetHeight) {
+					document.getElementById("wrapper").innerHTML = 'No AdBlock';
+				} else {
+					document.getElementById("wrapper").innerHTML = 'AdBlock Detected';
+				}
+			}, 1000)
+		});
+	</script>
+</div>
 	
 </body>
 
