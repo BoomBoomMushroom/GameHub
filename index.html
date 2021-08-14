@@ -11,7 +11,6 @@
 <a href="https://gameshub.netlify.app/market"><button onclick='joinGame("marketSim")'>Market Simulator</button></a>
 <a href="https://gameshub.netlify.app/monpoke"><button onclick='joinGame("monPoke")'>Monpoke</button></a>
 <a href="http://gameshub.netlify.app/pageCounter"><button onclick='joinGame("pageCounter")'>Page Counter</button></a>
-<a href="https://gameshub.netlify.app/scp871"><button onclick='joinGame("scp871")'>Stop the cake! -- SCP-871</button></a>
 <a href="https://gameshub.netlify.app/snakeAiBattle"><button onclick='joinGame("snakeAi")'>You v.s Snake AI</button></a>
 <a href="https://gameshub.netlify.app/snakeEcosystem"><button onclick='joinGame("sbe")'>Snake based Ecosystem</button></a>
 <a href="https://gameshub.netlify.app/existance"><button onclick='joinGame("existSim")'>Existance Simulator</button></a>
@@ -25,8 +24,6 @@
 
 <br>
 <p>Multiplayer Games</p>
-<a href='https://echo-websocket-ms.herokuapp.com/'><button onclick='joinGame("existSim_multiplayer")'>Existance Simulator - Multiplayer</button></a>
-<a href='https://gameshub.netlify.app/bonfire'><button onclick='joinGame("bonfire")'>Bonfire *may or may not be a Discord remake*</button></a>
 
 <br>
 <p>Dev-Build // Testing Builds of games</p>
@@ -35,27 +32,10 @@
 <br>
 <br>
 
-<p id='popGame'>Most popular game: </p>
-<p id='newGame'>Latest release: </p>
+<p>Links</p>
 <a href='https://github.com/Academy-of-Code/GameHub'>Gameshub source code here</a>
-
+<br>
 <a href='https://api.gameshub.tk'>API: api.gameshub.tk</a>
-
-<body>
-	
-<script data-ad-client="ca-pub-8306950387559564" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- ad_unit-1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-8306950387559564"
-     data-ad-slot="3670781307"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<div id="wrapper">
-</div>
 
 <script>
 	function setCookie(cname, cvalue, exdays){
@@ -79,184 +59,4 @@
 	  }
 	  return "";
 	}
-</script>
-	
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		setTimeout(function() {
-			if (document.getElementById("wrapper").offsetHeight) {
-				document.getElementById("wrapper").innerHTML = 'No AdBlock';
-			} else {
-				document.getElementById("wrapper").innerHTML = 'AdBlock Detected';
-			}
-		}, 1000)
-	});
-</script>
-</body>
-
-<script>
-	let HOST = 'wss://gameshub-stats-ms.herokuapp.com/'
-  let ws = new WebSocket(HOST);
-
-  function heartbeat(){
-		clearTimeout(this.pingTimeout);
-        
-		this.pingTimeout = setTimeout(() => {
-          this.terminate()
-        }, 30000);
-	}
-      
-	ws.onmessage = function incoming(data) {
-		var msg = data.data
-    var msgCount = 0
-    
-    dayData = JSON.parse(msg)
-    displayPopularGames();
-    console.log( JSON.parse(msg) )
-	}
-      
-	ws.on('open', heartbeat);
-  ws.on('ping', heartbeat);
-  ws.on('close', function close() {
-		clearTimeout(this.pingTimeout);
-	})
-</script>
-<script>
-var dayData = [];
-var testBuild = false
-var gamesArr = [
-	{name:'snake',added:0,index:0,displayName:'Snake'},
-  {name:'ptd',added:0,index:1,displayName:'Pet the Dog!'},
-  {name:'sss',added:0,index:2,displayName:'Solar System Simulator'},
-  {name:'cplc',added:0,index:3,displayName:'Custom Programming Language Creator'},
-  {name:'marketSim',added:0,index:4,displayName:'Market Simulator'},
-  {name:'monPoke',added:0,index:5,displayName:'Monpoke'},
-  {name:'pageCounter',added:0,index:6,displayName:'Page Counter'},
-  {name:'scp871',added:0,index:7,diplayName:'Stop the cake! -- SCP-871'},
-  {name:'snakeAi',added:0,index:8,displayName:'Ypu v.s Snake AI'},
-  {name:'sbe',added:0,index:9,displayName:'Snake based Ecosystem'},
-  {name:'existSim',added:0,index:10,displayName:'Existance Simulator'},
-  {name:'raycastTest',added:0,index:11,displayName:'Pseudo 3D World -- Raycasting Test'},
-  {name:'appleCollection',added:0,index:12,displayName:'The Apple Collection'},
-  {name:'pageCounter_3d',added:1,index:13,displayName:'Page Counter 3D'},
-  {name:'existSim_multiplayer',added:0,index:14,displayName:'Existance Simulator - Multiplayer'},
-  {name:'pokemonEmu',added:1620757781,index:15,displayName:'Pokemon Emulator'},
-  {name:'cicdaColl',added:1620914011,index:16,displayName:'Cicda Collection'},
-  {name:'pam',added:1621430202,index:17,displayName:'Pixel Art Maker'},
-  {name:'bonfire',added:1621477371,index:18,displayName:'Bonfire'},
-  {name:'sa2',added:1621477371,index:18,displayName:'Snake AI v2'},
-]
-
-function joinGame(game){
-	console.log(game)
-  var index = gamesArr.findIndex(function(item, i){return item.name===game});
-  console.log(gamesArr[index].displayName)
-  var displayName = gamesArr[index].displayName
-
-  
-	ws.send('UPDATE-'+game+'-'+displayName)
-}
-function displayNewGames(){
-	var latest = null
-  for(var x=0;x<gamesArr.length;x++){
-    var thisGame = gamesArr[x]
-    if(latest===null){
-    	latest = thisGame;
-    }
-    else if(thisGame.added>latest.added){
-    	latest = thisGame;
-    }
-  }
-  document.getElementById('newGame').innerHTML = 'Latest release: '+latest.displayName
-  return(latest)
-}
-function displayPopularGames(){
-  var pop = null;
-  for(var x=0;x<dayData.length;x++){
-  	var thisData = dayData[x];
-    if(pop===null){
-    	pop=thisData
-    }
-    else if(thisData.clicks>pop.clicks){
-    	pop=thisData
-    }
-  }
-  document.getElementById('popGame').innerHTML = 'Most popular game: '+pop.displayName
-  return(pop)
-}
-
-window.onload = function(){
-	if(window.location.host==='fiddle.jshell.net'){
-  	testBuild=true;
-  }
-  displayNewGames()
-}
-</script>
-
-<script>
-var dayData = [];
-var testBuild = false
-var gamesArr = [
-  {name:'snake',added:0,index:0,displayName:'Snake'},
-  {name:'ptd',added:0,index:1,displayName:'Pet the Dog!'},
-  {name:'sss',added:0,index:2,displayName:'Solar System Simulator'},
-  {name:'cplc',added:0,index:3,displayName:'Custom Programming Language Creator'},
-  {name:'marketSim',added:0,index:4,displayName:'Market Simulator'},
-  {name:'monPoke',added:0,index:5,displayName:'Monpoke'},
-  {name:'pageCounter',added:0,index:6,displayName:'Page Counter'},
-  {name:'scp871',added:0,index:7,diplayName:'Stop the cake! -- SCP-871'},
-  {name:'snakeAi',added:0,index:8,displayName:'Ypu v.s Snake AI'},
-  {name:'sbe',added:0,index:9,displayName:'Snake based Ecosystem'},
-  {name:'existSim',added:0,index:10,displayName:'Existance Simulator'},
-  {name:'raycastTest',added:0,index:11,displayName:'Pseudo 3D World -- Raycasting Test'},
-  {name:'appleCollection',added:0,index:12,displayName:'The Apple Collection'},
-  {name:'pageCounter_3d',added:1,index:13,displayName:'Page Counter 3D'},
-  {name:'existSim_multiplayer',added:0,index:14,displayName:'Existance Simulator - Multiplayer'},
-  {name:'pokemonEmu',added:1620760951,index:15,displayName:'Pokemon Emulator'},
-]
-
-function joinGame(game){
-	console.log(game)
-  var index = gamesArr.findIndex(function(item, i){return item.name===game});
-  console.log(gamesArr[index].displayName)
-  var displayName = gamesArr[index].displayName
-
-  
-	ws.send('UPDATE-'+game+'-'+displayName)
-}
-function displayNewGames(){
-	var latest = null
-  for(var x=0;x<gamesArr.length;x++){
-    var thisGame = gamesArr[x]
-    if(latest===null){
-    	latest = thisGame;
-    }
-    else if(thisGame.added>latest.added){
-    	latest = thisGame;
-    }
-  }
-  document.getElementById('newGame').innerHTML = 'Latest release: '+latest.displayName
-  return(latest)
-}
-function displayPopularGames(){
-  var pop = null;
-  for(var x=0;x<dayData.length;x++){
-  	var thisData = dayData[x];
-    if(pop===null){
-    	pop=thisData
-    }
-    else if(thisData.clicks>pop.clicks){
-    	pop=thisData
-    }
-  }
-  document.getElementById('popGame').innerHTML = 'Most popular game: '+pop.displayName
-  return(pop)
-}
-
-window.onload = function(){
-	if(window.location.host==='fiddle.jshell.net'){
-  	testBuild=true;
-  }
-  displayNewGames()
-}
 </script>
