@@ -9,7 +9,7 @@ function checkAcc(){
   console.log(tokenCookie)
   if (tokenCookie!==""){
   	console.log(tokenCookie)
-    window.location.replace("gameshub.netlify.app")
+    window.location.replace("https://gameshub.netlify.app")
   } 
 }
 function onSubmit(token){
