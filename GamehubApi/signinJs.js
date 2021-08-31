@@ -8,8 +8,8 @@ function checkAcc(){
 	var tokenCookie = getCookie("accToken")
   console.log(tokenCookie)
   if (tokenCookie!==""){
-  	console.log(tokenCookie)
-    window.location.replace("https://gameshub.netlify.app")
+    console.log(tokenCookie)
+    //window.location.replace("https://gameshub.netlify.app")
   } 
 }
 function onSubmit(token){
