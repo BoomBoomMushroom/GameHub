@@ -43,8 +43,10 @@
 	var interval = setInterval(function(){
   if(document.getElementById("darkmode_tog").checked===true && getCookie("theme")!="dark"){
   	setCookie("theme","dark",99999999)
+	  window.location.reload()
   } else if(document.getElementById("darkmode_tog").checked===false && getCookie("theme")!="light"){
   	setCookie("theme","light",9999)
+	  window.location.reload()
   }
 },10)
 	</script>
