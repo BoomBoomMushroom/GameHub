@@ -31,6 +31,7 @@ function loader(){
     }
   }
   var darkmode = getDarkmode("theme")
+  console.log(darkmode)
   var done = false
 
   while(done===true){
@@ -38,6 +39,7 @@ function loader(){
 	    var darkmodeColor = "#2C2F33"
 	    paragraphs = document.getElementsByTagName("p")
 	    document.body.style.background = darkmodeColor
+	    console.log(document.body.style.background)
 	    for(var x=0;x<paragraphs.length;x++){
 	      para = paragraphs[x]
 	      para.style.color = "#ffffff"
