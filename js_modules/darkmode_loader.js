@@ -29,17 +29,21 @@ function loader(){
     	return true
     }
   }
-  darkmode = getDarkmode("theme")
-  
-  if(darkmode==true){
-    var darkmodeColor = "#2C2F33"
-    paragraphs = document.getElementsByTagName("p")
-    document.body.style.background = darkmodeColor
-    for(var x=0;x<paragraphs.length;x++){
-      para = paragraphs[x]
-      para.style.color = "#ffffff"
-      // para.classList.add("darkmode_text")
-    }
+  var darkmode = getDarkmode("theme")
+  var done = false
+
+  while(done===true){
+	  if(darkmode==true){
+	    var darkmodeColor = "#2C2F33"
+	    paragraphs = document.getElementsByTagName("p")
+	    document.body.style.background = darkmodeColor
+	    for(var x=0;x<paragraphs.length;x++){
+	      para = paragraphs[x]
+	      para.style.color = "#ffffff"
+	      // para.classList.add("darkmode_text")
+	    }
+		  done = false
+	  }
   }
 }
 
