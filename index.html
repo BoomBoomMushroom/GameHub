@@ -81,6 +81,7 @@
 			    paragraphs = document.getElementsByTagName("p")
 			header1s = document.getElementsByTagName("h1")
 			links = document.getElementsByTagName("a")
+			labels = document.getElementsByTagName("label")
 
 			    document.body.style.background = darkmodeColor
 			    console.log(document.body.style.background)
@@ -97,6 +98,11 @@
 			for(var x=0;x<links.length;x++){
 			      link = links[x]
 			      link.style.color = "#ffffff"
+			      // para.classList.add("darkmode_text")
+			    }
+			for(var x=0;x<labels.length;x++){
+			      lab = labels[x]
+			      lab.style.color = "#ffffff"
 			      // para.classList.add("darkmode_text")
 			    }
 		} else{
