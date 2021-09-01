@@ -76,6 +76,7 @@
 	}
 	function modeEnable(){
 		if(getCookie("theme")=="dark"){
+			document.getElementById("darkmode_tog").checked = true
 			    var darkmodeColor = "#2C2F33"
 			    paragraphs = document.getElementsByTagName("p")
 			header1s = document.getElementsByTagName("h1")
@@ -98,6 +99,8 @@
 			      link.style.color = "#ffffff"
 			      // para.classList.add("darkmode_text")
 			    }
+		} else{
+			document.getElementById("darkmode_tog").checked = false
 		}
 	}
 	modeEnable()
