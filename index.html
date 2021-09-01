@@ -43,7 +43,7 @@
 	var interval = setInterval(function(){
   if(document.getElementById("darkmode_tog").checked===true && getCookie("theme")!="dark"){
   	setCookie("theme","dark",99999999)
-	  window.location.reload()
+	  modeEnable()
   } else if(document.getElementById("darkmode_tog").checked===false && getCookie("theme")!="light"){
   	setCookie("theme","light",9999)
 	  window.location.reload()
@@ -74,28 +74,31 @@
 	  }
 	  return "";
 	}
-	if(getCookie("theme")=="dark"){
-		    var darkmodeColor = "#2C2F33"
-		    paragraphs = document.getElementsByTagName("p")
-		header1s = document.getElementsByTagName("h1")
-		links = document.getElementsByTagName("a")
-		
-		    document.body.style.background = darkmodeColor
-		    console.log(document.body.style.background)
-		    for(var x=0;x<paragraphs.length;x++){
-		      para = paragraphs[x]
-		      para.style.color = "#ffffff"
-		      // para.classList.add("darkmode_text")
-		    }
-		for(var x=0;x<header1s.length;x++){
-		      h1 = header1s[x]
-		      h1.style.color = "#ffffff"
-		      // para.classList.add("darkmode_text")
-		    }
-		for(var x=0;x<links.length;x++){
-		      link = links[x]
-		      link.style.color = "#ffffff"
-		      // para.classList.add("darkmode_text")
-		    }
+	function modeEnable(){
+		if(getCookie("theme")=="dark"){
+			    var darkmodeColor = "#2C2F33"
+			    paragraphs = document.getElementsByTagName("p")
+			header1s = document.getElementsByTagName("h1")
+			links = document.getElementsByTagName("a")
+
+			    document.body.style.background = darkmodeColor
+			    console.log(document.body.style.background)
+			    for(var x=0;x<paragraphs.length;x++){
+			      para = paragraphs[x]
+			      para.style.color = "#ffffff"
+			      // para.classList.add("darkmode_text")
+			    }
+			for(var x=0;x<header1s.length;x++){
+			      h1 = header1s[x]
+			      h1.style.color = "#ffffff"
+			      // para.classList.add("darkmode_text")
+			    }
+			for(var x=0;x<links.length;x++){
+			      link = links[x]
+			      link.style.color = "#ffffff"
+			      // para.classList.add("darkmode_text")
+			    }
+		}
 	}
+	modeEnable()
 </script>
