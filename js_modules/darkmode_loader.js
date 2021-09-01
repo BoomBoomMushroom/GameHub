@@ -32,7 +32,7 @@ function loader(){
   }
   var darkmode = getDarkmode("theme")
   console.log(darkmode)
-  var done = false
+  var done = true
 
   while(done===true){
 	  if(darkmode==true){
