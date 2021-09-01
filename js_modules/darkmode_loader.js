@@ -42,4 +42,4 @@ function loader(){
   }
 }
 
-document.onload = loader()
+window.onload = loader()
