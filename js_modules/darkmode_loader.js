@@ -47,4 +47,4 @@ function loader(){
   }
 }
 
-document.body.onload = loader()
+document.onload = loader()
