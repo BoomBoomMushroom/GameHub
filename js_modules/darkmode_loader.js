@@ -28,7 +28,7 @@ function loader(){
     	return true
     }
   }
-  darkmode = getDarkmode("theme")
+  darkmode = true // getDarkmode("theme")
   
   if(darkmode==true){
     var darkmodeColor = "#2C2F33"
