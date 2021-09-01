@@ -36,6 +36,20 @@
 <br>
 <a href='https://api.gameshub.tk'>API: api.gameshub.tk</a>
 
+<div>
+  <input type="checkbox" id="darkmode_tog">
+  <label for="darkmode_tog">Enable/Disable Darkmode</label>
+  <script>
+	var interval = setInterval(function(){
+  if(document.getElementById("darkmode_tog").checked===true){
+  	setCookie("theme","dark",99999999)
+  } else{
+  	setCookie("theme","light",9999)
+  }
+},10)
+	</script>
+</div>
+
 <script>
 	function setCookie(cname, cvalue, exdays){
 	  const d = new Date();
