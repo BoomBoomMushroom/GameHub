@@ -41,9 +41,9 @@
   <label for="darkmode_tog">Enable/Disable Darkmode</label>
   <script>
 	var interval = setInterval(function(){
-  if(document.getElementById("darkmode_tog").checked===true){
+  if(document.getElementById("darkmode_tog").checked===true && getCookie("theme")!="dark"){
   	setCookie("theme","dark",99999999)
-  } else{
+  } else if(document.getElementById("darkmode_tog").checked===false && getCookie("theme")!="light"){
   	setCookie("theme","light",9999)
   }
 },10)
