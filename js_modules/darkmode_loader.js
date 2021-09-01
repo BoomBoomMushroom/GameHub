@@ -21,7 +21,8 @@ function loader(){
     return "";
   }
   function getDarkmode(cookieName){
-    var cookieres = getCookie(cookieName)==""
+    var cookieres = getCookie(cookieName)
+    console.log(cookieres)
     if(cookieres!="" & cookieres!='dark'){
     	return false
     }
