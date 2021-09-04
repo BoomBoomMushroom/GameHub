@@ -57,6 +57,10 @@
   <input type="checkbox" id="darkmode_tog">
   <label for="darkmode_tog">Enable/Disable Darkmode</label>
   <script>
+	  if(getCookie("theme")=="dark"){
+	  	document.getElementById("darkmode_tog").checked = true
+	  }
+	  
 	var interval = setInterval(function(){
   if(document.getElementById("darkmode_tog").checked===true && getCookie("theme")!="dark"){
   	setCookie("theme","dark",99999999)
