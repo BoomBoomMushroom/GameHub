@@ -41,7 +41,13 @@ var timer22 = setInterval(() => {
   	try{
     	if(ws.readyState==1){
         recentActions = ["getAcc"]
-        setTimeout(function(){ws.send("gameshub-api.herokuapp.com;/getaccount?username=BBM;GET")},50)
+        setTimeout(function(){
+        	if(firstVar.split("=")[0]=="username"){
+        		ws.send("gameshub-api.herokuapp.com;/getaccount?username="+firstVar.split("=")[1]+";GET")
+          } else{
+          	ws.send("gameshub-api.herokuapp.com;/getaccount?username=BBM;GET")
+          }
+        },50)
         //ws.send("gameshub-api.herokuapp.com;/getaccount?username=dEx;GET")
         clearInterval(timer22)
       }
