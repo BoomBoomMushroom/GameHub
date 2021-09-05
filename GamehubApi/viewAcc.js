@@ -6,7 +6,13 @@ const placeholderAdvancements = []
 
 function loadData(m){
 	console.log(m)
-  document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + m.GameshubData.Money
+  try{
+  	var myDate = new Date(m.AccountCreationTime*1000)
+    document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + m.GameshubData.Money +" - " + myDate.toLocaleString().split(",")[0]
+  }
+  catch(err){
+  	document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + m.GameshubData.Money +" - Invailid Date"
+  }
   document.getElementById("accountUUID").innerHTML = "UUID: "+m.UUID
   
   // Friends loader
