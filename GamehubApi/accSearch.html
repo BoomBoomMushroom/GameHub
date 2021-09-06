@@ -1,0 +1,10 @@
+<input type="url" name="url" id="url" placeholder="BBM">
+<label for="url">Search users</label>
+
+<a id="goBtt" href="http://gameshub-api.herokuapp.com/getaccounts?q=BBM"><button>Search</button></a>
+
+<script>
+timer = setInterval(function(){
+	document.getElementById("goBtt").href = "http://gameshub-api.herokuapp.com/getaccounts?q="+document.getElementById("url").value
+},10)
+</script>
