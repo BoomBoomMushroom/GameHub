@@ -1,0 +1,91 @@
+<div id='form'>
+  <select id='select'>
+    <option value="bug">Report a bug</option>
+    <option value="sug">Make a suggestion</option>
+  </select>
+  <br>
+  <input id="text" maxlength="1000" placeholder="Please type">
+  <br>
+  <input id="name" maxlength="16" placeholder="Username">
+  
+  <br>
+  <br>
+  
+  <button onclick="submit()">Submit</button>
+</div>
+
+<script>
+const begReportUrl = "https://discord.com/api/webhooks/885988175980400650/rIvdeXHH2wShAVUztziZKb8cnw0abwOHUFIRbBxpSIh9viHMh_AUyVr2gBzxOr73RTJZ"
+const suggestionBotUrl = "https://discord.com/api/webhooks/885987865794842686/2mUXDLRobAEftYFZOYM2thyBrDD0dUDsXVz-h6GZKcGqD5GeWZru3PJ18S4hWBpFCmUR"
+
+function fetchApi(url, json, method){
+	fetch(url, {
+  	method: method,
+    body: JSON.stringify(json),
+    headers: {
+    	'Content-Type': 'application/json'
+    }
+  }).then(function (response) {
+  	return response.text()
+  }).then(function(text){
+  	console.log(text)
+  }).catch(function(error){
+  	alert(error)
+  })
+}
+
+function submit(){
+	var reason = document.getElementById("select").value
+  var name = document.getElementById("name").value
+  var text = document.getElementById("text").value
+  
+  if (name.length>1&&text.length>1){
+  	if (reason == "sug"){
+      fetchApi(suggestionBotUrl,{'content':"<@&885999607207837708> Suggestion - "+name+": "+text},"post")
+    }
+    else if (reason == "bug"){
+      fetchApi(begReportUrl,{'content':"<@&885999607207837708> Bug report - "+name+": "+text},"post")
+    }
+  }
+}
+
+function load(){
+	function getCookie(cname){
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i=0; i<ca.length;i++){
+      let c = ca[i];
+      while (c.charAt(0)==' '){
+        c = c.substring(1);
+      }
+      if(c.indexOf(name)==0){
+        return c.substring(name.length,c.length);
+      }
+    }
+    return "";
+  }
+  function getDarkmode(cookieName){
+  	if(getCookie(cookieName)==""){
+    	return false
+    }
+    else{
+    	return true
+    }
+  }
+  darkmode = getDarkmode("theme")
+  
+  if(darkmode==true){
+    var darkmodeColor = "#2C2F33"
+    paragraphs = document.getElementsByTagName("p")
+    document.body.style.background = darkmodeColor
+    for(var x=0;x<paragraphs.length;x++){
+      para = paragraphs[x]
+      para.style.color = "#ffffff"
+      // para.classList.add("darkmode_text")
+    }
+  }
+}
+
+document.onload = load()
+</script>
