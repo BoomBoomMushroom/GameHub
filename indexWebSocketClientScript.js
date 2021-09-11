@@ -33,7 +33,7 @@ var recentActions = []
             try {
                 ws.send('REASON-Gameshub_Api')
                 ws.send('username-undefined')
-                
+
                 upa()
                 clearInterval(time)
             } catch (err) {
@@ -46,7 +46,7 @@ var recentActions = []
         console.log("trying upa")
         try {
             sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token=' + getCookie("token") + ';GET');
-            console.log(getCookie("token"))
+            console.log(getCookie("accToken"))
             recentActions.push("tokenInfoGet")
         } catch (err) {
             console.log(err+"-upa")
