@@ -214,9 +214,7 @@ function sendReason() {
 
 			upa()
 			clearInterval(time)
-		} catch (err) {
-			console.log(err+"- rea")
-		}
+		} catch (err) {}
 	}, 50)
 }
 
@@ -225,9 +223,7 @@ function upa(){
 		sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token='+getCookie("token")+';GET');
 		console.log("gameshub-api.herokuapp.com;/tokeninfo?token="+getCookie("accToken"))
 		recentActions.push("tokenInfoGet")
-	} catch (err) {
-		console.log(err+"-upa")
-	}
+	} catch (err) {}
 }
 
 function sendMsg(msg) {
