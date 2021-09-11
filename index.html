@@ -193,8 +193,8 @@ function sendReason() {
 
 function upa(){
 	try {
-		sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token=hQd2bRUj5T5nyISs;GET');
-		console.log("gameshub-api.herokuapp.com;/tokeninfo?token=hQd2bRUj5T5nyISs")
+		sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token='+getCookie("accToken")+';GET');
+		console.log("gameshub-api.herokuapp.com;/tokeninfo?token="+getCookie("accToken"))
 		recentActions.push("tokenInfoGet")
 	} catch (err) {}
 }
