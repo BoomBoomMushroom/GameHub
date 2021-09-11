@@ -46,7 +46,7 @@ var recentActions = []
         console.log("trying upa")
         try {
             sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token=' + getCookie("token") + ';GET');
-            console.log(getCookie("accToken"))
+            console.log("gameshub-api.herokuapp.com/tokeninfo?token="+getCookie("accToken"))
             recentActions.push("tokenInfoGet")
         } catch (err) {
             console.log(err+"-upa")
