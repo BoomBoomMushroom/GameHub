@@ -30,16 +30,14 @@ var recentActions = []
 	function sendReason() {
         var time = setInterval(() => {
             console.log("Trying reason")
-            if(ws.readystate==1){
-                try {
-                    ws.send('REASON-Gameshub_Api')
-                    ws.send('username-undefined')
-    
-                    upa()
-                    clearInterval(time)
-                } catch (err) {
-                    console.log(err+"- rea")
-                }
+            try {
+                ws.send('REASON-Gameshub_Api')
+                ws.send('username-undefined')
+                
+                upa()
+                clearInterval(time)
+            } catch (err) {
+                console.log(err+"- rea")
             }
         }, 50)
 	}
