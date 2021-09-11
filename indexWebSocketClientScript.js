@@ -29,6 +29,7 @@ var recentActions = []
 
 	function sendReason() {
         var time = setInterval(() => {
+            console.log("Trying reason")
             if(ws.readystate==1){
                 try {
                     ws.send('REASON-Gameshub_Api')
@@ -44,6 +45,7 @@ var recentActions = []
 	}
 
     function upa(){
+        console.log("trying upa")
         try {
             sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token=' + getCookie("token") + ';GET');
             console.log(getCookie("token"))
