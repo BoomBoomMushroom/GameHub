@@ -29,19 +29,24 @@ var recentActions = []
 
 	function sendReason() {
         var time = setInterval(() => {
-            try {
-                ws.send('REASON-Gameshub_Api')
-                ws.send('username-undefined')
-
-                upa()
-                clearInterval(time)
-            } catch (err) {}
+            if(ws.readystate==1){
+                try {
+                    ws.send('REASON-Gameshub_Api')
+                    ws.send('username-undefined')
+    
+                    upa()
+                    clearInterval(time)
+                } catch (err) {}
+            }
         }, 50)
 	}
 
     function upa(){
-        sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token=' + getCookie("token") + ';GET');
-        recentActions.push("tokenInfoGet")
+        try {
+            sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token=' + getCookie("token") + ';GET');
+            console.log(getCookie("token"))
+            recentActions.push("tokenInfoGet")
+        } catch (err) {}
     }
 
 	function sendMsg(msg) {

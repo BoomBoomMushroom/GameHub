@@ -153,7 +153,9 @@
         msg.then(m=>{
           if(recentActions.length>0){
           	if (recentActions[0]=="tokenInfoGet"){
+				  console.log("got m; "+m)
             	if (m!=="COULDNT_FIND_TOKEN" && m!== "ERROR_WHILST_GETTING_DATA"){
+					console.log("M is good")
 					console.log(JSON.parse(m))
 					document.getElementById("currentAcc").href = "https://gameshub.netlify.app/gamehubapi/viewacc?username=" + JSON.parse(m).Username
 					document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(m).Username
