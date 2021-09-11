@@ -36,7 +36,9 @@ var recentActions = []
     
                     upa()
                     clearInterval(time)
-                } catch (err) {}
+                } catch (err) {
+                    console.log(err+"- rea")
+                }
             }
         }, 50)
 	}
@@ -46,7 +48,9 @@ var recentActions = []
             sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token=' + getCookie("token") + ';GET');
             console.log(getCookie("token"))
             recentActions.push("tokenInfoGet")
-        } catch (err) {}
+        } catch (err) {
+            console.log(err+"-upa")
+        }
     }
 
 	function sendMsg(msg) {
