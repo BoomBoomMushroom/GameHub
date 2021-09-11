@@ -24,9 +24,6 @@ var recentActions = []
 	return "";
 	}
 
-	sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token=' + getCookie("token") + ';GET');
-	recentActions.push("tokenInfoGet")
-
 	// Websocket
 	window.onopen = sendReason()
 
@@ -35,6 +32,10 @@ var recentActions = []
 		try {
 			ws.send('REASON-Gameshub_Api')
 			ws.send('username-undefined')
+
+            sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token=' + getCookie("token") + ';GET');
+	        recentActions.push("tokenInfoGet")
+
 			clearInterval(time)
 		} catch (err) {}
 	}, 50)
