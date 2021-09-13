@@ -42,9 +42,11 @@ function submit(){
   if (name.length>1&&text.length>1){
   	if (reason == "sug"){
       fetchApi(suggestionBotUrl,{'content':"<@&885999607207837708> Suggestion - "+name+": "+text},"post")
+      window.location.replace("https://gameshub.netlify.app")
     }
     else if (reason == "bug"){
       fetchApi(begReportUrl,{'content':"<@&885999607207837708> Bug report - "+name+": "+text},"post")
+      window.location.replace("https://gameshub.netlify.app")
     }
   }
 }
