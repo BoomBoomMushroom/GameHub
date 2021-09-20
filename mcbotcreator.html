@@ -1,0 +1,60 @@
+<h1 id='connectionStatus' style="color:red;border:1px solid black;">Connection Status - Not Connected</h1>
+<h1>Minecraft Bot Creator</h1>
+<input id="severIP" placeholder="hypixel.net">
+<input id="severPort" placeholder="25565">
+<button onclick='run()'>Run Bot</button>
+
+<div id="botConsole" style="border:1px solid black;">
+  <h3>Bot Console</h3>
+</div>
+
+<script>
+      let HOST = 'wss://multi-socket-ms.herokuapp.com'
+      let ws = new WebSocket(HOST);
+      let el;
+
+      function heartbeat(){
+        clearTimeout(this.pingTimeout);
+        
+        this.pingTimeout = setTimeout(() => {
+          this.terminate()
+        }, 30000);
+      }
+      
+      var enterName = false
+      ws.onmessage = function incoming(data) {
+        var msg = data.data
+        console.log(msg)
+      }
+      
+      ws.on('open', heartbeat);
+      ws.on('ping', heartbeat);
+      ws.on('close', function close() {
+        clearTimeout(this.pingTimeout);
+      })
+    </script>
+
+
+<script>
+function run(){
+	ws.send("REASON-mcBot")
+  ws.send("username-mcBot")
+  ws.send("bot_0~6.tcp.ngrok.io~18193")
+}
+
+
+window.onload = function(){
+	var connectionStatus = setInterval(function(){
+  	if(ws.readyState==1){
+    	document.getElementById("connectionStatus").innerHTML = "Connection Status - Connected"
+      document.getElementById("connectionStatus").style.color = "green"
+    } else if(ws.readyState==2){
+    	document.getElementById("connectionStatus").innerHTML = "Connection Status - Closing"
+      document.getElementById("connectionStatus").style.color = "yellow"
+    } else if(ws.readyState==3){
+    	document.getElementById("connectionStatus").innerHTML = "Connection Status - Closed"
+      document.getElementById("connectionStatus").style.color = "red"
+    }
+  },100)
+}
+</script>
