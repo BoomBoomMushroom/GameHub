@@ -1,8 +1,13 @@
 <h1 id='connectionStatus' style="color:red;border:1px solid black;">Connection Status - Not Connected</h1>
 <h1>Minecraft Bot Creator</h1>
-<input id="severIP" placeholder="hypixel.net">
-<input id="severPort" placeholder="25565">
-<button onclick='run()'>Run Bot</button>
+<div>
+  <input id="botUsername" placeholder="Username : Billy2">
+  <input id="serverIP" placeholder="Server IP : hypixel.net">
+  <br>
+  <input id="serverPort" placeholder="Port (Optional) : 25565">
+  <input id="viewPort" placeholder="View Port : 1000">
+  <button onclick='run()'>Run Bot</button>
+</div>
 
 <div id="botConsole" style="border:1px solid black;">
   <h3>Bot Console</h3>
@@ -34,12 +39,25 @@
       })
     </script>
 
-
 <script>
+function randomInt(min,max){
+	return Math.floor( Math.random() * (max-min+1) + min )
+}
+
 function run(){
+	var botUsername = document.getElementById("botUsername").value
+	var serverIP = document.getElementById("serverIP").value
+  var serverPort = document.getElementById("serverPort").value
+  var viewPort = document.getElementById("viewPort").value
+
+	if (botUsername==""){botUsername="bot_"+randomInt(0,99999).toString()}
+	if (serverIP==""){serverIP="6.tcp.ngrok.io"}
+  if (serverPort==""&&serverIP=="6.tcp.ngrok.io"){serverPort="18193"}
+  if (viewPort==""){viewPort=randomInt(1000,9999).toString()}
+
 	ws.send("REASON-mcBot")
   ws.send("username-mcBot")
-  ws.send("bot_0~6.tcp.ngrok.io~18193")
+  ws.send(botUsername+"~"+serverIP+"~"+viewPort+"~"+serverPort)
 }
 
 
