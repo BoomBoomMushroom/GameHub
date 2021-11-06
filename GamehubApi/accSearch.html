@@ -8,7 +8,7 @@ timer = setInterval(function(){
 	if(document.getElementById("url").value!=""){
 		document.getElementById("goBtt").href = "http://gameshub-api.herokuapp.com/accsearch?q="+document.getElementById("url").value
 	} else{
-		document.getElementById("goBtt").href = "http://gameshub-api.herokuapp.com/accsearch?q=BBM"
+		document.getElementById("goBtt").href = "http://gameshub-api.herokuapp.com/accsearch?q=*"
 	}
 },10)
 </script>
