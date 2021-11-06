@@ -9,9 +9,11 @@ function loadData(m){
 	console.log(m)
   try{
   	var myDate = new Date(m.AccountCreationTime*1000)
+	document.getElementById("pfp").src = "https://avatars.dicebear.com/api/identicon/"+m.Username+".svg"
     document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + m.GameshubData.Money +" - " + myDate.toLocaleString().split(",")[0]
   }
   catch(err){
+	  document.getElementById("pfp").src = "https://avatars.dicebear.com/api/identicon/"+m.Username+".svg"
   	document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + m.GameshubData.Money +" - Invailid Date"
   }
   document.getElementById("accountUUID").innerHTML = "UUID: "+m.UUID
