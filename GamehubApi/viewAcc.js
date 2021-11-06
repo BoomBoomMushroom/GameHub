@@ -5,7 +5,7 @@ const firstVar = window.location.href.split("?")[1] || null
 const placeholderAdvancements = []
 
 function loadData(m){
-	console.log(m)
+	console.log(m.GameshubData.Money)
   try{
   	var myDate = new Date(m.AccountCreationTime*1000)
     document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + m.GameshubData.Money +" - " + myDate.toLocaleString().split(",")[0]
