@@ -56,7 +56,7 @@ var timer22 = setInterval(() => {
           }
         },50)
         //ws.send("gameshub-api.herokuapp.com;/getaccount?username=dEx;GET")
-        clearInterval(timer22)
+        //clearInterval(timer22)
       }
     }
     catch(err){}
