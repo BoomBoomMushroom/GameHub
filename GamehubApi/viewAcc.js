@@ -56,7 +56,7 @@ var timer22 = setInterval(() => {
           }
         },50)
         //ws.send("gameshub-api.herokuapp.com;/getaccount?username=dEx;GET")
-        //clearInterval(timer22)
+        clearInterval(timer22)
       }
     }
     catch(err){}
@@ -117,7 +117,8 @@ function sendReason(){
 	var time = setInterval(() => {
   	try{
     	ws.send('REASON-Gameshub_Api')
-      ws.send('username-undefined')
+      	ws.send('username-undefined')
+		ws.send("gameshub-api.herokuapp.com;/getaccount?username="+firstVar.split("=")[1]+";GET")
       clearInterval(time)
     }
     catch(err){
