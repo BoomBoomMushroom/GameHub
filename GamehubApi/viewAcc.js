@@ -52,7 +52,7 @@ var timer22 = setInterval(() => {
         	if(firstVar.split("=")[0]=="username"){
         		ws.send("gameshub-api.herokuapp.com;/getaccount?username="+firstVar.split("=")[1]+";GET")
           } else{
-          	ws.send("gameshub-api.herokuapp.com;/getaccount?username=BBM;GET")
+          	// ws.send("gameshub-api.herokuapp.com;/getaccount?username=BBM;GET")
           }
         },50)
         //ws.send("gameshub-api.herokuapp.com;/getaccount?username=dEx;GET")
