@@ -11,7 +11,7 @@ function loadData(m){
     document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + m.GameshubData.Money +" - " + myDate.toLocaleString().split(",")[0]
   }
   catch(err){
-  	document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + 50 /*m.GameshubData.Money*/ +" - Invailid Date"
+  	document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + "Hidden" /*m.GameshubData.Money*/ +" - Invailid Date"
   }
   document.getElementById("accountUUID").innerHTML = "UUID: "+m.UUID
   
