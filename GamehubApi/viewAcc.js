@@ -18,6 +18,14 @@ function loadData(m){
   }
   document.getElementById("accountUUID").innerHTML = "UUID: "+m.UUID
   
+	// Badges loader
+  if(m.Badges.length>0){
+  	document.getElementById("badgesHeader").style.display = "block"
+  	for(var i=0;i<m.Badges.length;i++){
+    	var currentFriend = m.Badges[i]
+      document.getElementById("accountbadges").innerHTML += currentFriend.html
+    }
+  }
   // Friends loader
   if(m.Friends.length>0){
   	document.getElementById("friendsHeader").style.display = "block"
