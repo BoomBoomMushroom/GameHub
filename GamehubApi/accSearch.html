@@ -5,6 +5,10 @@
 
 <script>
 timer = setInterval(function(){
-	document.getElementById("goBtt").href = "http://gameshub-api.herokuapp.com/getaccounts?q="+document.getElementById("url").value
+	if(document.getElementById("url").value!=""){
+		document.getElementById("goBtt").href = "http://gameshub-api.herokuapp.com/accsearch?q="+document.getElementById("url").value
+	} else{
+		document.getElementById("goBtt").href = "http://gameshub-api.herokuapp.com/accsearch?q=BBM"
+	}
 },10)
 </script>
