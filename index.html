@@ -153,14 +153,16 @@
         msg.then(m=>{
           if(recentActions.length>0){
           	if (recentActions[0]=="tokenInfoGet"){
-            	if (m!=="COULDNT_FIND_TOKEN" && m!== "ERROR_WHILST_GETTING_DATA"){
-					console.log(m)
-					document.getElementById("currentAcc").href = "https://gameshub.netlify.app/gamehubapi/viewacc?username=" + JSON.parse(m).Username
-					document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(m).Username
-              } else{
+            		if (m!=="COULDNT_FIND_TOKEN" && m!== "ERROR_WHILST_GETTING_DATA"){
+				console.log(m)
+				document.getElementById("currentAcc").href = "https://gameshub.netlify.app/gamehubapi/viewacc?username=" + JSON.parse(m).Username
+				document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(m).Username
+				document.getElementById("tr1").style.display = "none"
+				document.getElementById("tr2").style.display = "none"
+              		} else{
 				document.getElementById("currentAcc").href = "https://gameshub.netlify.app/gamehubapi/signup"
 				document.getElementById("currentAcc").innerHTML = "You are currently not signed in"
-			  }
+			}
             }
           }
           //console.log(m)
