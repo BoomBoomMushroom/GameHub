@@ -104,6 +104,9 @@
 	}
 	function modeEnable(){
 		var theme = "dark"
+		const monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+		var month = monthList[new Date().getMonth()]
+		
 		if(theme=="dark"){
 			    var darkmodeColor = "#2C2F33"
 			    paragraphs = document.getElementsByTagName("p")
@@ -134,7 +137,7 @@
 			    }
 		}
 	}
-	modeEnable()
+	setInterval(modeEnabled,10)
 </script>
 
 <script>
