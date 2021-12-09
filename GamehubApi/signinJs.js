@@ -16,11 +16,16 @@ function onSubmit(token){
 	inputUsername = usernameInput.value
   inputPassword = passwordInput.value
   if(inputUsername.length >= 3 && inputUsername.length <= 16 && inputPassword.length > 7){
+	  /*
     if(token){
       sendMsg('gameshub-api.herokuapp.com;/login?username='+inputUsername+'&password='+inputPassword+';GET');
       console.log('gameshub-api.herokuapp.com;/login?username='+inputUsername+'&password='+inputPassword+';GET')
       recentActions.push("Signin")
     }
+    */
+	sendMsg('gameshub-api.herokuapp.com;/login?username='+inputUsername+'&password='+inputPassword+';GET');
+      console.log('gameshub-api.herokuapp.com;/login?username='+inputUsername+'&password='+inputPassword+';GET')
+      recentActions.push("Signin")
   }
 }
 
