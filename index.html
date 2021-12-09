@@ -104,9 +104,10 @@
 	}
 	function modeEnable(){
 		var theme = "dark"
-		const monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-		const date = new Date()
-		var month = monthList[date.getMonth()]
+		var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+		var d = new Date()
+		var month = monthList[d.getMonth()]
+		alert(month)
 		
 		if(theme=="dark"){
 			    var darkmodeColor = "#2C2F33"
@@ -138,7 +139,8 @@
 			    }
 		}
 	}
-	setInterval(()=>{modeEnabled()},10)
+	//setInterval(()=>{modeEnabled()},10)
+	modeEnabled()
 </script>
 
 <script>
