@@ -105,7 +105,8 @@
 	function modeEnable(){
 		var theme = "dark"
 		const monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-		var month = monthList[new Date().getMonth()]
+		const date = new Date()
+		var month = monthList[date.getMonth()]
 		
 		if(theme=="dark"){
 			    var darkmodeColor = "#2C2F33"
