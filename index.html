@@ -103,6 +103,9 @@
 	  return "";
 	}
 	function modeEnable(){
+		var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+		var d = new Date()
+		var month = monthList[d.getMonth()]
 		var theme = "dark"
 		
 		if(theme=="dark"){
@@ -134,9 +137,11 @@
 			      // para.classList.add("darkmode_text")
 			    }
 		}
+		return "done"
 	}
 	//setInterval(()=>{modeEnabled()},10)
 	modeEnabled()
+	alert(modeEnabled())
 </script>
 
 <script>
