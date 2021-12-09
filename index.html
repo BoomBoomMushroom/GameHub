@@ -106,9 +106,8 @@
 		var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 		var d = new Date()
 		var month = monthList[d.getMonth()]
-		var theme = "dark"
 		
-		if(theme=="dark"){
+		if(month=="December"){
 			    var darkmodeColor = "#2C2F33"
 			    paragraphs = document.getElementsByTagName("p")
 			header1s = document.getElementsByTagName("h1")
@@ -118,30 +117,27 @@
 			    //document.body.style.background = darkmodeColor
 			    for(var x=0;x<paragraphs.length;x++){
 			      para = paragraphs[x]
-			      para.style.color = "#ffffff"
+			      para.style.color = "#000000"
 			      // para.classList.add("darkmode_text")
 			    }
 			for(var x=0;x<header1s.length;x++){
 			      h1 = header1s[x]
-			      h1.style.color = "#ffffff"
+			      h1.style.color = "#000000"
 			      // para.classList.add("darkmode_text")
 			    }
 			for(var x=0;x<links.length;x++){
 			      link = links[x]
-			      link.style.color = "#ffffff"
+			      link.style.color = "#000000"
 			      // para.classList.add("darkmode_text")
 			    }
 			for(var x=0;x<labels.length;x++){
 			      lab = labels[x]
-			      lab.style.color = "#ffffff"
+			      lab.style.color = "#000000"
 			      // para.classList.add("darkmode_text")
 			    }
 		}
-		return "done"
 	}
-	//setInterval(()=>{modeEnabled()},10)
-	modeEnabled()
-	alert(modeEnabled())
+	setInterval(()=>{modeEnabled()},10)
 </script>
 
 <script>
