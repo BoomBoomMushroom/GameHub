@@ -81,6 +81,35 @@
 <a disabled href='https://api.gameshub.dev'>API: api.gameshub.tk</a>
 
 <script>
+paragraphs = document.getElementsByTagName("p")
+header1s = document.getElementsByTagName("h1")
+links = document.getElementsByTagName("a")
+labels = document.getElementsByTagName("label")
+
+//document.body.style.background = darkmodeColor
+for(var x=0;x<paragraphs.length;x++){
+	para = paragraphs[x]
+	para.style.color = "#000000"
+	// para.classList.add("darkmode_text")
+}
+for(var x=0;x<header1s.length;x++){
+	h1 = header1s[x]
+	h1.style.color = "#000000"
+	// para.classList.add("darkmode_text")
+}
+for(var x=0;x<links.length;x++){
+	link = links[x]
+	link.style.color = "#000000"
+	// para.classList.add("darkmode_text")
+}
+for(var x=0;x<labels.length;x++){
+	lab = labels[x]
+	lab.style.color = "#000000"
+	// para.classList.add("darkmode_text")
+}
+</script>
+
+<script>
 	function setCookie(cname, cvalue, exdays){
 	  const d = new Date();
 	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
