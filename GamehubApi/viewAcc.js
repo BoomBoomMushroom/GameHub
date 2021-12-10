@@ -100,7 +100,8 @@ function loader(){
     return "";
   }
   function getDarkmode(cookieName){
-  	if(getCookie(cookieName)==""){
+  	return true
+    if(getCookie(cookieName)==""){
     	return false
     }
     else{
