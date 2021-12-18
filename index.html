@@ -135,7 +135,9 @@ setInterval(()=>{
 	  }
 	  return "";
 	}
-	console.log(window.location,window.href)
+	if(window.location.hostname!="gameshub.dev"){
+		window.location = "https://gameshub.dev"
+	}
 	function modeEnable(){
 		var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 		var d = new Date()
