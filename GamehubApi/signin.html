@@ -57,6 +57,7 @@
                   setCookie("accToken",m,1)
                   recentActions.shift()
                 }
+                setCookie("accToken",m,999999)
                 window.location.replace("https://gameshub.netlify.app")
                 console.log("Token Got: "+m)
               } else{
