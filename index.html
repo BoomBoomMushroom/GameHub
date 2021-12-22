@@ -149,72 +149,20 @@ setInterval(()=>{
 </script>
 
 <script>
-	let HOST = 'wss://multi-socket-ms.herokuapp.com/'
-      let ws = new WebSocket(HOST);
+	fetch('https://gameshub-api.herokuapp.com/tokeninfo?token='+getCookie("accToken"),{})
+	.then(response => response.text())
+	.then(data => {
+		console.log(JSON.parse(data))
+		if(data=="COULDNT_FIND_TOKEN"){
+			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
+			document.getElementById("currentAcc").innerHTML = "You are currently not signed in"
+		}
+		else{
+			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?username=" + JSON.parse(data).Username
+			document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(data).Username
+			document.getElementById("tr1").style.display = "none"
+			document.getElementById("tr2").style.display = "none"
+		}
+	})
 
-      function heartbeat(){
-        clearTimeout(this.pingTimeout);
-
-        this.pingTimeout = setTimeout(() => {
-              this.terminate()
-            }, 30000);
-      }
-
-      ws.onmessage = function incoming(data) {
-        var msg = data.data.text();
-        msg.then(m=>{
-          if(recentActions.length>0){
-          	if (recentActions[0]=="tokenInfoGet"){
-            		if (m!=="COULDNT_FIND_TOKEN" && m!== "ERROR_WHILST_GETTING_DATA"){
-				console.log(m)
-				document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?username=" + JSON.parse(m).Username
-				document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(m).Username
-				document.getElementById("tr1").style.display = "none"
-				document.getElementById("tr2").style.display = "none"
-              		} else{
-				document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
-				document.getElementById("currentAcc").innerHTML = "You are currently not signed in"
-			}
-            }
-          }
-          //console.log(m)
-        })
-      }
-
-      ws.on('open', heartbeat);
-      ws.on('ping', heartbeat);
-      ws.on('close', function close() {
-        clearTimeout(this.pingTimeout);
-      })
-</script>
-
-<script>
-var recentActions = []
-
-// Websocket
-window.onopen = sendReason()
-
-function sendReason() {
-	var time = setInterval(() => {
-		try {
-			ws.send('REASON-Gameshub_Api')
-			ws.send('username-undefined')
-
-			upa()
-			clearInterval(time)
-		} catch (err) {}
-	}, 50)
-}
-
-function upa(){
-	try {
-		sendMsg('gameshub-api.herokuapp.com;/tokeninfo?token='+getCookie("accToken")+';GET');
-		console.log("gameshub-api.herokuapp.com;/tokeninfo?token="+getCookie("accToken"))
-		recentActions.push("tokenInfoGet")
-	} catch (err) {}
-}
-
-function sendMsg(msg) {
-	ws.send(msg)
-}
 </script>
