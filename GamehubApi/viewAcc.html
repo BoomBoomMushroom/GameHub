@@ -31,54 +31,14 @@
   font-size: 15px
 }
 </style>
-
-<script>
-      let HOST = 'wss://multi-socket-ms.herokuapp.com/'
-      let ws = new WebSocket(HOST);
-
-      function heartbeat(){
-        clearTimeout(this.pingTimeout);
-
-        this.pingTimeout = setTimeout(() => {
-              this.terminate()
-            }, 30000);
-      }
-
-      ws.onmessage = function incoming(data) {
-        var msg = data.data.text();
-        msg.then(m=>{
-          if(recentActions.length>0){
-          	if (recentActions[0]=="Signin"){
-            	if (m!=="INVALID_ACCOUNT_TOKEN"){
-                if(document.getElementById("rememberMe").checked===true){
-                  setCookie("accToken",m,365*10)
-                  recentActions.shift()
-                } else{
-                  setCookie("accToken",m,1)
-                  recentActions.shift()
-                }
-                console.log("Token Got: "+m)
-              } else{
-              	console.log(m)
-              	alert("Invailid Username or Password!")
-              }
-            }
-            else if(recentActions[0]=="getAcc"){
-            	// console.log("Signup message returned : "+m)
-              console.log(m)
-              loadData(m)
-              recentActions.shift()
-            }
-          }
-          //console.log(m)
-        })
-      }
-
-      ws.on('open', heartbeat);
-      ws.on('ping', heartbeat);
-      ws.on('close', function close() {
-        clearTimeout(this.pingTimeout);
-      })
-  </script>
-
 <script src="viewAcc.js"></script>
+<script>
+  if(firstVar.split("=")[0]=="username"){
+    fetch('https://gameshub-api.herokuapp.com/getaccount?username='+firstVar.split("=")[1],{})
+    .then(response => response.text())
+    .then(data => {
+      console.log(JSON.parse(data))
+      loadData(JSON.parse(data))
+    })
+  }
+</script>
