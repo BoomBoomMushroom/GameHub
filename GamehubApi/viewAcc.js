@@ -54,29 +54,8 @@ function loadData(m){
   }
 }
 
-var timer22 = setInterval(() => {
-  	try{
-    	if(ws.readyState==1){
-        recentActions = ["getAcc"]
-        setTimeout(function(){
-        	if(firstVar.split("=")[0]=="username"){
-        		ws.send("gameshub-api.herokuapp.com;/getaccount?username="+firstVar.split("=")[1]+";GET")
-          } else{
-          	// ws.send("gameshub-api.herokuapp.com;/getaccount?username=BBM;GET")
-          }
-        },50)
-        //ws.send("gameshub-api.herokuapp.com;/getaccount?username=dEx;GET")
-        clearInterval(timer22)
-      }
-    }
-    catch(err){}
-  },50)
-// End of Starter
-
-
 
 function loader(){
-	sendReason()
 
 	function setCookie(cname, cvalue, exdays){
     const d = new Date();
@@ -108,7 +87,7 @@ function loader(){
     	return true
     }
   }
-  darkmode = getDarkmode("theme")
+  darkmode = true // getDarkmode("theme")
   
   if(darkmode==true){
     var darkmodeColor = "#2C2F33"
@@ -120,24 +99,4 @@ function loader(){
       // para.classList.add("darkmode_text")
     }
   }
-}
-
-document.onload = loader()
-
-function sendReason(){
-	var time = setInterval(() => {
-  	try{
-    	ws.send('REASON-Gameshub_Api')
-      	ws.send('username-undefined')
-		ws.send("gameshub-api.herokuapp.com;/getaccount?username="+firstVar.split("=")[1]+";GET")
-      clearInterval(time)
-    }
-    catch(err){
-    	// console.log('ERROR',err)
-    }
-  },50)
-}
-
-function sendMsg(msg){
-	ws.send( msg )
 }
