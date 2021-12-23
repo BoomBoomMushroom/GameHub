@@ -23,56 +23,6 @@
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-      let HOST = 'wss://multi-socket-ms.herokuapp.com/'
-      let ws = new WebSocket(HOST);
-
-      function heartbeat(){
-        clearTimeout(this.pingTimeout);
-
-        this.pingTimeout = setTimeout(() => {
-              this.terminate()
-            }, 30000);
-      }
-
-      ws.onmessage = function incoming(data) {
-        var msg = data.data.text();
-        msg.then(m=>{
-          if(recentActions.length>0){
-          	if (recentActions[0]=="Signin"){
-            	if (m!=="INVALID_ACCOUNT_TOKEN"){
-                if(document.getElementById("rememberMe").checked===true){
-                  setCookie("accToken",m,365*10)
-                  recentActions.shift()
-                } else{
-                  setCookie("accToken",m,1)
-                  recentActions.shift()
-                }
-                window.location.replace("https://gameshub.netlify.app")
-                console.log("Token Got: "+m)
-              } else{
-              	console.log(m)
-              	alert("Invailid Username or Password!")
-              }
-            }
-            else if(recentActions[0]=="Signup"){
-            	console.log("Signup message returned : "+m)
-            	sendMsg('gameshub-api.herokuapp.com;/login?username='+inputUsername+'&password='+inputPassword+';GET');
-              console.log('gameshub-api.herokuapp.com;/login?username='+inputUsername+'&password='+inputPassword+';GET')
-              recentActions.shift()
-              recentActions.push("Signin")
-            }
-          }
-          //console.log(m)
-        })
-      }
-
-      ws.on('open', heartbeat);
-      ws.on('ping', heartbeat);
-      ws.on('close', function close() {
-        clearTimeout(this.pingTimeout);
-      })
-  </script>
 <style>
         body {
         background-color: #F3EBF6;
@@ -181,9 +131,7 @@
     }
 </style>
 
-    <script type="text/javascript">//<![CDATA[
-
-
+<script type="text/javascript">//<![CDATA[
 const usernameInput = document.getElementById("usernameInput")
 const passwordInput = document.getElementById("passwordInput")
 
@@ -194,9 +142,25 @@ function onSubmit() {
   inputUsername = usernameInput.value
   inputPassword = passwordInput.value
   if (inputUsername.length >= 3 && inputUsername.length <= 16 && inputPassword.length >= 8) {
-    sendMsg('gameshub-api.herokuapp.com;/signup?username=' + inputUsername + '&password=' + inputPassword + ';GET');
-    console.log('gameshub-api.herokuapp.com;/signup?username=' + inputUsername + '&password=' + inputPassword + ';GET')
-    recentActions.push("Signup")
+
+    fetch('https://gameshub-api.herokuapp.com/signup?username='+inputUsername+'&password='+inputPassword,{})
+		.then(response => response.text())
+		.then(data => {
+			console.log(JSON.parse(data))
+      fetch('https://gameshub-api.herokuapp.com/login?username='+inputUsername+'&password='+inputPassword,{})
+      .then(response => response.text())
+      .then(data => {
+        console.log(JSON.parse(data))
+        if(data!="INVALID_ACCOUNT_TOKEN" && data.startsWith("<!DOCTYPE html>") == false){
+          setCookie("accToken",data,365*10)
+          window.location.replace("https://gameshub.netlify.app")
+        }
+        else{
+          alert("Invailid Username or Password!")
+        }
+      })
+		})
+
   }
 }
 
@@ -222,25 +186,6 @@ function getCookie(cname) {
     }
   }
   return "";
-}
-
-// Websocket
-window.onopen = sendReason()
-
-function sendReason() {
-  var time = setInterval(() => {
-    try {
-      ws.send('REASON-Gameshub_Api')
-      ws.send('username-undefined')
-      clearInterval(time)
-    } catch (err) {
-      // console.log('ERROR',err)
-    }
-  }, 50)
-}
-
-function sendMsg(msg) {
-  ws.send(msg)
 }
 
 
