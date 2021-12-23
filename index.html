@@ -154,7 +154,7 @@ setInterval(()=>{
 	.then(response => response.text())
 	.then(data => {
 		console.log(JSON.parse(data))
-		if(JSON.parse(data)=="COULDNT_FIND_TOKEN"){
+		if(JSON.parse(data)=="COULDNT_FIND_TOKEN"||JSON.parse(data)=="INVALID_ACCOUNT_TOKEN"){
 			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
 			document.getElementById("currentAcc").innerHTML = "You are currently not signed in"
 			document.getElementById("logout").style.display = "none"
