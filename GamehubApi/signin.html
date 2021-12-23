@@ -57,6 +57,7 @@
           console.log(JSON.parse(data))
           if(data!="INVALID_ACCOUNT_TOKEN" && data.startsWith("<!DOCTYPE html>") == false){
             setCookie("accToken",JOSN.parse(data),365*10)
+            window.location.replace("https://gameshub.netlify.app")
           }
           else{
             alert("Invailid Username or Password!")
