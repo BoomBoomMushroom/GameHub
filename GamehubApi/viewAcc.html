@@ -33,7 +33,7 @@
 </style>
 <script src="viewAcc.js"></script>
 <script>
-  if(firstVar.split("=")[0]=="username"){
+  if(firstVar.split("=")[0]=="q"){
     fetch('https://gameshub-api.herokuapp.com/getaccount?username='+firstVar.split("=")[1],{})
     .then(response => response.text())
     .then(data => {
