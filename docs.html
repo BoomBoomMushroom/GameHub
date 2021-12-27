@@ -1,1 +1,80 @@
-<h1>Docs coming soon!</h1>
+<body style="background-color:#2C2F33">
+
+
+    <div id="accsearch" class="section">
+      <!-- Account Search -->
+      <h4>Account Search</h4>
+      <p>Url: https://gameshub-api.herokuapp.com/accsearch</p>
+      <p>Method: GET</p>
+      <p>Args: q</p>
+      <p>q: input query for search</p>
+      <p>Returns html page of accounts that usernams start with the query param</p>
+      <br>
+    </div>
+    
+    <div id="getaccount" class="section">
+      <!-- Account Search -->
+      <h4>Get Account</h4>
+      <p>Url: https://gameshub-api.herokuapp.com/getaccount</p>
+      <p>Method: GET</p>
+      <p>Args: username</p>
+      <p>username: username input</p>
+      <p>Returns json of user's account</p>
+      <br>
+    </div>
+    
+    <div id="logout" class="section">
+      <!-- Account Search -->
+      <h4>Logout</h4>
+      <p>Url: https://gameshub-api.herokuapp.com/logout</p>
+      <p>Method: POST</p>
+      <p>Args: token</p>
+      <p>token: account token to verify that you are in the account</p>
+      <p>Returns status code</p>
+      <br>
+    </div>
+    
+    <div id="login" class="section">
+      <!-- Account Search -->
+      <h4>Login</h4>
+      <p>Url: https://gameshub-api.herokuapp.com/login</p>
+      <p>Method: GET</p>
+      <p>Args: username, password</p>
+      <p>username: username input, password: password input</p>
+      <p>Returns token if successful else returns INVALID_ACCOUNT_TOKEN</p>
+      <br>
+    </div>
+    
+    <div id="delacc" class="section">
+      <!-- Account Search -->
+      <h4>Delete Account</h4>
+      <p>Url: https://gameshub-api.herokuapp.com/delacc</p>
+      <p>Method: POST</p>
+      <p>Args: token</p>
+      <p>token: token to verify account</p>
+      <p>Return status code</p>
+      <br>
+    </div>
+    
+    <div id="signup" class="section">
+      <!-- Account Search -->
+      <h4>Signup</h4>
+      <p>Url: https://gameshub-api.herokuapp.com/signup</p>
+      <p>Method: POST</p>
+      <p>Args: username, password</p>
+      <p>username: username to signup, password: password to signup with</p>
+      <p>Return status code aslong as if the username isn't taken and is within the correct length and password is within correct length</p>
+      <br>
+    </div>
+    
+    </body>
+    
+    <style>
+    p,
+    h1,
+    h2,
+    h3,
+    h4{
+      color: #F6F6F6
+    }
+    </style>
