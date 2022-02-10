@@ -6,6 +6,13 @@
 <br>
 <input id="exclude" placeholder="Excludes">
 <br>
+<br>
+<div style="border:1px solid black;">
+  <input id="2" placeholder="Second Letter">
+  <input id="3" placeholder="Third Letter">
+  <input id="4" placeholder="Fourth Letter">
+</div>
+
 <button onclick="calculate()">Get possible words</button>
 <p id="result"></p>
 
@@ -39,7 +46,7 @@ function calculate(){
   inExclude = stringToArray(document.getElementById("exclude").value.toLowerCase())
   document.getElementById("result").innerHTML = solveWithInfo(inStarts,inEnds,inContain,inExclude)
 }
-function solveWithInfo(starts,ends,contains,exclude){
+function solveWithInfo(starts,ends,contains,exclude,second,third,fourth){
 	starts = starts.toLowerCase()
   ends = ends.toLowerCase()
   
@@ -56,6 +63,9 @@ function solveWithInfo(starts,ends,contains,exclude){
     	return a.indexOf(v) == -1
     })
   })}
+  if(second!=""){workingWords = workingWords.filter(a=>a[1]==second)}
+  if(third!=""){workingWords = workingWords.filter(a=>a[2]==third)}
+  if(fourth!=""){workingWords = workingWords.filter(a=>a[3]==fourth)}
   return workingWords
 }
 </script>
