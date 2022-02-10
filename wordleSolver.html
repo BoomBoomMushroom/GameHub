@@ -44,7 +44,11 @@ function calculate(){
 	inEnds = document.getElementById("ends").value.toLowerCase()
 	inContain = stringToArray(document.getElementById("contains").value.toLowerCase())
   inExclude = stringToArray(document.getElementById("exclude").value.toLowerCase())
-  document.getElementById("result").innerHTML = solveWithInfo(inStarts,inEnds,inContain,inExclude)
+  s = document.getElementById("2").value.toLowerCase()
+  t = document.getElementById("3").value.toLowerCase()
+  f = document.getElementById("4").value.toLowerCase()
+  
+  document.getElementById("result").innerHTML = solveWithInfo(inStarts,inEnds,inContain,inExclude,s,t,f)
 }
 function solveWithInfo(starts,ends,contains,exclude,second,third,fourth){
 	starts = starts.toLowerCase()
