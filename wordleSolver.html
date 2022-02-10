@@ -15,19 +15,28 @@ const legalWords = ["cigar","rebut","sissy","humph","awake","blush","focal","eva
 <script>
 var input = ""
 
+function stringToArray(i){o=[];for(var x=0;x<i.length;x++){o.push(i[x]);}return o;}
+function checkContains(contains,word){
+	contain = true
+  contains.forEach(c=>{
+  	if(word.includes(c)){}
+    else{contain = false;}
+  })
+  return contain;
+}
+function checkExcludes(contains,word){
+	contain = true
+  contains.forEach(c=>{
+  	if(word.includes(c)){contain=false;}
+  })
+  return contain;
+}
+
 function calculate(){
 	inStarts = document.getElementById("starts").value.toLowerCase()
 	inEnds = document.getElementById("ends").value.toLowerCase()
-	inContain = []
-  inExclude = []
-  valX = document.getElementById("contains").value
-  for(var i=0;i<valX.length-1;i++){
-  	inContain.push(valX[i].toLowerCase())
-  }
-  valY = document.getElementById("exclude").value
-  for(var i=0;i<valY.length-1;i++){
-  	inExclude.push(valY[i].toLowerCase())
-  }
+	inContain = stringToArray(document.getElementById("contains").value.toLowerCase())
+  inExclude = stringToArray(document.getElementById("exclude").value.toLowerCase())
   document.getElementById("result").innerHTML = solveWithInfo(inStarts,inEnds,inContain,inExclude)
 }
 function solveWithInfo(starts,ends,contains,exclude){
@@ -37,8 +46,16 @@ function solveWithInfo(starts,ends,contains,exclude){
 	var workingWords = legalWords
   if(starts!=""){workingWords = workingWords.filter(a=>a.startsWith(starts))}
   if(ends!=""){workingWords = workingWords.filter(a=>a.endsWith(ends))}
-  if(contains!=[]){workingWords = workingWords.filter(a=>contains.every(item=>a.includes(item)))}
-  if(contains!=[]){workingWords = workingWords.filter(a=>exclude.every(item=>a.includes(item)==false))}
+  if(contains!=[]){workingWords = workingWords.filter(a=>{
+  	return contains.every(function(v){
+    	return a.indexOf(v) != -1
+    })
+  })}
+  if(exclude!=[]){workingWords = workingWords.filter(a=>{
+  	return exclude.every(function(v){
+    	return a.indexOf(v) == -1
+    })
+  })}
   return workingWords
 }
 </script>
