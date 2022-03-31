@@ -76,44 +76,102 @@
 
 <!-- Line break every 10 games -->
 
-<p>Single Player Games</p>
-<a href="https://gameshub.dev/snake"><button>Snake</button></a>
-<a href="https://pet-the-dog.netlify.app/"><button>Pet the Dog!</button></a>
-<a href="https://gameshub.dev/solarsystemsimulator"><button>Solar System Simulator</button></a>
-<a href="https://custom-programming-language-creator.netlify.app"><button>Custom Programming Language Crearor</button></a>
-<a href="https://gameshub.dev/market"><button>Market Simulator</button></a>
-<a href="https://gameshub.dev/monpoke"><button>Monpoke</button></a>
-<a href="http://gameshub.dev/pageCounter"><button>Page Counter</button></a>
-<a href="https://gameshub.dev/snakeAiBattle"><button>You v.s Snake AI</button></a>
-<a href="https://gameshub.dev/snakeEcosystem"><button>Snake based Ecosystem</button></a>
-<a href="https://gameshub.dev/existance"><button>Existance Simulator</button></a>
-<br>
-<a href="https://gameshub.dev/RaycastingTest"><button>Pseudo 3D World -- Raycasting Test</button></a>
-<a href='https://gameshub.dev/appleCollection'><button>The Apple Collection</button></a>
-<a href="http://gameshub.dev/pageCounter3D"><button>Page Counter 3D</button></a>
-<a href="http://gameshub.dev/stolenCode/pokemonEmulators"><button>Pokemon Emulator</button></a>
-<a href="http://gameshub.dev/cicada_rpg/index"><button>Cicada Collection</button></a>
-<a href="http://gameshub.dev/pixelArtMaker"><button>Pixel Art Maker</button></a>
-<a href="http://gameshub.dev/snake_ai-v2"><button>Snake AI 2</button></a>
-<a href="http://gameshub.dev/conways_game_of_life"><button>Conway's Game Of Life</button></a>
-<a href="https://gameshub.dev/LogicCreator"><button>Logic Gate Creator</button></a>
-<a href='https://gameshub.dev/SlayingSnowballs'><button>Slaying Snowballs</button></a>
-<br>
-<a href="https://gameshub.dev/wordle"><button>Wordle Copy Old</button></a>
-<a href='https://gameshub.dev/wordleNew'><button>Wordle Copy</button></a>
-<a href='https://gameshub.dev/wordleSolver'><button>Wordle Solver</button></a>
-<br>
-<p>Multiplayer Games</p>
-<a href='https://gameshub.dev/ExistanceSimulator1D'><button>Existance Simulator 1D - Multiplayer</button></a>
-<a href='https://gameshub.dev/existanceSimulator'><button>Existance Simulator 2D - Multiplayer</button></a>
-<a href='https://gameshub.dev/ExistanceSimulator3D'><button>Existance Simulator 3D - Multiplayer</button></a>
+<style>
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+
+<div class="dropdown" id="SinglePlayer">
+  <button class="dropbtn">Single Player Games</button>
+  <div class="dropdown-content">
+    <a href="https://gameshub.dev/snake">Snake</a>
+    <a href="https://pet-the-dog.netlify.app/">Pet the Dog!</a>
+    <a href="https://gameshub.dev/solarsystemsimulator">Solar System Simulator</a>
+    <a href="https://custom-programming-language-creator.netlify.app">Custom Programming Language Crearor</a>
+    <a href="https://gameshub.dev/market">Market Simulator</a>
+    <a href="https://gameshub.dev/monpoke">Monpoke</a>
+    <a href="http://gameshub.dev/pageCounter">Page Counter</a>
+    <a href="https://gameshub.dev/snakeAiBattle">You v.s Snake AI</a>
+    <a href="https://gameshub.dev/snakeEcosystem">Snake based Ecosystem</a>
+    <a href="https://gameshub.dev/existance">Existance Simulator</a>
+    <a href="https://gameshub.dev/RaycastingTest">Pseudo 3D World -- Raycasting Test</a>
+    <a href='https://gameshub.dev/appleCollection'>The Apple Collection</a>
+    <a href="http://gameshub.dev/pageCounter3D">Page Counter 3D</a>
+    <a href="http://gameshub.dev/stolenCode/pokemonEmulators">Pokemon Emulator</a>
+    <a href="http://gameshub.dev/cicada_rpg/index">Cicada Collection</a>
+    <a href="http://gameshub.dev/pixelArtMaker">Pixel Art Maker</a>
+    <a href="http://gameshub.dev/snake_ai-v2">Snake AI 2</a>
+    <a href="http://gameshub.dev/conways_game_of_life">Conway's Game Of Life</a>
+    <a href="https://gameshub.dev/LogicCreator">Logic Gate Creator</a>
+    <a href='https://gameshub.dev/SlayingSnowballs'>Slaying Snowballs</a>
+    <a href="https://gameshub.dev/wordle">Wordle Copy Old</a>
+    <a href='https://gameshub.dev/wordleNew'>Wordle Copy</a>
+    <a href='https://gameshub.dev/wordleSolver'>Wordle Solver</a>
+  </div>
+</div>
 
 <br>
-<p>Holiday Games</p>
+<br>
+
+<div class="dropdown" id="MultiPlayer">
+  <button class="dropbtn">Multiplayer Games</button>
+  <div class="dropdown-content">
+    <a href='https://gameshub.dev/ExistanceSimulator1D'>Existance Simulator 1D - Multiplayer</a>
+    <a href='https://gameshub.dev/existanceSimulator'>Existance Simulator 2D - Multiplayer</a>
+    <a href='https://gameshub.dev/ExistanceSimulator3D'>Existance Simulator 3D - Multiplayer</a>
+  </div>
+</div>
 
 <br>
-<p>Dev-Build // Testing Builds of games</p>
-<a href='https://gameshub.dev/movement3dTest'><button>THREE js movement build</button></a>
+<br>
+
+<div class="dropdown" id="HolidayGames">
+  <button class="dropbtn">Holiday Games</button>
+  <div class="dropdown-content">
+  </div>
+</div>
+
+<br>
+<br>
+
+<div class="dropdown" id="HolidayGames">
+  <button class="dropbtn">Dev-Build / Testing Builds of games</button>
+  <div class="dropdown-content">
+    <a href='https://gameshub.dev/movement3dTest'>THREE js movement build</a>
+  </div>
+</div>
 
 <br>
 <br>
