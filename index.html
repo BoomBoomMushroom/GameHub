@@ -242,7 +242,7 @@ setInterval(()=>{
 </script>
 
 <script>
-const konamiCode = "ab ab up down up down left right left right"
+const konamiCode = "ab ab up down up down left right left right".split(" ")
 const keycodes = {
 	"a": 65,
 	"b": 66,
@@ -251,8 +251,15 @@ const keycodes = {
 	"left": 37,
 	"right": 39,
 }
+var codeIndex = 0
 document.onkeydown = function(event){
-	alert(event.keyCode)
+	const keyCode = event.keyCode
+	var reqKeycode = keycodes[konamiCode[codeIndex]]
+	if(keyCode==reqKeycode){
+		codeIndex += 1
+	} else{
+		codeIndex = 0
+	}
 }
 </script>
 
