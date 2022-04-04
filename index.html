@@ -242,7 +242,7 @@ setInterval(()=>{
 </script>
 
 <script>
-const konamiCode = "ab ab up down up down left right left right".split(" ")
+const konamiCode = "a b a b up down up down left right left right".split(" ")
 const keycodes = {
 	"a": 65,
 	"b": 66,
@@ -255,6 +255,7 @@ var codeIndex = 0
 document.onkeydown = function(event){
 	const keyCode = event.keyCode
 	var reqKeycode = keycodes[konamiCode[codeIndex]]
+	if(codeIndex>=konamiCode.length-1){window.location.href = "https://gameshub.dev/pirate"}
 	if(keyCode==reqKeycode){
 		codeIndex += 1
 	} else{
