@@ -247,8 +247,9 @@ var seed = xmur3(wrldSeed)
 function r(e,max,min){
    return Math.floor(e * (max-min+1))+min
 }
-var outcome = r( mulberry32(seed())(), 2,1 )
+var outcome = r( mulberry32(seed())(), 3,1 )
 
 if(outcome==1){}
 else if(outcome==2){window.location.href="https://gameshub.dev/gunGame"}
+else if(outcome==3){window.location.href="https://gameshub.dev/place"}
 </script>
