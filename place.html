@@ -1,1 +1,191 @@
-<h1>Coming soon!</h1>
+<canvas id="warzone" width=300 height=300 style="border:1px solid black" onclick="paint()"></canvas>
+
+<h3 id="cords">(x , y)</h3>
+<div>
+  <h3 id="timer">Cooldown: m:ss</h3>
+  <input id="colorPicker" type="color">
+  <h3 id="signIn"> <a href="https://gameshub.dev/gamehubapi/signin">Sign in</a> or <a href="https://gameshub.dev/gamehubapi/signup">Sign up</a> to place colors!</h3>
+</div>
+
+<style>
+body{
+  overflow: hidden;
+  user-select: none;
+}
+#cords{
+  position: absolute;
+  left: 50%;
+  top: 0px;
+  user-select: none;
+}
+#timer{
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  display: none;
+  user-select: none;
+}
+#colorPicker{
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  display: none;
+  user-select: none;
+}
+#signIn{
+  position: absolute;
+  left: 30%;
+  bottom: 5%;
+  display: none;
+  user-select: none;
+}
+</style>
+
+<script src="https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/js_modules/HttpFetcher"></script>
+<script>
+let HOST = 'wss://GameshubPlaceSever.academyofcode1.repl.co'
+let ws = new WebSocket(HOST);
+let el;
+
+const c = warzone
+const ctx = c.getContext('2d')
+
+c.width = window.innerWidth
+c.height = window.innerHeight
+c.style.position = "absolute"
+c.style.left = "0px"
+c.style.top = "0px"
+
+window.game = {
+	map: [],
+  timeouts: {},
+  prevPos: {x:-1,y:-1},
+  currentColor: "#000000",
+  isNowUser: false,
+  username: ""
+}
+// window.httpAddon
+
+function setCookie(cname, cvalue, exdays){
+	const d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	let expires = "expires="+d.toUTCString();
+	document.cookie = cname+"="+cvalue+";"+expires+";path=/";
+}
+function getCookie(cname){
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+	for (let i=0; i<ca.length;i++){
+		let c = ca[i];
+	  while (c.charAt(0)==' '){
+      c = c.substring(1);
+    }
+		if(c.indexOf(name)==0){
+			return c.substring(name.length,c.length);
+			}
+		}
+	return "";
+}
+c.onmousemove = (e)=>{
+	var mouseCords = {x:e.clientX,y:e.clientY}
+  window.game.prevPos = mouseCords
+}
+
+setInterval(()=>{
+	// Updater by sending packet to get stuff back
+  try{
+  	ws.send("DemoPacketToUpdate")
+  } catch(err){}
+},1000)
+
+// Put all code up here, because for some reason it breaks down here
+
+function heartbeat(){
+	clearTimeout(this.pingTimeout);    
+	this.pingTimeout = setTimeout(() => {
+  	this.terminate()
+	}, 30000);
+}
+ws.onmessage = function incoming(data) {
+	var msg = data.data
+  var isJson = false
+  try{msg=JSON.parse(msg);isJson=true}catch(err){}
+  if(isJson){window.game.map=msg}
+  else if(msg=="isNowUser"){window.game.isNowUser=true}
+  else if(msg.startsWith("id-")){window.game.id = msg.split('-')[1]}
+  else if(msg.startsWith("timeout-")){
+  	msg = JSON.parse(msg.split('-')[1]);
+    isJson = true;
+    window.game.timeouts = msg;
+  }
+  else if(msg.startsWith("name-")){window.game.username = msg.split('-')[1];}
+  else{
+  	console.log(msg)
+  }
+  window.game.currentColor = colorPicker.value
+  
+  render(window.game.map)
+}
+ws.on('open', heartbeat);
+ws.on('ping', heartbeat);
+ws.on('close', function close() {
+	clearTimeout(this.pingTimeout);
+})
+
+function paint(){
+	var x = window.game.prevPos.x
+	var y = window.game.prevPos.y
+	var color = window.game.currentColor
+	ws.send(`packet-placeColor-${x}-${y}-${color}`)
+}
+function render(map){
+	window.scroll(0,0)
+	ctx.clearRect(0,0,c.width,c.height)
+  if(window.game.timeouts[ window.game.username ]!=null&&window.game.timeouts[ window.game.username ]!=0){
+  	var ms = window.game.timeouts[ window.game.username ] * 1000
+  	timer.innerText = "Cooldown: "+new Date(ms).toISOString().substr(11, 8).substr(4,5);
+		timer.style.display = "block"
+    signIn.style.display = "none"
+    colorPicker.style.display = "none"
+  } else{
+  	timer.style.display = "none"
+    if(window.game.isNowUser==false){
+    	signIn.style.display = "block"
+      colorPicker.style.display = "none"
+    } else{
+    	signIn.style.display = "none"
+      colorPicker.style.display = "block"
+    }
+  }
+  
+  var token = getCookie("accToken")
+  if(token!="" && window.game.isNowUser==false){
+  	ws.send("userLogin-"+token)
+  }
+  
+  var hasFilled = false
+  map.forEach(sector=>{
+  	if(sector!=null){
+      sector.forEach(section=>{
+      	try{
+          if(window.game.prevPos.x==section.x&&window.game.prevPos.y==section.y){
+            ctx.globalAlpha = .5
+            hasFilled = true
+          } else{
+            ctx.globalAlpha = 1
+          }
+          ctx.fillStyle = section.color
+          ctx.fillRect(section.x,section.y,1,1)
+        } catch(err){}
+      })
+    }
+  })
+  if(hasFilled==false){
+  	ctx.globalAlpha = .5
+  	ctx.fillStyle = "#c7c7c7"
+  	ctx.fillRect(window.game.prevPos.x,window.game.prevPos.y,1,1)
+  }
+  document.getElementById("cords").innerText = `(${window.game.prevPos.x} , ${window.game.prevPos.y})`
+}
+</script>
