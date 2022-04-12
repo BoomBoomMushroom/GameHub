@@ -130,22 +130,6 @@
 <br>
 <br>
 
-
-<p>Links</p>
-<a href='https://github.com/Academy-of-Code/GameHub'>Gameshub source code here</a>
-<br>
-<a disabled href='https://api.gameshub.dev'>API: api.gameshub.dev</a>
-<br>
-<a href="" id="currentAcc"></a>
-<br>
-<button id="logout" onclick="setCookie('accToken','',365*10);location.reload()" id="currentAcc">Logout</button>
-<br>
-<a id='tr1' href="https://gameshub.dev/gamehubapi/signup"><button id="signupButton" style="top:10px;right:10px;width:70px;">Signup</button></a>
-<br>
-<a id='tr2' href="https://gameshub.dev/gamehubapi/signin"><button id="loginButton" style="top:35px;right:10px;width:70px;">Log in</button></a>
-<br>
-<a id='tr3' href="https://gameshub.dev/gamehubapi/accsearch"><button id="accSearchButton" style="top:60px;right:10px;width:70px;">Search Accounts</button></a>
-
 <script>
 paragraphs = document.getElementsByTagName("p")
 header1s = document.getElementsByTagName("h1")
@@ -273,7 +257,6 @@ document.onkeydown = function(event){
 </style>
 
 <script src="https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/js_modules/HttpFetcher"></script>
-
 <script>
 document.onkeyup = keyUp;
 document.onkeydown = keyDown;
@@ -327,8 +310,32 @@ setInterval(()=>{
     render(window.game.playersArray)
     var bounds = {x:c.width,y:c.height}
     ws.send("packet-config-bounds-"+JSON.stringify(bounds))
+    if(getCookie("accToken")){
+    	ws.send("userLogin-"+getCookie("accToken"))
+    }
   }catch(err){}
 },100)
+function setCookie(cname, cvalue, exdays){
+	const d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	let expires = "expires="+d.toUTCString();
+	document.cookie = cname+"="+cvalue+";"+expires+";path=/";
+}
+function getCookie(cname){
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+	for (let i=0; i<ca.length;i++){
+		let c = ca[i];
+	  while (c.charAt(0)==' '){
+      c = c.substring(1);
+    }
+		if(c.indexOf(name)==0){
+			return c.substring(name.length,c.length);
+			}
+		}
+	return "";
+}
 function date(){
 	var t = Date()
   var ret = ""
