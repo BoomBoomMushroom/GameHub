@@ -234,7 +234,6 @@ setInterval(()=>{
   }
 </style>
 
-<script src="https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/js_modules/HttpFetcher"></script>
 <script>
 document.onkeyup = keyUp;
 document.onkeydown = keyDown;
@@ -262,6 +261,7 @@ c.style.top = "0px"
 
 window.game = {
 	playersArray: [],
+	ded: false,
 }
 // window.httpAddon
 
@@ -387,8 +387,9 @@ function render(players){
     	ctx.fillStyle = "#fcf803" // Yellow
     	ctx.fillRect(shot.x,shot.y,5,5)
     })
-    if(player.id==window.id && player.died){
+    if(player.id==window.id && player.died && window.game.ded==false){
     	eval(player.playerData.deathFunct)
+	window.game.ded = true
     }
     
     ctx.font = "10px Comic Sans MS";
