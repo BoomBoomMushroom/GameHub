@@ -1,0 +1,47 @@
+<h2>Gameshub Shop!</h2>
+
+<script>
+function httpFetchJSON(url,callback,onError){
+	fetch(url)
+  .then(response=>response.json())
+  .then(data=>callback(data))
+  .catch(error=>onError(error))
+}
+function httpFetchText(url,callback,onError){
+	fetch(url)
+  .then(response=>response.text())
+  .then(data=>callback(data))
+  .catch(error=>onError(error))
+}
+</script>
+<script>
+// https://Gameshub-API.academyofcode1.repl.co/getshop
+httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getshop',shopLoad,()=>{})
+
+function buy(id){
+	console.log("demo buying item with id of - "+id)
+  // https://Gameshub-API.academyofcode1.repl.co/getshop
+  httpFetchText('https://Gameshub-API.academyofcode1.repl.co/buy?id='+id,
+  (d)=>{
+  	console.log(d)
+  },
+  ()=>{})
+}
+function shopLoad(d){
+	console.log(d)
+  d.forEach(item=>{
+  	var itemPage = document.createElement("BUTTON")
+    itemPage.id = item.id
+    itemPage.addEventListener('click',()=>{buy(item.id);})
+    document.body.appendChild(itemPage)
+    
+    var itemName = document.createElement("H3")
+    itemName.innerText = item.name
+    itemPage.appendChild(itemName)
+    
+    var itemDesc = document.createElement("P")
+    itemDesc.innerText = item.description
+    itemPage.appendChild(itemDesc)
+  })
+}
+</script>
