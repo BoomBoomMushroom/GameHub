@@ -44,10 +44,10 @@ var account
 // https://Gameshub-API.academyofcode1.repl.co/getshop
 httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getshop',shopLoad,()=>{})
 
-httpFetchJSON('https://gameshub-api.herokuapp.com/tokeninfo?token='+getCookie('accTOken'),(d)=>{
-	alert(d)
+httpFetchJSON('https://gameshub-api.herokuapp.com/tokeninfo?token='+getCookie('accToken'),(d)=>{
+	console.log(d)
 	httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?username='+d.username,(x)=>{
-    		alert(x)
+    		console.log(x)
     		money.innerHTML = addCommas( x.GameshubData.Money )+"G"
   	},()=>{})
 },()=>{})
