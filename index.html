@@ -102,6 +102,9 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
 
 <p>Gameshub Server Stuff</p>
 <a href="https://gameshub.dev/GamehubApi/shop"><button>Gameshub Shop</button></a>
+<a href="https://gameshub.dev/gamehubapi/signup"><button id="signupButton">Signup</button></a>
+<a href="https://gameshub.dev/gamehubapi/signin"><button id="loginButton">Log in</button></a>
+<a href="https://gameshub.dev/gamehubapi/accsearch"><button id="accSearchButton">Search Accounts</button></a>
 
 <br>
 <br>
@@ -123,12 +126,6 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
 <a href="" id="currentAcc"></a>
 <br>
 <button id="logout" onclick="setCookie('accToken','',365*10);location.reload()" id="currentAcc">Logout</button>
-<br>
-<a id='tr1' href="https://gameshub.dev/gamehubapi/signup"><button id="signupButton" style="top:10px;right:10px;width:70px;">Signup</button></a>
-<br>
-<a id='tr2' href="https://gameshub.dev/gamehubapi/signin"><button id="loginButton" style="top:35px;right:10px;width:70px;">Log in</button></a>
-<br>
-<a id='tr3' href="https://gameshub.dev/gamehubapi/accsearch"><button id="accSearchButton" style="top:60px;right:10px;width:70px;">Search Accounts</button></a>
 
 <script>
 paragraphs = document.getElementsByTagName("p")
