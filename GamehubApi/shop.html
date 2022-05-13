@@ -47,9 +47,9 @@ httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getshop',shopLoad,()=
 httpFetchJSON('https://gameshub-api.herokuapp.com/tokeninfo?token='+getCookie('accToken'),(d)=>{
 	console.log(d)
 	httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?username='+d.Username,(x)=>{
-    		console.log(x)
-    		money.innerHTML = addCommas( x.GameshubData.Money )+"G"
-  	},()=>{})
+    console.log(x)
+    money.innerHTML = addCommas( x.GameshubData.Money )+"G"
+  },()=>{})
 },()=>{})
 
 function addCommas(x) {
@@ -64,7 +64,8 @@ function buy(id){
   // https://Gameshub-API.academyofcode1.repl.co/getshop
   httpFetchText('https://Gameshub-API.academyofcode1.repl.co/buy?id='+id+"&token="+token,
   (d)=>{
-  	console.log(d)
+  	alert(d)
+    window.reload()
   },
   ()=>{})
 }
