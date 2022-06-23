@@ -33,6 +33,7 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+    const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
     const usernameInput = document.getElementById("usernameInput")
     const passwordInput = document.getElementById("passwordInput")
 
@@ -51,7 +52,21 @@
       inputUsername = usernameInput.value
       inputPassword = passwordInput.value
       if(inputUsername.length >= 3 && inputUsername.length <= 16 && inputPassword.length > 7){
-        fetch('https://gameshub-api.herokuapp.com/login?username='+inputUsername+'&password='+inputPassword,{})
+        fetch(URL[0]+'/login?username='+inputUsername+'&password='+inputPassword,{})
+        .then(response => response.text())
+        .then(data => {
+          console.log(JSON.parse(data))
+          if(JSON.parse(data)!="INVALID_ACCOUNT_TOKEN" && data.startsWith("<!DOCTYPE html>") == false){
+            if(JSON.parse(data)!="INVALID_ACCOUNT_TOKEN"){
+              setCookie("accToken",JSON.parse(data),365*10)
+              window.location.replace("https://gameshub.netlify.app")
+            }
+          }
+          else{
+            alert("Invailid Username or Password!")
+          }
+        })
+        fetch(URL[1]+'/login?username='+inputUsername+'&password='+inputPassword,{})
         .then(response => response.text())
         .then(data => {
           console.log(JSON.parse(data))
