@@ -144,14 +144,14 @@ function loader(){
 <script>
   const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
   if(firstVar.split("=")[0]=="q"){
-    fetch(ULRS[0]+'/getaccount?username='+firstVar.split("=")[1],{})
+    fetch(URLS[0]+'/getaccount?username='+firstVar.split("=")[1],{})
     .then(response => response.text())
     .then(data => {
       // console.log(JSON.parse(data))
       loadData(data)
       //loadData(JSON.parse(data))
     })
-    fetch(ULRS[1]+'https://gameshub-api.herokuapp.com/getaccount?username='+firstVar.split("=")[1],{})
+    fetch(URLS[1]+'https://gameshub-api.herokuapp.com/getaccount?username='+firstVar.split("=")[1],{})
     .then(response => response.text())
     .then(data => {
       // console.log(JSON.parse(data))
