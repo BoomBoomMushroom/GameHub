@@ -195,7 +195,24 @@ setInterval(()=>{
 <script src="konami.js"></script>
 
 <script>
-	fetch('https://gameshub-api.herokuapp.com/tokeninfo?token='+getCookie("accToken"),{})
+	const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
+	fetch(URLS[0]+'/tokeninfo?token='+getCookie("accToken"),{})
+	.then(response => response.text())
+	.then(data => {
+		console.log(JSON.parse(data))
+		if(JSON.parse(data)=="COULDNT_FIND_TOKEN"){
+			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
+			document.getElementById("currentAcc").innerHTML = "You are currently not signed in"
+			document.getElementById("logout").style.display = "none"
+		}
+		else{
+			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).Username
+			document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(data).Username
+			document.getElementById("tr1").style.display = "none"
+			document.getElementById("tr2").style.display = "none"
+		}
+	})
+	fetch(URLS[1]+'/tokeninfo?token='+getCookie("accToken"),{})
 	.then(response => response.text())
 	.then(data => {
 		console.log(JSON.parse(data))
