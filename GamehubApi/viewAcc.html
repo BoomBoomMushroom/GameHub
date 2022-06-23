@@ -33,6 +33,7 @@
 }
 </style>
 <script>
+const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
 var recentActions = []
 
 // Starter
@@ -143,7 +144,14 @@ function loader(){
 </script>
 <script>
   if(firstVar.split("=")[0]=="q"){
-    fetch('https://gameshub-api.herokuapp.com/getaccount?username='+firstVar.split("=")[1],{})
+    fetch(ULRS[0]+'/getaccount?username='+firstVar.split("=")[1],{})
+    .then(response => response.text())
+    .then(data => {
+      // console.log(JSON.parse(data))
+      loadData(data)
+      //loadData(JSON.parse(data))
+    })
+    fetch(ULRS[1]+'https://gameshub-api.herokuapp.com/getaccount?username='+firstVar.split("=")[1],{})
     .then(response => response.text())
     .then(data => {
       // console.log(JSON.parse(data))
