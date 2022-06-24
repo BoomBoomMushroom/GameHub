@@ -52,20 +52,6 @@
       inputUsername = usernameInput.value
       inputPassword = passwordInput.value
       if(inputUsername.length >= 3 && inputUsername.length <= 16 && inputPassword.length > 7){
-        fetch(URL[0]+'/login?username='+inputUsername+'&password='+inputPassword,{})
-        .then(response => response.text())
-        .then(data => {
-          console.log(JSON.parse(data))
-          if(JSON.parse(data)!="INVALID_ACCOUNT_TOKEN" && data.startsWith("<!DOCTYPE html>") == false){
-            if(JSON.parse(data)!="INVALID_ACCOUNT_TOKEN"){
-              setCookie("accToken",JSON.parse(data),365*10)
-              window.location.replace("https://gameshub.netlify.app")
-            }
-          }
-          else{
-            alert("Invailid Username or Password!")
-          }
-        })
         fetch(URL[1]+'/login?username='+inputUsername+'&password='+inputPassword,{})
         .then(response => response.text())
         .then(data => {
