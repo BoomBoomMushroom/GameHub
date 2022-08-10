@@ -86,7 +86,7 @@
         const output = document.getElementById('chatDiv');
         var ele = document.createElement('P');
         //ele.innerHTML = new Date().toTimeString().split(' ')[0]+" "+name+": "+msg;
-        ele.innerText = msg
+        ele.innerText = new Date().toTimeString().split(' ')[0] + msg
         ele.style.wordWrap = 'break-word'
         output.appendChild(ele);
       }
