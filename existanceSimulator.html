@@ -31,7 +31,7 @@
           ws.send('ADMIN-KICK-'+targetId)
         }
         else{
-          addChat(msg.split('-')[1], msg.split('-')[0])
+          addChat(msg)
         }
         if(enterName===false){
         	var name = window.prompt('Please enter your name!');
@@ -82,20 +82,13 @@
         }
         ctx.fillRect(x,y,pixelSize,pixelSize)
       }
-      function addChat(msg,name){
+      function addChat(msg){
         const output = document.getElementById('chatDiv');
-        if(name){
-          var ele = document.createElement('P');
-          ele.innerHTML = new Date().toTimeString().split(' ')[0]+" "+name+": "+msg;
-          ele.style.wordWrap = 'break-word'
-          output.appendChild(ele);
-        }
-        else{
-          var ele = document.createElement('P');
-          ele.innerHTML = new Date().toTimeString().split(' ')[0]+" UNKNOWN: "+msg;
-          ele.style.wordWrap = 'break-word';
-          output.appendChild(ele);
-        }
+        var ele = document.createElement('P');
+        //ele.innerHTML = new Date().toTimeString().split(' ')[0]+" "+name+": "+msg;
+        ele.innerText = msg
+        ele.style.wordWrap = 'break-word'
+        output.appendChild(ele);
       }
       function sendMsg(){
       	if(document.getElementById("msgInput").value!==""){
