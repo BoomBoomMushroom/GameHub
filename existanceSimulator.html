@@ -92,7 +92,7 @@
       }
       function sendMsg(){
       	if(document.getElementById("msgInput").value!==""){
-        	ws.send("CHAT"+document.getElementById("msgInput").value);
+        	ws.send("CHAT-"+document.getElementById("msgInput").value);
           document.getElementById("msgInput").value="";
         }
       }
