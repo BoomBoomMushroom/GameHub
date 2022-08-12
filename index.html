@@ -387,12 +387,11 @@ setInterval(()=>{
   httpFetchJSON("https://gameshub-api.academyofcode1.repl.co/getannouncement",(data)=>{
   	var currentEpoch = Math.ceil(Date.now()/1000)
     var lastAnnouncement = parseInt(getCookie("lastAnnouncement"))
-    alert("demo thing")
     if(isNaN(lastAnnouncement)){
 	setCookie("lastAnnouncement","0",365*20)
       showAnnouncement(data)
     }
-    else if(data.timestamp >= lastAnnouncement){
+    else if(data.timestamp != lastAnnouncement){
 	showAnnouncement(data)
     }
   })
