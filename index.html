@@ -197,7 +197,7 @@ setInterval(()=>{
 	}
 </script>
 
-<script src="konami.js"></script>
+<script src="./konami.js"></script>
 
 <script>
 	const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
@@ -235,8 +235,9 @@ setInterval(()=>{
 	})
 </script>
 
+<!--
 <script id="announcementMaker">
-	function setCookie(cname, cvalue, exdays){
+  	function setCookie(cname, cvalue, exdays){
 	  const d = new Date();
 	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
 	  let expires = "expires="+d.toUTCString();
@@ -261,7 +262,7 @@ setInterval(()=>{
   async function validateAccount(c){
     const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
     
-   	var token = getCookie("accToken")
+    var token = getCookie("accToken")
     
     var r=await fetch(URLS[1]+'/tokeninfo?token='+token,{})
     .then(response => response.text())
@@ -346,6 +347,7 @@ setInterval(()=>{
     }
   }
 </script>
+-->
 
 <script id="showAnnoucnement">
 	function setCookie(cname, cvalue, exdays){
