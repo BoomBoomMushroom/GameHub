@@ -8,7 +8,9 @@ const keycodes = {
 	"right": 39,
 }
 var codeIndex = 0
+var f = document.onkeydown
 document.onkeydown = function(event){
+	f()
 	const keyCode = event.keyCode
 	var reqKeycode = keycodes[konamiCode[codeIndex]]
 	if(codeIndex>=konamiCode.length-1){window.location.href = "https://gameshub.dev/pirate"}
