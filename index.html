@@ -411,7 +411,9 @@ setInterval(()=>{
     "ENTER": 13,
   }
   var codeIndex2 = 0
+  var f = document.onkeydown
   document.onkeydown = function(event){
+    f()
     const keyCode = event.keyCode
     //console.log(keyCode)
     var reqKeycode = keycodes2[code[codeIndex2]]
