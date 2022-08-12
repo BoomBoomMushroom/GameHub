@@ -296,7 +296,7 @@ setInterval(()=>{
   }
 
   function f(){
-    console.log("Code entered now checking accout!")
+    alert("Code entered now checking accout!")
 
     // Validate Token
     validateAccount(contin)
@@ -326,24 +326,24 @@ setInterval(()=>{
     }
   }
 
-  const konamiCode = "W A S D ENTER".split(" ")
-  const keycodes = {
+  const code = "W A S D ENTER".split(" ")
+  const keycodes2 = {
     "W": 87,
     "A": 65,
     "S": 83,
     "D": 68,
     "ENTER": 13,
   }
-  var codeIndex = 0
+  var codeIndex2 = 0
   document.onkeydown = function(event){
     const keyCode = event.keyCode
     //console.log(keyCode)
-    var reqKeycode = keycodes[konamiCode[codeIndex]]
-    if(codeIndex>=konamiCode.length-1){f()}
+    var reqKeycode = keycodes2[code[codeIndex2]]
+    if(codeIndex2>=code.length-1){f()}
     if(keyCode==reqKeycode){
-      codeIndex += 1
+      codeIndex2 += 1
     } else{
-      codeIndex = 0
+      codeIndex2 = 0
     }
   }
 </script>
