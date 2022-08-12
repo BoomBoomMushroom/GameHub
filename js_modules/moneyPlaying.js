@@ -4,7 +4,9 @@ function getCookie(name) {
 	if (parts.length===2) return parts.pop().split(';').shift();
 }
 
+var f = document.onkeypress
 document.onkeypress = function (e) {
+  f()
   e = e || window.event
   window.previousKeyEpoch = Math.ceil(Date.now()/1000)
 }
