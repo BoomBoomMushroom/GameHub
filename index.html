@@ -347,7 +347,7 @@ setInterval(()=>{
   }
 </script>
 
-<script id="showANnoucnement">
+<script id="showAnnoucnement">
 	function setCookie(cname, cvalue, exdays){
 	  const d = new Date();
 	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -385,7 +385,7 @@ setInterval(()=>{
   httpFetchJSON("https://gameshub-api.academyofcode1.repl.co/getannouncement",(data)=>{
   	var currentEpoch = Math.ceil(Date.now()/1000)
     var lastAnnouncement = parseInt(getCookie("lastAnnouncement"))
-    if(lastAnnouncement==NaN){
+    if(isNan(lastAnnouncement)){
     	setCookie("lastAnnouncement","0",365*20)
       showAnnouncement(data)
     }
