@@ -35,6 +35,82 @@
 </ad>
 -->
 
+<div id="globalChat">
+  <script>
+	let HOST = 'wss://GameshubGlobalChat.academyofcode1.repl.co'
+	// https://replit.com/@AcademyofCode1/GameshubGlobalCHat
+  let ws = new WebSocket(HOST);
+  let el;
+
+  function heartbeat(){
+  	clearTimeout(this.pingTimeout);
+        
+    this.pingTimeout = setTimeout(() => {
+    	this.terminate()
+    }, 30000);
+	}
+      
+  var enterName = false
+  ws.onmessage = function incoming(data) {
+  	var msg = data.data
+    addChat(msg)
+	}
+      
+  ws.on('open', heartbeat);
+  ws.on('ping', heartbeat);
+  ws.on('close', function close() {
+  	clearTimeout(this.pingTimeout);
+	})
+	</script>
+  <style>
+    #chatDiv{ position: absolute; border: 1px solid black; top: 40%; right: 1%; height: 50%; width: 50%; overflow: auto; }
+    #msgInput{ position: absolute; right: 20%; bottom: 1%; }
+    #sendMsg{ position: absolute; right: 1%; bottom: 1%; }
+  </style>
+
+  <div class='chat' id="chatDiv"></div>
+    
+  <input class='chat' id="msgInput" placeholder='Type your message here...'>
+  <button class='chat' id="sendMsg" onclick='sendMsg()'>Send Message</button>
+  <script>
+    function addChat(msg){
+      const output = document.getElementById('chatDiv');
+      var ele = document.createElement('P');
+      ele.innerText = new Date().toTimeString().split(' ')[0] + " " + msg
+      ele.style.wordWrap = 'break-word'
+      output.appendChild(ele);
+    }
+    function sendMsg(){
+      if(document.getElementById("msgInput").value!=""){
+        ws.send("CHAT-"+document.getElementById("msgInput").value);
+        document.getElementById("msgInput").value="";
+      }
+    }
+    document.onkeypress = function (e) {
+      e = e || window.event
+      if(e.keyCode == 13){
+        sendMsg();
+      }
+    }
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length===2) return parts.pop().split(';').shift();
+    }
+
+    var a = setInterval(()=>{
+      if(ws.readyState==ws.OPEN){
+        var cookie = getCookie("accToken")
+        if(cookie!=undefined){
+          ws.send("token-"+cookie)
+          clearInterval(a)
+        }
+      }
+    },10)
+  </script>
+</div>
+
 <style>
 	body{
 		background-image: url("https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background.png");
