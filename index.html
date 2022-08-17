@@ -454,7 +454,6 @@ function getCookie(name) {
 }
 
 moneyGetKey = function (e) {
-  f()
   e = e || window.event
   window.previousKeyEpoch = Math.ceil(Date.now()/1000)
 }
@@ -469,7 +468,7 @@ function httpFetchText(url,callback,onError){
 var i = setInterval(()=>{
 	var currentEpoch = Math.ceil(Date.now()/1000)
   if(currentEpoch - window.previousKeyEpoch <= 1000*60*2){
-  	var token = "0hlaR5U6dzSyRfU1"//getCookie("accToken")
+  	var token = getCookie("accToken")
     if(token == undefined) return
   	var coinUrl = "https://gameshub-api.academyofcode1.repl.co/awardmoney?token="+token+"&amount=10"
     httpFetchText(coinUrl,(data)=>{
