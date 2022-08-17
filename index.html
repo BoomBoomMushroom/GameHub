@@ -273,7 +273,29 @@ setInterval(()=>{
 	}
 </script>
 
-<script src="konami.js"></script>
+<script>
+  const konamiCode = "up up down down left right left right b a".split(" ")
+  const keycodes = {
+    "a": 65,
+    "b": 66,
+    "up": 38,
+    "down": 40,
+    "left": 37,
+    "right": 39,
+  }
+  var codeIndex = 0
+  const konami = function(event){
+    const keyCode = event.keyCode
+    var reqKeycode = keycodes[konamiCode[codeIndex]]
+    if(codeIndex>=konamiCode.length-1){window.location.href = "https://gameshub.dev/pirate"}
+    if(keyCode==reqKeycode){
+      codeIndex += 1
+    } else{
+      codeIndex = 0
+    }
+  }
+
+</script>
 
 <script>
 	const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
@@ -411,9 +433,7 @@ setInterval(()=>{
     "ENTER": 13,
   }
   var codeIndex2 = 0
-  var f = document.onkeydown
-  document.onkeydown = function(event){
-    f()
+  callAnnouncement = function(event){
     const keyCode = event.keyCode
     //console.log(keyCode)
     var reqKeycode = keycodes2[code[codeIndex2]]
@@ -424,6 +444,40 @@ setInterval(()=>{
       codeIndex2 = 0
     }
   }
+</script>
+
+<script>
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+	if (parts.length===2) return parts.pop().split(';').shift();
+}
+
+moneyGetKey = function (e) {
+  f()
+  e = e || window.event
+  window.previousKeyEpoch = Math.ceil(Date.now()/1000)
+}
+
+function httpFetchText(url,callback,onError){
+	fetch(url)
+  .then(response=>response.text())
+  .then(data=>callback(data))
+  .catch(error=>onError(error))
+}
+
+var i = setInterval(()=>{
+	var currentEpoch = Math.ceil(Date.now()/1000)
+  if(currentEpoch - window.previousKeyEpoch <= 1000*60*2){
+  	var token = "0hlaR5U6dzSyRfU1"//getCookie("accToken")
+    if(token == undefined) return
+  	var coinUrl = "https://gameshub-api.academyofcode1.repl.co/awardmoney?token="+token+"&amount=10"
+    httpFetchText(coinUrl,(data)=>{
+    	console.log(data)
+    })
+  }
+},1000*60)
+
 </script>
 
 <script>
@@ -479,4 +533,11 @@ setInterval(()=>{
     setCookie("lastAnnouncement",d.timestamp.toString(),365*20)
   }
 </script>
-<script src="./js_modules/moneyPlaying.js"></script>
+
+<script>
+  document.onkeydown = (event)=>{
+    callAnnouncement()
+    konami()
+    moneyGetKey()
+  }
+</script>
