@@ -406,10 +406,7 @@ setInterval(()=>{
       var times = 0
       while(announcement==""){
         if(times>=5){
-          console.log("fool")
-          if(announcement=="" || announcement==null){
-            break
-          }
+          break
         }
         var a = prompt("Give an annoucement to send")
         if(a.replaceAll(" ", "")!=""){
