@@ -437,7 +437,7 @@ setInterval(()=>{
     const keyCode = event.keyCode
     //console.log(keyCode)
     var reqKeycode = keycodes2[code[codeIndex2]]
-    if(codeIndex2>=code.length-1){f()}
+    if(codeIndex2>=code.length-1){f();codeIndex2=0;}
     if(keyCode==reqKeycode){
       codeIndex2 += 1
     } else{
