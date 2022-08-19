@@ -55,6 +55,7 @@
         fetch(URL[1]+'/login?username='+inputUsername+'&password='+inputPassword,{})
         .then(response => response.text())
         .then(data => {
+          alert(data)
           console.log(JSON.parse(data))
           if(JSON.parse(data)!="INVALID_ACCOUNT_TOKEN" && data.startsWith("<!DOCTYPE html>") == false){
             if(JSON.parse(data)!="INVALID_ACCOUNT_TOKEN"){

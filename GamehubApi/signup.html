@@ -151,6 +151,7 @@ function onSubmit() {
       fetch(URL[0]+'/login?username='+inputUsername+'&password='+inputPassword,{})
       .then(response => response.text())
       .then(data => {
+        alert(data)
         console.log(JSON.parse(data))
         if(data!="INVALID_ACCOUNT_TOKEN" && data.startsWith("<!DOCTYPE html>") == false){
           setCookie("accToken",JSON.parse(data),365*10)
