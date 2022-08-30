@@ -217,8 +217,8 @@ update=()=>{
     rule(getColor(r[0]),getColor(r[1]),r[2])
   }
   
-	m.clearRect(0,0,500,500)
-  draw(0,0,"black",500)
+	m.clearRect(0,0,width,height)
+  draw(0,0,"black",width*height)
   for(var i=0;i<particles.length;i++){
   	draw(particles[i].x,particles[i].y,particles[i].color,5)
   }
