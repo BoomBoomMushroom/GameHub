@@ -1,37 +1,3 @@
-
-<img id="pfp" src="" style="border:1px solid black;background-color:white;border-radius:10%;" width=150 height=150>
-<p id="accountUsername">{USERNAME}</p>
-<em><p id="accountUUID">{UUID}</p></em>
-
-<br>
-
-<div id="accountbadges">
-  <p id="badgesHeader" style="display:none;">Badges:</p>
-</div>
-
-<div id="accountFriends">
-  <p id="friendsHeader" style="display:none;">Friends:</p>
-</div>
-
-<div id="accountAdvancements">
-  <p id="advancementsHeader" style="display:none;">Advancements:</p>
-</div>
-
-<style>
-.darkmode_text{
-  color: white
-}
-.darkmode_body{
-  background: "#2C2F33"
-}
-
-#accountUsername{
-  font-size: 20px
-}
-#accountUUID{
-  font-size: 15px
-}
-</style>
 <script>
 var recentActions = []
 
@@ -142,15 +108,16 @@ function loader(){
 }
 </script>
 <script>
+  const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
   if(firstVar.split("=")[0]=="q"){
-    fetch('https://Gameshub-API.academyofcode1.repl.co/getaccount?username='+firstVar.split("=")[1],{})
+    fetch(URLS[0]+'/getaccount?username='+firstVar.split("=")[1],{})
     .then(response => response.text())
     .then(data => {
       // console.log(JSON.parse(data))
       loadData(data)
       //loadData(JSON.parse(data))
     })
-    fetch('https://Gameshub-API.academyofcode1.repl.co/getaccount?username='+firstVar.split("=")[1],{})
+    fetch(URLS[1]+'/getaccount?username='+firstVar.split("=")[1],{})
     .then(response => response.text())
     .then(data => {
       // console.log(JSON.parse(data))
