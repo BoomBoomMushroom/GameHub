@@ -39,23 +39,14 @@ function httpFetchText(url,callback,onError){
 	}
 </script>
 <script>
-const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
 var account
 
 // https://Gameshub-API.academyofcode1.repl.co/getshop
-httpFetchJSON(URLS[0]+'/getshop',shopLoad,()=>{})
-httpFetchJSON(URLS[1]+'/getshop',shopLoad,()=>{})
+httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getshop',shopLoad,()=>{})
 
-httpFetchJSON(URLS[0]+'/tokeninfo?token='+getCookie('accToken'),(d)=>{
+httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
 	console.log(d)
-	httpFetchJSON(URLS[0]+'/getaccount?username='+d.Username,(x)=>{
-    console.log(x)
-    money.innerHTML = addCommas( x.GameshubData.Money )+"G"
-  },()=>{})
-},()=>{})
-httpFetchJSON(URLS[1]+'/tokeninfo?token='+getCookie('accToken'),(d)=>{
-	console.log(d)
-	httpFetchJSON(URLS[1]+'/getaccount?username='+d.Username,(x)=>{
+	httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?username='+d.Username,(x)=>{
     console.log(x)
     money.innerHTML = addCommas( x.GameshubData.Money )+"G"
   },()=>{})
@@ -71,13 +62,7 @@ function buy(id){
 	console.log("demo buying item with id of - "+id)
   var token = getCookie("accToken")
   // https://Gameshub-API.academyofcode1.repl.co/getshop
-  httpFetchText(URLS[0]+'/buy?id='+id+"&token="+token,
-  (d)=>{
-  	alert(d)
-    window.reload()
-  },
-  ()=>{})
-  httpFetchText(URLS[1]+'/buy?id='+id+"&token="+token,
+  httpFetchText('https://Gameshub-API.academyofcode1.repl.co/buy?id='+id+"&token="+token,
   (d)=>{
   	alert(d)
     window.reload()
