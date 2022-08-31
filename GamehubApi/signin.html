@@ -51,7 +51,7 @@
     function onSubmit(token){
       inputUsername = usernameInput.value
       inputPassword = passwordInput.value
-      if(inputUsername.length >= 3 && inputUsername.length <= 16 && inputPassword.length > 7){
+      if(inputUsername.length >= 3 && inputUsername.length <= 16 && inputPassword.length >= 8){
         fetch(URL[1]+'/login?username='+inputUsername+'&password='+inputPassword,{})
         .then(response => response.text())
         .then(data => {
@@ -67,6 +67,9 @@
             alert("Invailid Username or Password!")
           }
         })
+      }
+      else{
+        alert("Username must be within 3-16 charaters and password must be at lest 8 charaters")
       }
     }
 
