@@ -1,0 +1,145 @@
+<span>Settings for <strong id="usernameTitle">???</strong></span>
+
+<br>
+<br>
+
+<div id="deleteAccountPopup" class="popup">
+  <center style="color:#ff4444">
+    <p>Are you sure you want to delete your account?</p>
+    <p>This action <strong>CANNOT</strong> be undone!</p>
+  </center>
+  <div class="text-right">
+    <center>
+      <button class="btn btn-cancel" onclick='document.getElementById("deleteAccountPopup").style.display = "none"'>Cancel</button>
+      <button class="btn btn-primary" onclick="deleteAccount()">Ok</button>
+    </center>
+  </div>
+</div>
+
+<div id="changeNamePopup" class="popup">
+  <center>
+    <lable for="nameInput">Change username</lable>
+    <input id="nameInput" maxlength="16">
+  </center>
+  <br>
+  <div class="text-right">
+    <center>
+      <button class="btn btn-cancel" onclick='document.getElementById("changeNamePopup").style.display = "none"'>Cancel</button>
+      <button class="btn btn-primary" onclick="changeName()">Change</button>
+    </center>
+  </div>
+</div>
+
+<div id="changePasswordPopup" class="popup">
+  <center>
+    <lable for="passwordInput">Change password</lable>
+    <input type="password" id="passwordInput">
+  </center>
+  <br>
+  <div class="text-right">
+    <center>
+      <button class="btn btn-cancel" onclick='document.getElementById("changePasswordPopup").style.display = "none"'>Cancel</button>
+      <button class="btn btn-primary" onclick="changePassword()">Change</button>
+    </center>
+  </div>
+</div>
+
+
+<button onclick='document.getElementById("changeNamePopup").style.display = "block"'>Change Username</button>
+<br>
+<button onclick='document.getElementById("changePasswordPopup").style.display = "block"'>Change Password</button>
+<br>
+<button style="color:red" onclick='document.getElementById("deleteAccountPopup").style.display = "block"'>Delete Account</button>
+
+<style>
+.popup {
+  display: none;
+  width: 33.333333%;
+  padding: 15px;
+  left: 0;
+  margin-left: 33.333333%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #333333;
+  color: white;
+  position: absolute;
+  top: 15%;
+  z-index: 10001;
+}
+</style>
+
+<script>
+var isLoading = true
+
+function getCookie(cname){
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+	for (let i=0; i<ca.length;i++){
+    let c = ca[i];
+		while (c.charAt(0)==' '){
+    	c = c.substring(1);
+    }
+		if(c.indexOf(name)==0){
+    	return c.substring(name.length,c.length);
+  	}
+  }
+	return "";
+}
+
+const token = getCookie("accToken")
+
+function changeName(){
+	fetch('https://Gameshub-API.academyofcode1.repl.co/changename?token='+token+"&name="+document.getElementById("nameInput").value,{})
+  .then(response => response.text())
+  .then(data => {
+    const d = JSON.parse(data)
+    console.log(d)
+    alert(d)
+    if(d=="UPDATED_USERNAME"){
+    	window.location.reload()
+    }
+  })
+  document.getElementById("changeNamePopup").style.display = "none"
+}
+function changePassword(){
+	fetch('https://Gameshub-API.academyofcode1.repl.co/changepassword?token='+token+"&password="+document.getElementById("passwordInput").value,{})
+  .then(response => response.text())
+  .then(data => {
+    const d = JSON.parse(data)
+    console.log(d)
+    alert(d)
+    if(d=="UPDATED_PASSWORD"){
+    	window.location.reload()
+    }
+  })
+  document.getElementById("changePasswordPopup").style.display = "none"
+}
+function deleteAccount(){
+	fetch('https://Gameshub-API.academyofcode1.repl.co/delacc?token='+token,{})
+  .then(response => response.text())
+  .then(data => {
+    const d = JSON.parse(data)
+    console.log(d)
+    alert(d)
+    window.location.reload()
+  })
+  document.getElementById("deleteAccountPopup").style.display = "none"
+}
+
+fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+token,{})
+.then(response => response.text())
+.then(data => {
+	const d = JSON.parse(data)
+	console.log(d)
+  if(d=="COULDNT_FIND_TOKEN"){
+  	document.body.innerHTML = ""
+    document.body.style.backgroundColor = "#333333"
+    document.body.innerHTML += "<center style='color:white'>Sorry but there was a problem loading you account! Please check if you're signed in.<center>"
+    return
+  }
+  document.getElementById("usernameTitle").innerText = d.Username
+  
+  isLoading = false
+})
+</script>
