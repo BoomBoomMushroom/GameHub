@@ -301,8 +301,7 @@ setInterval(()=>{
 </script>
 
 <script>
-	const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
-	fetch(URLS[0]+'/tokeninfo?token='+getCookie("accToken"),{})
+	fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie("accToken"),{})
 	.then(response => response.text())
 	.then(data => {
 		console.log(JSON.parse(data))
@@ -315,22 +314,6 @@ setInterval(()=>{
 			//document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).Username
 			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/accSettings"
       document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(data).Username
-			document.getElementById("tr1").style.display = "none"
-			document.getElementById("tr2").style.display = "none"
-		}
-	})
-	fetch(URLS[1]+'/tokeninfo?token='+getCookie("accToken"),{})
-	.then(response => response.text())
-	.then(data => {
-		console.log(JSON.parse(data))
-		if(JSON.parse(data)=="COULDNT_FIND_TOKEN"){
-			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
-			document.getElementById("currentAcc").innerHTML = "You are currently not signed in"
-			document.getElementById("logout").style.display = "none"
-		}
-		else{
-			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).Username
-			document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(data).Username
 			document.getElementById("tr1").style.display = "none"
 			document.getElementById("tr2").style.display = "none"
 		}
@@ -361,12 +344,10 @@ setInterval(()=>{
 	  return "";
 	}
   
-  async function validateAccount(c){
-    const URLS = ["https://gameshub-api.herokuapp.com","https://Gameshub-API.academyofcode1.repl.co"]
-    
+  async function validateAccount(c){    
     var token = getCookie("accToken")
     
-    var r=await fetch(URLS[1]+'/tokeninfo?token='+token,{})
+    var r=await fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+token,{})
     .then(response => response.text())
     .then(data => {
       //console.log(JSON.parse(data))
