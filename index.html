@@ -312,8 +312,9 @@ setInterval(()=>{
 			document.getElementById("logout").style.display = "none"
 		}
 		else{
-			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).Username
-			document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(data).Username
+			//document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).Username
+			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/accSettings"
+      document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(data).Username
 			document.getElementById("tr1").style.display = "none"
 			document.getElementById("tr2").style.display = "none"
 		}
