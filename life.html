@@ -98,6 +98,7 @@ document.getElementById("life").width = width
 document.getElementById("life").height = height
 
 const rules = []
+const ld_rules = []
 
 m=document.getElementById("life").getContext("2d")
 
@@ -150,6 +151,45 @@ rule=(particles1,particles2,g)=>{
 	}
 }
 
+function isCollide(a, b) {
+    if (a.x + 5 >= b.x &&    // r1 right edge past r2 left
+      a.x <= b.x + 5 &&    // r1 left edge past r2 right
+      a.y + 5 >= b.y &&    // r1 top edge past r2 bottom
+      a.y <= b.y + 5) {    // r1 bottom edge past r2 top
+        return true;
+  }
+  return false;
+}
+
+function collideGroup(a,g){
+	for(var i=0;i<g.length;i++){
+  	if(isCollide(a,g[i]) && a != g[i]){
+    	return g[i]
+    }
+  }
+  return -1
+}
+
+ld_rule=(particles1,particles2,ld)=>{
+	for(var i=0;i<particles1.length;i++){
+  	var c = collideGroup(particles1[i],particles2)
+    var a = particles1[i]
+    var b = {...c}
+    if(c != -1){
+    	if(ld && particles2.length < 750){
+      	getColor(a.color).push(particle(random(),random(),a.color))
+        //getColor(b.color).push(particle(random(),random(),b.color))
+        //getColor(a.color).push(particle(random(),random(),a.color))
+        
+        //getColor(a.color).splice(i,1)
+        //getColor(b.color).splice(c,1)
+      }
+      else if(ld==false){
+      	getColor(a.color).splice(i,1)
+      }
+    }
+  }
+}
 
 var red = create(document.getElementById("redNum").value,"red")
 var orange = create(document.getElementById("orangeNum").value,"orange")
@@ -189,8 +229,26 @@ function createRule(){
 	var allColors="red orange yellow green blue purple pink white"
   var color1 = prompt("Type the color that will have motion")
   var color2 = prompt("Type the color that will affect the motion")
-  var gravity = parseFloat(prompt("Gravity amount ( -1 to 1) (negitive to attract)"))
+  var gravity = parseFloat(prompt("Gravity amount ( -1 to 1) (negitive to attract) (Put 0 to add a life/death rule)"))
   if(allColors.includes(color1) && allColors.includes(color2) && !isNaN(gravity)){
+  	if(gravity==0){
+    	var isLife = confirm("select 'OK' for life rule and 'Cancel' for death rule")
+      var t = "Death"
+      if(isLife){t="Life"}
+      ld_rules.push([color1,color2,isLife])
+      var r = document.createElement("button")
+      var oc = "deleteRule('"+color1+"','"+color2+"',"+isLife+")"
+      r.id = color1+", "+color2+", 0, "+t
+      r.onclick = ()=>{
+        deleteRule(color1,color2,0,isLife);
+        document.getElementById(color1+", "+color2+", 0, "+t).remove()
+      }
+      r.innerHTML = color1+", "+color2+", "+t
+      document.getElementById("rulesHolder").appendChild(r)
+      document.getElementById("ruleCount").innerText = rules.length+ld_rules.length
+      return
+    }
+  	
   	rules.push([color1,color2,gravity])
     var r = document.createElement("button")
     var oc = "deleteRule('"+color1+"','"+color2+"',"+gravity+")"
@@ -201,9 +259,22 @@ function createRule(){
     }
     r.innerHTML = color1+", "+color2+", "+gravity
     document.getElementById("rulesHolder").appendChild(r)
+    document.getElementById("ruleCount").innerText = rules.length+ld_rules.length
   }
 }
-function deleteRule(c1,c2,g){
+function deleteRule(c1,c2,g,l){
+	if(g==0){
+  	var r2 = [c1,c2,l]
+    for(var i=0;i<ld_rules.length;i++){
+      var r = ld_rules[i]
+      if(r[0]==r2[0]&&r[1]==r2[1]&&r[2]==r2[2]){
+        ld_rules.splice(i,1)
+      }
+    }
+    document.getElementById("ruleCount").innerText = rules.length+ld_rules.length
+  	return
+  }
+
   var r2 = [c1,c2,g]
   for(var i=0;i<rules.length;i++){
   	var r = rules[i]
@@ -211,6 +282,13 @@ function deleteRule(c1,c2,g){
     	rules.splice(i,1)
     }
 	}
+  document.getElementById("ruleCount").innerText = rules.length+ld_rules.length
+}
+
+function renderParticles(p){
+	for(var i=0;i<p.length;i++){
+  	draw(p[i].x,p[i].y,p[i].color,5)
+  }
 }
 
 update=()=>{
@@ -218,12 +296,21 @@ update=()=>{
   	var r = rules[i]
     rule(getColor(r[0]),getColor(r[1]),r[2])
   }
+  for(var i=0;i<ld_rules.length;i++){
+  	var r = ld_rules[i]
+    ld_rule(getColor(r[0]),getColor(r[1]),r[2])
+  }
   
 	m.clearRect(0,0,width,height)
   draw(0,0,"black",width*height)
-  for(var i=0;i<particles.length;i++){
-  	draw(particles[i].x,particles[i].y,particles[i].color,5)
-  }
+  renderParticles(red)
+  renderParticles(orange)
+  renderParticles(yellow)
+  renderParticles(green)
+  renderParticles(blue)
+  renderParticles(purple)
+  renderParticles(pink)
+  renderParticles(white)
   requestAnimationFrame(update)
 }
 
