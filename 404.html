@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamesHubLogo.png" id="logo">
+
 <canvas id='snake'></canvas>
 <center class="caption">
   <h1 id='404'>404 Page Not Found!</h1>
@@ -17,9 +19,45 @@
   width: 100%;
   height: 100%;
 }
+#logo{
+  position: absolute;
+  width: 15%;
+  left: 0px;
+  top: 0px;
+}
 </style>
 
 <script>
+
+const l = document.getElementById("logo")
+var dir = [0,0]
+var pos = {
+	x: window.innerWidth/2-(l.width/2),
+  y: window.innerHeight/2-(l.height/2)
+}
+
+while(dir[0]==0){
+	dir[0] = Math.floor(Math.random()*(2+1))-1
+}
+while(dir[1]==0){
+	dir[1] = Math.floor(Math.random()*(2+1))-1
+}
+
+setInterval(()=>{
+  document.getElementById("logo").style.left = pos.x+"px"
+  document.getElementById("logo").style.top = pos.y+"px"
+
+  pos.x += dir[0]
+  pos.y += dir[1]
+
+  if(pos.x <= 0 || pos.x+l.width>=window.innerWidth){
+		dir[0] *= -1
+  }
+  if(pos.y <= 0 || pos.y+l.height>=window.innerHeight){
+		dir[1] *= -1
+  }
+},10)
+
 const c = document.getElementById('snake')
 const ctx = c.getContext('2d')
 
