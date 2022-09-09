@@ -43,7 +43,7 @@ function loadData(m){
 	m = JSON.parse(m)
   try{
   	var myDate = new Date(m.AccountCreationTime*1000)
-    if(m.ProfilePicture==""){
+    if(m.ProfilePicture!=""){
       document.getElementById("pfp").src = m.ProfilePicture
     }
     else{
@@ -52,7 +52,7 @@ function loadData(m){
     document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + m.GameshubData.Money +" - " + myDate.toLocaleString().split(",")[0]
   }
   catch(err){
-	  if(m.ProfilePicture==""){
+	  if(m.ProfilePicture!=""){
       document.getElementById("pfp").src = m.ProfilePicture
     }
     else{
