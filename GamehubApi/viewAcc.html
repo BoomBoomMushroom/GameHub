@@ -109,12 +109,16 @@ function loadData(m){
   if(advancements.length>0){
   	document.getElementById("advancementsHeader").style.display = "block"
     for(var i=0;i<advancements.length;i++){
-    	var CurrentAdv = advancements[i]
-      if(CurrentAdv.img!="None"){
-      	document.getElementById("advancementsHeader").innerHTML += "<br><img src='"+CurrentAdv.img+"'></img><strong>"+CurrentAdv.header+"</strong> "+CurrentAdv.desc
-      } else{
-      	document.getElementById("advancementsHeader").innerHTML += "<br><strong>"+CurrentAdv.header+"</strong> "+CurrentAdv.desc
-      }
+      fetch("https://gameshub-api.academyofcode1.repl.co/getadvancement?id="+advancements[i])
+      .then(response=>response.text())
+			.then(d=>{
+      	var CurrentAdv = JSON.parse(d)
+        if(CurrentAdv.img!="None"){
+          document.getElementById("advancementsHeader").innerHTML += "<br><img src='"+CurrentAdv.img+"'></img><strong>"+CurrentAdv.header+"</strong> "+CurrentAdv.desc
+        } else{
+          document.getElementById("advancementsHeader").innerHTML += "<br><strong>"+CurrentAdv.header+"</strong> "+CurrentAdv.desc
+        }
+      })
     }
   }
 }
