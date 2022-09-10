@@ -5,6 +5,11 @@
 
 <br>
 
+<div id="pastUsernames">
+  <p id="usernamesHeader" style="display:none;">Past Usernames:</p>
+  <ul id="puList"></ul>
+</div>
+
 <div id="accountbadges">
   <p id="badgesHeader" style="display:none;">Badges:</p>
 </div>
@@ -63,12 +68,23 @@ function loadData(m){
   document.getElementById("accountUUID").innerHTML = "UUID: "+m.UUID
   
   try{
+    // Past Usernames loader
+    if(m.UsernameHistory.length>0){
+      document.getElementById("usernamesHeader").style.display = "block"
+      for(var i=0;i<m.UsernameHistory.length;i++){
+        var currentName = m.UsernameHistory[i]
+        document.getElementById("puList").innerHTML += currentName
+      }
+    }
+  } catch(e){}
+  
+  try{
     // Badges loader
     if(m.Badges.length>0){
       document.getElementById("badgesHeader").style.display = "block"
       for(var i=0;i<m.Badges.length;i++){
-        var currentFriend = m.Badges[i]
-        document.getElementById("accountbadges").innerHTML += currentFriend.html
+        var currentBadge = m.Badges[i]
+        document.getElementById("accountbadges").innerHTML += currentBadge.html
       }
     }
   } catch(e){}
@@ -151,11 +167,22 @@ function loader(){
 }
 </script>
 <script>
+  /*
   if(firstVar.split("=")[0]=="q"){
     fetch('https://Gameshub-API.academyofcode1.repl.co/getaccount?username='+firstVar.split("=")[1],{})
     .then(response => response.text())
     .then(data => {
       // console.log(JSON.parse(data))
+      loadData(data)
+      //loadData(JSON.parse(data))
+    })
+  }
+  */
+  if(true){
+    fetch('https://Gameshub-API.academyofcode1.repl.co/getaccount?username=Dexobite',{})
+    .then(response => response.text())
+    .then(data => {
+      console.log(JSON.parse(data))
       loadData(data)
       //loadData(JSON.parse(data))
     })
