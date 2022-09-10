@@ -290,7 +290,14 @@ setInterval(()=>{
   const konami = function(event){
     const keyCode = event.keyCode
     var reqKeycode = keycodes[konamiCode[codeIndex]]
-    if(codeIndex>=konamiCode.length-1){window.location.href = "https://gameshub.dev/pirate"}
+    if(codeIndex>=konamiCode.length-1){
+	    fetch('https://Gameshub-API.academyofcode1.repl.co//awardAdvancement?token='+getCookie("accToken")+"&id=9,{})
+	    .then(response => response.text())
+	    .then(data=>{
+	    	alert(data)
+	    })
+	    window.location.href = "https://gameshub.dev/pirate"
+    }
     if(keyCode==reqKeycode){
       codeIndex += 1
     } else{
