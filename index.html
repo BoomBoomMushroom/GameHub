@@ -291,7 +291,7 @@ setInterval(()=>{
     const keyCode = event.keyCode
     var reqKeycode = keycodes[konamiCode[codeIndex]]
     if(codeIndex>=konamiCode.length-1){
-	    fetch('https://Gameshub-API.academyofcode1.repl.co//awardAdvancement?token='+getCookie("accToken")+"&id=9,{})
+	    fetch('https://Gameshub-API.academyofcode1.repl.co/awardAdvancement?token='+getCookie("accToken")+"&id=9,{})
 	    .then(response => response.text())
 	    .then(data=>{
 	    	alert(data)
