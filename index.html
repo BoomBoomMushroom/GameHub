@@ -291,12 +291,12 @@ setInterval(()=>{
     const keyCode = event.keyCode
     var reqKeycode = keycodes[konamiCode[codeIndex]]
     if(codeIndex>=konamiCode.length-1){
+	    alert("Konami entered! Loading data...")
 	    fetch('https://Gameshub-API.academyofcode1.repl.co/awardAdvancement?token='+getCookie("accToken")+"&id=3",{})
 	    .then(response => response.text())
 	    .then(data=>{
-	    	alert(data)
+	    	window.location.href = "https://gameshub.dev/pirate"
 	    })
-	    //window.location.href = "https://gameshub.dev/pirate"
     }
     if(keyCode==reqKeycode){
       codeIndex += 1
