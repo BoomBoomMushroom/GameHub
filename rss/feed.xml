@@ -3,11 +3,11 @@
   <channel>
     <title><![CDATA[5-Minute Podcast]]></title>
     <link>https://podcasts.gameshub.dev</link>
-    <atom:link href="https://media.rss.com/5minute-podcast-gameshub/feed.xml" rel="self" type="application/rss+xml"/>
-    <atom:link rel="hub" href="https://hub.livewire.io/"/>
+    <atom:link href="https://podcasts.gameshub.dev/rss/feed.xml" rel="self" type="application/rss+xml"/>
+    <atom:link rel="hub" href="https://podcasts.gameshub.dev"/>
     <description><![CDATA[A crappy podcast that we made I guess.]]></description>
-    <generator>RSS.com v2.0.4</generator>
-    <lastBuildDate>Tue, 13 Sep 2022 00:56:18 GMT</lastBuildDate>
+    <generator>Gameshub by Mushroom Studios, LLC (2022)</generator>
+    <lastBuildDate>Tue, 13 Sep 2026 00:56:18 GMT</lastBuildDate>
     <language>en</language>
     <copyright><![CDATA[Mushroom Studios, LLC 2022]]></copyright>
     <itunes:image href="https://media.rss.com/5minute-podcast-gameshub/20220913_120915_f2d3f54c83e223257312bbebfc85c4f6.jpg"/>
