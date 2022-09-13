@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xml:lang="en" version="2.0">
   <channel>
-    <title><![CDATA[5-Minute Podcast]]></title>
+    <title><![CDATA[Gameshub's Idiots]]></title>
     <link>https://podcasts.gameshub.dev</link>
     <atom:link href="https://podcasts.gameshub.dev/rss/feed.xml" rel="self" type="application/rss+xml"/>
     <atom:link rel="hub" href="https://podcasts.gameshub.dev"/>
