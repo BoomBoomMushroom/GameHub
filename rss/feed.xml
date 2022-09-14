@@ -66,5 +66,21 @@
       <itunes:explicit>no</itunes:explicit>
       <pubDate>Tue, 13 Sep 2022 00:24:47 GMT</pubDate>
     </item>
+    <item>
+      <title><![CDATA["Dillion Gets A Colonoscopy" - S1E3 9/14/2022]]></title>
+      <itunes:title><![CDATA[""Dillion Gets A Colonoscopy" - S1E3 9/14/2022]]></itunes:title>
+      <itunes:summary><![CDATA[Staring Colin and Avery]]></itunes:summary>
+      <description><![CDATA[<p>Staring Colin and Avery</p>]]></description>
+      <link>https://podcasts.gameshub.dev/podcasts/9-14-2022</link>
+      <enclosure url="https://podcasts.gameshub.dev/audio/9-14-2022.mp3" length="5988988" type="audio/mpeg"/>
+      <guid isPermaLink="false">90c84aa9-b58c-43e5-af02-e9811883208b</guid>
+      <itunes:image href="https://gameshub.dev/GamesHubLogo.png"/>
+      <itunes:duration>628</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:episode>3</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:explicit>no</itunes:explicit>
+      <pubDate>Tue, 14 Sep 2022 00:24:47 GMT</pubDate>
+    </item>
   </channel>
 </rss>
