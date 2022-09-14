@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xml:lang="en" version="2.0">
   <channel>
-    <title><![CDATA[Gameshub's Idiots]]></title>
+    <title><![CDATA[5-Minute Podcast]]></title>
     <link>https://podcasts.gameshub.dev</link>
     <atom:link href="https://podcasts.gameshub.dev/rss/feed.xml" rel="self" type="application/rss+xml"/>
     <atom:link rel="hub" href="https://podcasts.gameshub.dev"/>
-    <description><![CDATA[A crappy podcast that we made I guess.]]></description>
+    <description><![CDATA[How'd we even get this far?]]></description>
     <generator>Gameshub Idiots by Mushroom Studios, LLC (2022)</generator>
     <lastBuildDate>Tue, 13 Sep 2026 00:56:18 GMT</lastBuildDate>
     <language>en</language>
     <copyright><![CDATA[Mushroom Studios, LLC 2022]]></copyright>
     <itunes:image href="https://gameshub.dev/GamesHubLogo.png"/>
     <image>
-      <url>https://media.rss.com/5minute-podcast-gameshub/20220913_120915_f2d3f54c83e223257312bbebfc85c4f6.jpg</url>
+      <url>https://gameshub.dev/GamesHubLogo.png</url>
       <title>Gameshub's Idiots</title>
       <link>https://podcasts.gameshub.dev</link>
     </image>
-    <itunes:summary><![CDATA[A crappy podcast that we made I guess.]]></itunes:summary>
+    <itunes:summary><![CDATA[How'd we even get this far?]]></itunes:summary>
     <podcast:locked owner="dillioncat7@gmail.com">yes</podcast:locked>
     <itunes:author>Dillion Weaver</itunes:author>
     <itunes:owner>
@@ -35,15 +35,31 @@
       <itunes:category text="Chemistry"/>
     </itunes:category>
     <item>
-      <title><![CDATA[9/12/2022]]></title>
-      <itunes:title><![CDATA[9/12/2022]]></itunes:title>
-      <itunes:summary><![CDATA[yeah]]></itunes:summary>
-      <description><![CDATA[<p>yeah</p>]]></description>
+      <title><![CDATA[Finding A Subject - S1E1 9/12/2022]]></title>
+      <itunes:title><![CDATA[Finding A Subject - S1E1 9/12/2022]]></itunes:title>
+      <itunes:summary><![CDATA[We find out what we'll be doing]]></itunes:summary>
+      <description><![CDATA[<p>We find out what we'll be doing</p>]]></description>
       <link>gameshub.dev</link>
-      <enclosure url="https://podcasts.gameshub.dev/Illuminati.mp3" length="5988988" type="audio/mpeg"/>
+      <enclosure url="https://doc-0c-5c-docs.googleusercontent.com/docs/securesc/6gcchtk057duvbs80qojp7jn32tn2hjh/9lnirg3l178bav7fd8h3im25gn5iurpq/1663115850000/12271256700177559507/18299599039503898986/1wY68Cz8WoB0ZC8RmCcQbMQzzgTh4tfPb?ax=AI9vYm7_tAdsBX37y5XFTXpWzU1V0wwb3AuJpWEV2Q7CSVBzr62yji3IU5rmb3s4YyohSHKFWN70lYtF8b2sPF7hCdOEWUhpIFYYnNHWc8f8pzPlL_kIJc8wOgldEh5jL0TP4EwlEVF_kaR9Qfdi7f4QmoPhBCI9XcUVpVSu0ZoypNCly7Tb3_uRCT1N60CdYlkvv1WZeF6DPZtGA3xA-IfSOP2S5cbEUCyKS9qDGCKJJ3LTyewZrrt-BEQtAhKbbbahW_hHwYYriI5QwcK75xRLqo8bdevhZeoc2bhrVjM-2MoBgoMB4ecIPkyg0F5VAzhKIzgnrYt86H4Zf7VTx2RKwKeleI8jTgiF35bxejtUJmau-M9YFyAMuHVGlzyIxbu5PZllQ3pSy8xXdrLLDKloOI1AX8dGb-TKDgAuUQjbjtYmNSDqNqSyXGsyzqb1IUY6nie7SvU1c7Tqk7ilwUoHOypp7INkIjqyrFbGFJSqhzjY_7W63VRt3zicIeHr_tl1hWsVrnrwM9l3esA4MQgwwRk1isi_WjGTptyfdw4dk_83TwRsd083qm5SKXNLBbW7anDWco-aTrpDz1FnoC8h0OsP-Xf7tMlAHC8uI558DoiAfrX06U-_iAbrMMtd5TpS7JDLeW-JLANic0PPNFAi-UCt-h6kMtfga3MLmGrp-d7aFGAr-xB3vkax6EMl4KZhRBaI6Ep4_Sv5r4yrQrrT1SGN9YeaLqMz6zgtsiSVV9vPM3pkUQV2ix7QUjLpVRsQ4-CH3hts8qGHMyUVDO2OYFmheBOIHS9YWuh79pYnqTnO8r9g4SkSLe14OC3vCR7FM4a9zrNCXDdjjtrXyvUEAZ3tPvrHQcfqqQHX97i5EgF0xnMtO1_GKVIXmbrcCyq64R6OpRdm3oBHVTPYDQ1vqin1EiVs0kCH&uuid=e42b778b-a026-4d64-91d0-e35172b00ca9&authuser=0" length="5988988" type="audio/mpeg"/>
       <guid isPermaLink="false">90c84aa9-b58c-43e5-af02-e9811883208b</guid>
       <itunes:image href="https://gameshub.dev/GamesHubLogo.png"/>
-      <itunes:duration>15</itunes:duration>
+      <itunes:duration>337</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:episode>1</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:explicit>no</itunes:explicit>
+      <pubDate>Tue, 12 Sep 2022 00:24:47 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Finding A Subject - S1E1 9/12/2022]]></title>
+      <itunes:title><![CDATA[Finding A Subject - S1E1 9/12/2022]]></itunes:title>
+      <itunes:summary><![CDATA[We find out what we'll be doing]]></itunes:summary>
+      <description><![CDATA[<p>We find out what we'll be doing</p>]]></description>
+      <link>gameshub.dev</link>
+      <enclosure url="https://doc-0c-5c-docs.googleusercontent.com/docs/securesc/6gcchtk057duvbs80qojp7jn32tn2hjh/9lnirg3l178bav7fd8h3im25gn5iurpq/1663115850000/12271256700177559507/18299599039503898986/1wY68Cz8WoB0ZC8RmCcQbMQzzgTh4tfPb?ax=AI9vYm7_tAdsBX37y5XFTXpWzU1V0wwb3AuJpWEV2Q7CSVBzr62yji3IU5rmb3s4YyohSHKFWN70lYtF8b2sPF7hCdOEWUhpIFYYnNHWc8f8pzPlL_kIJc8wOgldEh5jL0TP4EwlEVF_kaR9Qfdi7f4QmoPhBCI9XcUVpVSu0ZoypNCly7Tb3_uRCT1N60CdYlkvv1WZeF6DPZtGA3xA-IfSOP2S5cbEUCyKS9qDGCKJJ3LTyewZrrt-BEQtAhKbbbahW_hHwYYriI5QwcK75xRLqo8bdevhZeoc2bhrVjM-2MoBgoMB4ecIPkyg0F5VAzhKIzgnrYt86H4Zf7VTx2RKwKeleI8jTgiF35bxejtUJmau-M9YFyAMuHVGlzyIxbu5PZllQ3pSy8xXdrLLDKloOI1AX8dGb-TKDgAuUQjbjtYmNSDqNqSyXGsyzqb1IUY6nie7SvU1c7Tqk7ilwUoHOypp7INkIjqyrFbGFJSqhzjY_7W63VRt3zicIeHr_tl1hWsVrnrwM9l3esA4MQgwwRk1isi_WjGTptyfdw4dk_83TwRsd083qm5SKXNLBbW7anDWco-aTrpDz1FnoC8h0OsP-Xf7tMlAHC8uI558DoiAfrX06U-_iAbrMMtd5TpS7JDLeW-JLANic0PPNFAi-UCt-h6kMtfga3MLmGrp-d7aFGAr-xB3vkax6EMl4KZhRBaI6Ep4_Sv5r4yrQrrT1SGN9YeaLqMz6zgtsiSVV9vPM3pkUQV2ix7QUjLpVRsQ4-CH3hts8qGHMyUVDO2OYFmheBOIHS9YWuh79pYnqTnO8r9g4SkSLe14OC3vCR7FM4a9zrNCXDdjjtrXyvUEAZ3tPvrHQcfqqQHX97i5EgF0xnMtO1_GKVIXmbrcCyq64R6OpRdm3oBHVTPYDQ1vqin1EiVs0kCH&uuid=e42b778b-a026-4d64-91d0-e35172b00ca9&authuser=0" length="5988988" type="audio/mpeg"/>
+      <guid isPermaLink="false">90c84aa9-b58c-43e5-af02-e9811883208b</guid>
+      <itunes:image href="https://gameshub.dev/GamesHubLogo.png"/>
+      <itunes:duration>337</itunes:duration>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:episode>1</itunes:episode>
       <itunes:season>1</itunes:season>
