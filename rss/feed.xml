@@ -41,31 +41,15 @@
       <itunes:summary><![CDATA[yeah]]></itunes:summary>
       <description><![CDATA[<p>yeah</p>]]></description>
       <link>https://rss.com/podcasts/5minute-podcast-gameshub/615744</link>
-      <enclosure url="https://drive.google.com/file/d/1wY68Cz8WoB0ZC8RmCcQbMQzzgTh4tfPb/view?usp=sharing" length="5988988" type="audio/mpeg"/>
+      <enclosure url="https://podcasts.gameshub.dev/Illuminati.mp3" length="5988988" type="audio/mpeg"/>
       <guid isPermaLink="false">90c84aa9-b58c-43e5-af02-e9811883208b</guid>
       <itunes:image href="https://media.rss.com/5minute-podcast-gameshub/20220913_120947_07b31b6ff10aeebd0ae5d056b9ff3e89.jpg"/>
-      <itunes:duration>278</itunes:duration>
+      <itunes:duration>15</itunes:duration>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:episode>1</itunes:episode>
       <itunes:season>1</itunes:season>
       <itunes:explicit>no</itunes:explicit>
       <pubDate>Tue, 12 Sep 2022 00:24:47 GMT</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[9/13/2022]]></title>
-      <itunes:title><![CDATA[9/13/2022]]></itunes:title>
-      <itunes:summary><![CDATA[yeah]]></itunes:summary>
-      <description><![CDATA[<p>yeah</p>]]></description>
-      <link>https://podcasts.gameshub.dev/podcasts/9-13-2022</link>
-      <enclosure url="https://drive.google.com/file/d/16_djYc_Jj-n22EU-zkNKoTYNdxsrDAqO/view?usp=sharing" length="5988988" type="audio/mpeg"/>
-      <guid isPermaLink="false">90c84aa9-b58c-43e5-af02-e9811883208b</guid>
-      <itunes:image href="https://media.rss.com/5minute-podcast-gameshub/20220913_120947_07b31b6ff10aeebd0ae5d056b9ff3e89.jpg"/>
-      <itunes:duration>300</itunes:duration>
-      <itunes:episodeType>full</itunes:episodeType>
-      <itunes:episode>2</itunes:episode>
-      <itunes:season>1</itunes:season>
-      <itunes:explicit>no</itunes:explicit>
-      <pubDate>Tue, 13 Sep 2022 00:24:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
