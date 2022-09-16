@@ -281,7 +281,7 @@ function httpFetchText(url,callback,onError){
     var canEquipPowerups = false
     var account = null
     
-    httpFetchJSON('https://gameshub-api.academyofcode1.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
+    httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
       // console.log(d)
       httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?username='+d.Username,(x)=>{
         if( x.GameshubData.Purchases.includes('snakeDLC') ){
