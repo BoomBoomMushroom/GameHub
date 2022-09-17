@@ -1,0 +1,157 @@
+<canvas id="pc" style="position:absolute;top:0px;left:0px;"></canvas>
+
+<script>
+const c = document.getElementById("pc")
+const ctx = c.getContext('2d')
+
+c.width = window.innerWidth
+c.height = window.innerHeight
+
+const url = "https://pokeapi.co/api/v2/pokemon/"
+//var pokemonPC = window.localStorage;
+
+var selected = [0,0]
+//var containerSize = [48,48]
+var containerSize = [Math.round(window.innerHeight/5),Math.round(window.innerHeight/5)]
+const boxAmountSize = [
+	Math.round(window.innerWidth/containerSize[0]) - 2,
+  Math.round(window.innerHeight/containerSize[1])
+]
+boxAmountSize[1] = Math.ceil(805 / boxAmountSize[0])
+c.height = boxAmountSize[1] * containerSize[1]
+var wbc = window.innerWidth / containerSize[0]
+var margin = [
+	((wbc - Math.floor(wbc)) * containerSize[0])+containerSize[0], 0
+]
+
+pokemonPC = window.localStorage;
+
+var pc = createEmptyBox()
+var pcTemp = JSON.parse(loadData("pc"))
+if(Array.isArray(pcTemp)==false){
+	pcTemp = []
+}
+var pcTempIndex = 0
+for(var i=0;i<pc.length;i++){
+	for(var j=0;j<pc[i].length;j++){
+  	if(pcTempIndex>= pcTemp.length){
+    	break
+    }
+    else{
+    	pc[i][j] = pcTemp[pcTempIndex]
+    }
+    pcTempIndex++
+  }
+}
+
+const pokemonROM = {}
+//pc[1][1] = {name:"rayquaza",shiny:true}
+
+function loadBox(num){
+	
+}
+function createEmptyBox(w,h){
+	return Array.apply(null, new Array(boxAmountSize[0])).map(function(){return new Array(boxAmountSize[1])})
+}
+function boxRender(){
+	ctx.clearRect(0,0,c.width,c.height)
+	for(var x=0;x<boxAmountSize[0];x++){
+		for(var y=0;y<boxAmountSize[1];y++){
+    	if(x==selected[0] && y==selected[1]){
+      	ctx.fillRect((x*containerSize[0])+(containerSize[0]/2)+margin[0],(y*containerSize[1])+(containerSize[1]/2)+margin[1],5,5)
+      }
+			ctx.fillRect(
+      x*containerSize[0]+margin[0],
+      y*containerSize[1]+margin[1],
+      1,
+      c.height)
+      
+      ctx.fillRect(
+      x*containerSize[0]+margin[0] + (x*margin[0]),
+      y*containerSize[1]+margin[1] + (y*margin[1]),
+      c.width,
+      1)
+    }
+  }
+  
+  for(var i=0;i<pc.length;i++){
+  	for(var j=0;j<pc[i].length;j++){
+    	var mon = pc[i][j]
+      if(mon==undefined){continue}
+      pokemon(i,j)
+      if(i==selected[0] && j==selected[1]){
+      	//console.log(mon)
+        var n = mon.name
+        if(mon.shiny){n = "Shiny "+mon.name}
+        ctx.font = "30px sans-serif"
+        ctx.fillText(n, 0, 50, margin[0]);
+      }
+    }
+  }
+}
+
+function pokemon(i,j){
+	var mon = pc[i][j]
+  
+  if(pokemonROM[mon.name.toLowerCase()]!=undefined){
+  	var k = pokemonROM[mon.name.toLowerCase()]
+  	ctx.drawImage(k,(i*containerSize[0])+margin[0],(j*containerSize[1])+margin[1],containerSize[0],containerSize[1])
+  }
+  
+	fetch(url+mon.name.toLowerCase(),{})
+	.then(response => response.text())
+  .then(data => {
+    var d = JSON.parse(data)
+    var img = loadImage(d,mon)
+    const image = new Image(containerSize[0],containerSize[1])
+    image.src = img
+    ctx.drawImage(image,(i*containerSize[0])+margin[0],(j*containerSize[1])+margin[1],containerSize[0],containerSize[1])
+    pokemonROM[mon.name.toLowerCase()] = image
+  })
+}
+function loadImage(pokemon,data) {
+  var img_key = "front_"
+  if (data.shiny == true) {
+		img_key += "shiny"
+  }
+  else{
+  	img_key += "default"
+  }
+	return pokemon.sprites[img_key]
+}
+
+boxRender()
+setInterval(boxRender,1000)
+
+function saveData(key, value){
+	pokemonPC.setItem(key, value);
+}
+function loadData(key){
+	let Data = pokemonPC.getItem(key)
+  return Data
+}
+function clearBitData(key){
+	pokemonPC.setItem(key, null)
+}
+function s(){
+	window.scroll(0,selected[1] * containerSize[1])
+}
+
+window.onload = ()=>{}
+window.onbeforeunload = ()=>{}
+
+window.onkeydown = (e)=>{
+	//console.log(e.key)
+  if(e.key == "ArrowRight"){selected[0]+=1}
+  if(e.key == "ArrowLeft"){selected[0]-=1}
+  if(e.key == "ArrowDown"){selected[1]+=1}
+  if(e.key == "ArrowUp"){selected[1]-=1}
+  
+  if(selected[1]<0){selected[1] = boxAmountSize[1]-1;s();}
+  if(selected[1]>=boxAmountSize[1]){selected[1] = 0;s();}
+  if(selected[0]<0){selected[0] = boxAmountSize[0]-1;s();}
+  if(selected[0]>=boxAmountSize[0]){selected[0] = 0;s();}
+  
+  boxRender()
+}
+</script>
