@@ -7,6 +7,8 @@
 <input type='color' id='colorInput'>
 <button onclick='copyText(JSON.stringify(stamp))'>Export Stamp Arr</button>
 <button onclick='if(confirm("Are you sure you want to fill the entrie canvas? This WILL replace everything")){fill()}'>Fill *WILL replace all work*</button>
+<label for="size"></label>
+<input id="size" min="1" max="20" value="1" type="number">
 
 <style>
   #stampCenter{
@@ -37,19 +39,22 @@ var holdingCtrl = false
 
 function nextFrame(){
 	ctx.clearRect(0,0,c.width,c.height)
-	for(var x=0;x<c.width/pixelSize+1;x++){
-		for(var y=0;y<c.height/pixelSize+1;y++){
+	/*
+  for(var x=0;x<c.width;x+=pixelSize){
+		for(var y=0;y<c.height;y+=pixelSize){
+    	ctx.lineWidth = 0.1
 			ctx.beginPath()
-			ctx.moveTo(x,y)
-			ctx.lineTo(x,0)
+			ctx.moveTo(x,0)
+			ctx.lineTo(x,c.width)
 			ctx.stroke()
 			
 			ctx.beginPath()
-			ctx.moveTo(x,y)
-			ctx.lineTo(0,y)
+			ctx.moveTo(0,y)
+			ctx.lineTo(c.height,y)
 			ctx.stroke()
 		}
 	}
+  */
 }
 function paintPixel(x,y,color){
 	if(color){
@@ -79,9 +84,22 @@ function paintPixel22(e){
   // ctx.fillRect(e.clientX,e.clientY,5,5);
   if(mode==='pencil'){
   	if(checkPixel(x,y)===false){
-      var stampJSON = {x:x,y:y,color:document.getElementById('colorInput').value}
-      stamp.push(stampJSON)
-      lastAction = {action:'add',pixel:stampJSON}
+      //var stampJSON = {x:x,y:y,color:document.getElementById('colorInput').value}
+      var s = []
+      var si = document.getElementById("size").value-1
+      for(var c=0;c<=si;c++){
+      	console.log(c)
+        for(var i=(-si/2);i<=(si/2);i++){
+          for(var j=(-si/2);i<=(si/2);i++){
+            s.push({x:x-(Math.ceil(i)*pixelSize),y:y-(Math.ceil(j)*pixelSize)-(c*pixelSize),color:document.getElementById('colorInput').value})
+          }
+        }
+      }
+      for(var h=0;h<s.length;h++){
+      	stamp.push(s[h])
+      }
+      //stamp.push(stampJSON)
+      //lastAction = {action:'add',pixel:stampJSON}
     }
   }
   else{
