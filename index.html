@@ -78,10 +78,12 @@
   <script>
     function addChat(msg){
       const output = document.getElementById('chatDiv');
+      output.style.width = output.height
       var ele = document.createElement('P');
       ele.innerText = new Date().toTimeString().split(' ')[0] + " " + msg
       ele.style.wordWrap = 'break-word'
       output.appendChild(ele);
+      output.scrollTop = output.scrollHeight
     }
     function sendMsg(){
       if(document.getElementById("msgInput").value!=""){
