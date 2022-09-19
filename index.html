@@ -67,14 +67,19 @@
 	</script>
   <style>
     #chatDiv{ position: absolute; border: 1px solid black; top: 45%; right: 1%; overflow: auto; background-color: #ffffff }
-    #msgInput{ position: absolute; right: 20%; bottom: 1%; }
-    #sendMsg{ position: absolute; right: 1%; bottom: 1%; }
+    #controls{
+      position: absolute;
+      bottom: 1%;
+      right: 1%;
+    }
   </style>
 
   <div class='chat' id="chatDiv"></div>
     
-  <input class='chat' id="msgInput" placeholder='Type your message here...'>
-  <button class='chat' id="sendMsg" onclick='sendMsg()'>Send Message</button>
+  <div id="controls">
+  	<input class='chat' id="msgInput" placeholder='Type your message here...'>
+  	<button class='chat' id="sendMsg" onclick='sendMsg()'>Send Message</button>
+  </div>
   <script>
     function addChat(msg){
       const output = document.getElementById('chatDiv');
