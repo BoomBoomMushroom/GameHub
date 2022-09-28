@@ -120,10 +120,12 @@ setInterval(()=>{
   
 	ball.style.left = lerp(cords.x,end_cords.x,funct(time))+"px"
 	ball.style.top = lerp(cords.y,end_cords.y,funct(time))+"px"
+  /*
   document.body.style.backgroundColor = "rgb("+
   lerp(start_color.r,end_color.r,funct(time))+","+
   lerp(start_color.g,end_color.g,funct(time))+","+
   lerp(start_color.b,end_color.b,funct(time))+")"
+  */
   time += 0.01
 },50)
 </script>
