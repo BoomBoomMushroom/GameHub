@@ -38,6 +38,96 @@
 </ad>
 -->
 
+<script>
+// https://www.youtube.com/watch?v=YJB1QnEmlTs&ab_channel=SimonDev
+
+const ball = document.getElementById("welcome")
+const halfPI = (1/2) * Math.PI
+
+var cords = {
+	x: randomInt(-window.innerWidth*2,window.innerWidth*2),
+  y: randomInt(-window.innerHeight*2,window.innerHeight*2)
+}
+var end_cords = {x:10,y:0}
+var time = 0
+
+var start_color = {r:235,g:155,b:52}
+var end_color = {r:227,g:102,b:223}
+
+const allFunctions = [
+	l, smoothStep, squareRoot, quadraticEaseOut, triangle, elasticOut, bounceOut
+]
+const funct = allFunctions[randomInt(0,allFunctions.length-1)]
+
+ball.style.position = "absolute"
+ball.style.left = cords.x+"px"
+ball.style.top = cords.y+"px"
+
+function randomInt(min,max){
+	return Math.floor(Math.random() * (max-min+1))+min
+}
+
+function lerp(a,b,t){
+	return a + (b - a) * t
+}
+function l(t){
+	return t
+}
+function smoothStep(t){
+	var v1 = t * t
+  var v2 = 1 - (1 - t) * (1 - t)
+  return lerp(v1,v2,t)
+}
+function squareRoot(t){
+	return Math.sqrt(t)
+}
+function quadraticEaseOut(t){
+	return 1 - (1 - t) * (1 - t)
+}
+function parabola(t, k){
+	return Math.pow(4 * t * (1 - t), k)
+}
+function triangle(t){
+	return 1 - 2 * Math.abs(t - 0.5)
+}
+function elasticOut(t){
+	return Math.sin(-13 * (t + 1) * halfPI) * Math.pow(2, -10 * t) + 1
+}
+function bounceOut(t){
+	const n1 = 7.5625
+  const d1 = 2.75
+  
+  if(t<1/d1){
+  	return n1 * t * t
+  }
+  else if(t<2/d1){
+  	t -= 1.5 / d1
+    return n1 * t * t + 0.75
+  }
+  else if(t<2.5/d1){
+  	t -= 2.25/d1
+    return n1 * t * t + 0.9375
+  }
+  else{
+  	t -= 2.625/d1
+    return n1 * t * t + 0.984375
+  }
+}
+
+
+setInterval(()=>{
+	if(time > 1) return
+  
+	ball.style.left = lerp(cords.x,end_cords.x,funct(time))+"px"
+	ball.style.top = lerp(cords.y,end_cords.y,funct(time))+"px"
+  document.body.style.backgroundColor = "rgb("+
+  lerp(start_color.r,end_color.r,funct(time))+","+
+  lerp(start_color.g,end_color.g,funct(time))+","+
+  lerp(start_color.b,end_color.b,funct(time))+")"
+  time += 0.01
+},50)
+</script>
+
 <div id="globalChat">
   <script>
 	let HOST = 'wss://GameshubGlobalChat.academyofcode1.repl.co'
@@ -149,67 +239,101 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
 <!-- <iframe src="https://discord.com/widget?id=885976790038892584&theme=dark"  style="position:absolute;right:0px;top:50%;" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe> -->
 <!-- Line break every 10 games -->
 
-<p>Single Player Games</p>
-<a href="https://gameshub.dev/snake"><button>Snake</button></a>
-<a href="https://pet-the-dog.netlify.app/"><button>Pet the Dog!</button></a>
-<a href="https://gameshub.dev/solarsystemsimulator"><button>Solar System Simulator</button></a>
-<a href="https://custom-programming-language-creator.netlify.app"><button>Custom Programming Language Crearor</button></a>
-<a href="https://gameshub.dev/monpoke"><button>Monpoke</button></a>
-<a href="http://gameshub.dev/pageCounter"><button>Page Counter</button></a>
-<a href="https://gameshub.dev/snakeAiBattle"><button>You v.s Snake AI</button></a>
-<a href="https://gameshub.dev/snakeEcosystem"><button>Snake based Ecosystem</button></a>
-<a href='https://gameshub.dev/appleCollection'><button>The Apple Collection</button></a>
-<a href="http://gameshub.dev/stolenCode/pokemonEmulators"><button>Pokemon Emulator</button></a>
-<a href="http://gameshub.dev/pixelArtMaker"><button>Pixel Art Maker</button></a>
-<br>
-<a href="http://gameshub.dev/snake_ai-v2"><button>Snake AI 2</button></a>
-<a href="http://gameshub.dev/conways_game_of_life"><button>Conway's Game Of Life</button></a>
-<a href='https://gameshub.dev/SlayingSnowballs'><button>Slaying Snowballs</button></a>
-<a href="https://gameshub.dev/wordle"><button>Wordle Copy Old</button></a>
-<a href='https://gameshub.dev/wordleNew'><button>Wordle Copy</button></a>
-<a href='https://gameshub.dev/wordleSolver'><button>Wordle Solver</button></a>
-<a href='https://gameshub.dev/getting_over_it'><button>Getting Over It</button></a>
-<a href='https://gameshub.dev/money_miner'><button>Money Miner</button></a>
-<a href='https://gameshub.dev/dirtcollectingsimulator'><button>Dirt Collecting Simulator</button></a>
-<a href='https://gameshub.dev/life'><button>Artificial Life w/ Settings</button></a>
-<br>
+<div id="singleplayer">
+  <p>Single Player Games</p>
+</div>
+
+<div id="multiplayer">
+  <p>Multiplayer Games</p>
+</div>
+
+<div id="server">
+  <p>Gameshub Server Stuff</p>
+</div>
+
+<div id="legacy">
+  <p>Legacy Games</p>
+</div>
 
 <br>
 <br>
 
-<p>Multiplayer Games</p>
-<a href='https://gameshub.dev/existanceSimulator'><button>Existance Simulator - Multiplayer</button></a>
-<a href='https://gameshub.dev/ExistanceSimulator3D'><button>Existance Simulator 3D - Multiplayer</button></a>
-<a href='https://gameshub.dev/blackjack'><button>BlackJack - GAMBLING</button></a>
-<a href='https://gameshub.dev/sproutsSolo'><button>Sprouts - In person Req</button></a>
-
-<br>
-<br>
-
-<p>Gameshub Server Stuff</p>
-<a href="https://gameshub.dev/gamehubapi/signup"><button id="signupButton">Signup</button></a>
-<a href="https://gameshub.dev/gamehubapi/signin"><button id="loginButton">Log in</button></a>
-<a href="https://gameshub.dev/gamehubapi/accSettings"><button id="accSearchButton">Account Settings</button></a>
-<a href="https://gameshub.dev/gamehubapi/accsearch"><button id="accSearchButton">Search Accounts</button></a>
-<a href="https://gameshub.dev/GamehubApi/shop"><button>Gameshub Shop</button></a>
-
-<br>
-<br>
-
-<!--
-<p>Dev-Build // Testing Builds of games</p>
-<a href='https://gameshub.dev/movement3dTest'><button>THREE.js movement build</button></a>
-<a href='https://gameshub.dev/matter_test'><button>Matter.js Test</button></a>
-<a href='https://gameshub.dev/demoGameCreator'><button>Demo Game Creator</button></a>
-<a href='https://gameshub.dev/cookies'><button>Cookies</button></a>
-<a href="https://gameshub.dev/RaycastingTest"><button>Pseudo 3D World -- Raycasting Test</button></a>
--->
-
-<p>Legacy Games</p>
-
-
-<br>
-<br>
+<script>
+	var singleplayerGames = [
+  	{name:"Snake", url: "https://gameshub.dev/snake"},
+  	{name:"Pet the Dog!", url: "https://pet-the-dog.netlify.app/"},
+  	{name:"Solar System Simulator", url: "https://gameshub.dev/solarsystemsimulator"},
+  	{name:"Custom Programming Language Creator", url: "https://custom-programming-language-creator.netlify.app/"},
+  	{name:"Monpoke", url: "https://gameshub.dev/monpoke"},
+  	{name:"Page Counter", url: "https://gameshub.dev/pagecounter"},
+  	{name:"You v.s Snake AI", url: "https://gameshub.dev/snakeaibattle"},
+  	{name:"Snake Based Ecosystem", url: "https://gameshub.dev/snakeecosystem"},
+  	{name:"The Apple Collection", url: "https://gameshub.dev/applecollection"},
+  	{name:"Pokemon Emulator", url: "https://gameshub.dev/stolencode/pokemonemulators"},
+  	{name:"Pixel Art Maker", url: "https://gameshub.dev/pixelartmaker"},
+  	{name:"Snake AI 2", url: "https://gameshub.dev/snake_ai-v2"},
+  	{name:"Conway's Game of Life", url: "https://gameshub.dev/conways_game_of_life"},
+  	{name:"Slaying Sowballs", url: "https://gameshub.dev/slayingsnowballs/"},
+  	{name:"Worlde Copy Old", url: "https://gameshub.dev/wordle"},
+  	{name:"Worlde Copy", url: "https://gameshub.dev/wordlenew"},
+  	{name:"Wordle Solver", url: "https://gameshub.dev/wordlesolver"},
+  	{name:"Getting Over It", url: "https://gameshub.dev/getting_over_it"},
+  	{name:"Money Miner", url: "https://gameshub.dev/money_miner"},
+  	{name:"Dirt Collecting Simulator", url: "https://gameshub.dev/dirtcollectingsimulator"},
+  	{name:"Artificial Life w/ Settings", url: "https://gameshub.dev/life"},
+  ]
+  var multiplayerGames = [
+  	{name:"Existance Simulator", url: "https://gameshub.dev/existancesimulator"},
+  	{name:"Existance Simulator 3D", url: "https://gameshub.dev/existancesimulator3d/"},
+  	{name:"Blackjack", url: "https://gameshub.dev/blackjack"},
+  	{name:"Sprouts (In Person Req)", url: "https://gameshub.dev/sproutssolo"},
+  ]
+  var multiplayerGames = [
+  	{name:"Signup", url: "https://gameshub.dev/gamehubapi/signup"},
+  	{name:"Log in", url: "https://gameshub.dev/gamehubapi/signin"},
+  	{name:"Account Settings", url: "https://gameshub.dev/gamehubapi/accsettings"},
+  	{name:"Search Accounts", url: "https://gameshub.dev/gamehubapi/accsearch"},
+  	{name:"Gameshub Shop", url: "https://gameshub.dev/gamehubapi/shop"},
+  ]
+  var legacyGames = []
+  
+  function insertAfter(newNode, existingNode) {
+		existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+	}
+  
+  for(var x=0;x<singleplayerGames.length;x++){
+    var a = document.createElement("a")
+    a.href = singleplayerGames[x].url
+    var b = document.createElement("button")
+    b.innerText = singleplayerGames[x].name
+    document.getElementById("singleplayer").appendChild(a)
+    insertAfter(b, a)
+  }
+  for(var x=0;x<multiplayerGames.length;x++){
+    var a = document.createElement("a")
+    a.href = multiplayerGames[x].url
+    var b = document.createElement("button")
+    b.innerText = multiplayerGames[x].name
+    document.getElementById("multiplayer").appendChild(a)
+    insertAfter(b, a)
+  }
+  for(var x=0;x<multiplayerGames.length;x++){
+    var a = document.createElement("a")
+    a.href = multiplayerGames[x].url
+    var b = document.createElement("button")
+    b.innerText = multiplayerGames[x].name
+    document.getElementById("server").appendChild(a)
+    insertAfter(b, a)
+  }
+  for(var x=0;x<legacyGames.length;x++){
+    var a = document.createElement("a")
+    a.href = legacyGames[x].url
+    var b = document.createElement("button")
+    b.innerText = legacyGames[x].name
+    document.getElementById("legacy").appendChild(a)
+    insertAfter(b, a)
+  }
+</script>
 
 <span>Links</span>
 <br>
