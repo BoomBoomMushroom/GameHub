@@ -317,36 +317,20 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
 	}
   
   for(var x=0;x<singleplayerGames.length;x++){
-    var a = document.createElement("a")
-    a.href = singleplayerGames[x].url
-    var b = document.createElement("button")
-    b.innerText = singleplayerGames[x].name
-    document.getElementById("singleplayer").appendChild(a)
-    insertAfter(b, a)
+    var t = "<a href="+singleplayerGames[x].url+"><button>"+singleplayerGames[x].name+"</button></a>"
+    document.getElementById("singleplayer").innerHTML += t
   }
   for(var x=0;x<multiplayerGames.length;x++){
-    var a = document.createElement("a")
-    a.href = multiplayerGames[x].url
-    var b = document.createElement("button")
-    b.innerText = multiplayerGames[x].name
-    document.getElementById("multiplayer").appendChild(a)
-    insertAfter(b, a)
+     var t = "<a href="+multiplayerGames[x].url+"><button>"+multiplayerGames[x].name+"</button></a>"
+    document.getElementById("multiplayer").innerHTML += t
   }
   for(var x=0;x<server.length;x++){
-    var a = document.createElement("a")
-    a.href = server[x].url
-    var b = document.createElement("button")
-    b.innerText = server[x].name
-    document.getElementById("server").appendChild(a)
-    insertAfter(b, a)
+     var t = "<a href="+server[x].url+"><button>"+server[x].name+"</button></a>"
+    document.getElementById("server").innerHTML += t
   }
   for(var x=0;x<legacyGames.length;x++){
-    var a = document.createElement("a")
-    a.href = legacyGames[x].url
-    var b = document.createElement("button")
-    b.innerText = legacyGames[x].name
-    document.getElementById("legacy").appendChild(a)
-    insertAfter(b, a)
+     var t = "<a href="+legacyGames[x].url+"><button>"+legacyGames[x].name+"</button></a>"
+    document.getElementById("legacy").innerHTML += t
   }
 </script>
 
