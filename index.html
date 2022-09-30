@@ -68,7 +68,7 @@ var start_color = {r:235,g:155,b:52}
 var end_color = {r:227,g:102,b:223}
 
 const allFunctions = [
-	l, smoothStep, squareRoot, quadraticEaseOut, triangle, elasticOut, bounceOut
+	l, smoothStep, squareRoot, quadraticEaseOut, elasticOut, bounceOut
 ]
 const funct = allFunctions[randomInt(0,allFunctions.length-1)]
 
@@ -360,7 +360,7 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
 <br>
 <a href="" id="currentAcc"></a>
 <br>
-<button id="logout" onclick="setCookie('accToken','',365*10);location.reload()" id="currentAcc">Logout</button>
+<button id="logout" onclick="setCookie('accToken','',365*10);location.reload()">Logout</button>
 
 <script>
 paragraphs = document.getElementsByTagName("p")
@@ -670,11 +670,10 @@ var i = setInterval(()=>{
   	var currentEpoch = Math.ceil(Date.now()/1000)
     var lastAnnouncement = parseInt(getCookie("lastAnnouncement"))
     if(isNaN(lastAnnouncement)){
-	setCookie("lastAnnouncement","0",365*20)
       showAnnouncement(data)
     }
     else if(data.timestamp != lastAnnouncement){
-	showAnnouncement(data)
+    	showAnnouncement(data)
     }
   })
   
