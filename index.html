@@ -8,6 +8,9 @@
 <br>
 <br>
 <br>
+<span>"Whats the worst that could happen?"</span>
+<br>
+<br>
 
 <!--
 <ad class="ad">
@@ -48,9 +51,15 @@
 const ball = document.getElementById("welcome")
 const halfPI = (1/2) * Math.PI
 
+/*
 var cords = {
 	x: randomInt(-window.innerWidth*2,window.innerWidth*2),
   y: randomInt(-window.innerHeight*2,window.innerHeight*2)
+}
+*/
+var cords = {
+	x: randomInt(0,window.innerWidth*1.25),
+	y: randomInt(0,window.innerWidth*1.25),
 }
 var end_cords = {x:10,y:0}
 var time = 0
@@ -413,9 +422,11 @@ setInterval(()=>{
 	  }
 	  return "";
 	}
+	/*
 	if(window.location.hostname!="gameshub.dev"){
 		window.location = "https://gameshub.dev"
 	}
+	*/
 	function modeEnable(){
 		var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 		var d = new Date()
