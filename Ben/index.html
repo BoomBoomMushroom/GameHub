@@ -23,7 +23,7 @@ button{
 <br>
 <center>
   <span id="voiceReciever">Nothing Yet!</span>
-  <button onclick="window.location.reload()">Again</button>
+  <button id="t" onclick="toggle()">Start Voice</button>
 </center>
 <br>
 
@@ -51,6 +51,20 @@ const diagnostic = document.querySelector('.output');
 const bg = document.querySelector('html');
 const hints = document.querySelector('.hints');
 
+var mic = false
+function toggle(){
+	if(mic==false){
+  	recognition.start()
+    mic = true
+    document.getElementById("t").innerText = "End Voice"
+  }
+  else{
+  	recognition.stop()
+    mic = false
+    document.getElementById("t").innerText = "Start Voice"
+  }
+}
+
 //let colorHTML = '';
 //colors.forEach((color, i) => {
 //  console.log(color, i);
@@ -59,8 +73,8 @@ const hints = document.querySelector('.hints');
 //document.getElementById("voiceReciever").innerHTML = `Tap or click then say a color to change the background color of the app. Try ${colorHTML}.`;
 
 document.body.onload = () => {
-  recognition.start();
-  console.log('Ready to receive voices');
+  //recognition.start();
+  //console.log('Ready to receive voices');
 };
 
 recognition.onresult = (event) => {
@@ -71,7 +85,7 @@ recognition.onresult = (event) => {
   console.log(`Confidence: ${event.results[0][0].confidence}`);
 }
 recognition.onspeechend = () => {
-  console.log("Micrphone off...")
+  //console.log("Micrphone off...")
 }
 recognition.onnomatch = (event) => {
   //diagnostic.textContent = "I didn't recognize that color.";
