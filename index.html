@@ -8,12 +8,12 @@
 	<meta charset="UTF-8">
 </head>
 
-<h1 id="welcome">Welcome to GamesHub!</h1>
+<center>
+	<h1 id="welcome">GamesHub</h1>
+	<span>"Gameshub... because Whats the worst that could happen?"</span>
+</center>
 
 <br>
-<br>
-<br>
-<span>"Whats the worst that could happen?"</span>
 <br>
 <br>
 
@@ -55,6 +55,7 @@
 
 const ball = document.getElementById("welcome")
 const halfPI = (1/2) * Math.PI
+const enabled = false
 
 /*
 var cords = {
@@ -77,10 +78,12 @@ const allFunctions = [
 ]
 const funct = allFunctions[randomInt(0,allFunctions.length-1)]
 
-ball.style.position = "absolute"
-ball.style.left = cords.x+"px"
-ball.style.top = cords.y+"px"
-
+if(enabled){
+	ball.style.position = "absolute"
+	ball.style.left = cords.x+"px"
+	ball.style.top = cords.y+"px"
+}
+	
 function randomInt(min,max){
 	return Math.floor(Math.random() * (max-min+1))+min
 }
@@ -132,20 +135,14 @@ function bounceOut(t){
   }
 }
 
-
-setInterval(()=>{
-	if(time > 1) return
-  
-	ball.style.left = lerp(cords.x,end_cords.x,funct(time))+"px"
-	ball.style.top = lerp(cords.y,end_cords.y,funct(time))+"px"
-  /*
-  document.body.style.backgroundColor = "rgb("+
-  lerp(start_color.r,end_color.r,funct(time))+","+
-  lerp(start_color.g,end_color.g,funct(time))+","+
-  lerp(start_color.b,end_color.b,funct(time))+")"
-  */
-  time += 0.01
-},50)
+if(enabled){
+	setInterval(()=>{
+		if(time > 1) return
+		ball.style.left = lerp(cords.x,end_cords.x,funct(time))+"px"
+		ball.style.top = lerp(cords.y,end_cords.y,funct(time))+"px"
+		time += 0.01
+	},50)
+}
 </script>
 
 <div id="globalChat">
@@ -385,9 +382,11 @@ for(var x=0;x<spans.length;x++){
 	span.style.color = "#ffffff"
 	// para.classList.add("darkmode_text")
 }
+/*
 setInterval(()=>{
 	modeEnable()
 },50)
+*/
 </script>
 
 <script>
