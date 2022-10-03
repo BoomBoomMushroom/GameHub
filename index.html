@@ -53,6 +53,15 @@
 -->
 
 <script>
+function getMonth(){
+	var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+	var d = new Date()
+	var month = monthList[d.getMonth()]
+	return month
+}
+</script>
+
+<script>
 // https://www.youtube.com/watch?v=YJB1QnEmlTs&ab_channel=SimonDev
 
 const ball = document.getElementById("welcome")
@@ -433,12 +442,6 @@ setInterval(()=>{
 	function modeEnable(){
 		
 		document.getElementById("welcome").innerHTML = "Welcome to GamesHub - "+getMonth()
-	}
-	function getMonth(){
-		var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-		var d = new Date()
-		var month = monthList[d.getMonth()]
-		return month
 	}
 </script>
 
