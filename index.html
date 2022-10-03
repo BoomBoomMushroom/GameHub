@@ -55,6 +55,9 @@ function getMonth(){
 	var month = monthList[d.getMonth()]
 	return month
 }
+function getDay(){
+	return new Date().getUTCDate()
+}
 </script>
 
 <script>
@@ -261,7 +264,7 @@ var spookySet = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/mai
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background2.png",
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background3.png",
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background4.png"]
-if(getMonth()=="Febuary"){
+if(getMonth()=="Febuary" && 10<=getDay()<=18){
 	//e = valentineSet
 	document.getElementById("logo").href = "ValentineGamesHubLogo.png"
 }
@@ -269,7 +272,7 @@ if(getMonth()=="October"){
 	e = spookySet
 	document.getElementById("logo").href = "HalloweenGamesHubLogo.png"
 }
-if(getMonth()=="November"){
+if(getMonth()=="November" && 22<=getDay()<=28){
 	//e = thanksgivingSet
 	document.getElementById("logo").href = "ThanksgivingGamesHubLogo.png"
 }
