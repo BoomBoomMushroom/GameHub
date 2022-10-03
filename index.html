@@ -261,9 +261,21 @@ var spookySet = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/mai
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background2.png",
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background3.png",
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background4.png"]
+if(getMonth()=="Febuary"){
+	//e = valentineSet
+	document.getElementById("logo").href = "ValentineGamesHubLogo.png"
+}
 if(getMonth()=="October"){
 	e = spookySet
 	document.getElementById("logo").href = "HalloweenGamesHubLogo.png"
+}
+if(getMonth()=="November"){
+	//e = thanksgivingSet
+	document.getElementById("logo").href = "ThanksgivingGamesHubLogo.png"
+}
+if(getMonth()=="December"){
+	//e = christmasSet
+	document.getElementById("logo").href = "ChristmasGamesHubLogo.png"
 }
 var rand = Math.floor( Math.random() * (e.length-0) )+0
 document.body.style.backgroundImage="url('"+e[rand]+"')"
