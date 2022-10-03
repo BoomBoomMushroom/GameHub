@@ -261,8 +261,10 @@ var e = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/Gamehu
 	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background3.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background4.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background5.png"]
+var spookySet = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background1.png",
+		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background2.png"]
 if(getMonth()=="October"){
-	e.push("https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background1.png")
+	e = spookySet
 	document.getElementById("logo").href = "HalloweenGamesHubLogo.png"
 }
 var rand = Math.floor( Math.random() * (e.length-0) )+0
