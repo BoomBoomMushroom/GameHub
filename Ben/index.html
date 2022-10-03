@@ -83,6 +83,10 @@ recognition.onresult = (event) => {
   console.log("'"+color + "' Recieved")
   document.getElementById("voiceReciever").innerText = color
   console.log(`Confidence: ${event.results[0][0].confidence}`);
+  setTimeout(()=>{},300)
+  var resL = ["Yes","No"]
+  var res = resL[Math.round(Math.random()*((resL.length-1)-0+1))]
+  alert(res)
 }
 recognition.onspeechend = () => {
   //console.log("Micrphone off...")
