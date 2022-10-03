@@ -248,7 +248,6 @@ if(enabled){
 		background-repeat: repeat-y;
   		background-size: cover;
 		image-rendering: pixelated;
-		color: white;
 	}
 	.ad{
 		position: absolute;
@@ -367,42 +366,40 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
 <button id="logout" onclick="setCookie('accToken','',365*10);location.reload()">Logout</button>
 
 <script>
-/*
 var paragraphs = document.getElementsByTagName("p")
 var header1s = document.getElementsByTagName("h1")
 var links = document.getElementsByTagName("a")
 var labels = document.getElementsByTagName("label")
 var spans = document.getElementsByTagName("span")
 
-var color = "#ffffff"
-
 //document.body.style.background = darkmodeColor
 for(var x=0;x<paragraphs.length;x++){
 	para = paragraphs[x]
-	para.style.color = color
+	para.style.color = "#ffffff"
 	// para.classList.add("darkmode_text")
 }
 for(var x=0;x<header1s.length;x++){
 	h1 = header1s[x]
-	h1.style.color = color
+	h1.style.color = "#ffffff"
 	// para.classList.add("darkmode_text")
 }
 for(var x=0;x<links.length;x++){
 	link = links[x]
-	link.style.color = color
+	link.style.color = "#ffffff"
 	// para.classList.add("darkmode_text")
 }
 for(var x=0;x<labels.length;x++){
 	lab = labels[x]
-	lab.style.color = color
+	lab.style.color = "#ffffff"
 	// para.classList.add("darkmode_text")
 }
 for(var x=0;x<spans.length;x++){
 	span = spans[x]
-	span.style.color = color
+	span.style.color = "#ffffff"
 	// para.classList.add("darkmode_text")
 }
 
+/*
 setInterval(()=>{
 	modeEnable()
 },50)
