@@ -16,8 +16,6 @@
 </center>
 
 <br>
-<br>
-<br>
 
 <!--
 <ad class="ad">
@@ -338,6 +336,11 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
   function insertAfter(newNode, existingNode) {
 		existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 	}
+  
+  if(singleplayerGames.length==0){document.getElementById("singleplayer").style.display = "none"}
+  if(multiplayerGames.length==0){document.getElementById("multiplayer").style.display = "none"}
+  if(server.length==0){document.getElementById("server").style.display = "none"}
+  if(legacyGames.length==0){document.getElementById("legacy").style.display = "none"}
   
   for(var x=0;x<singleplayerGames.length;x++){
     var t = "<a href="+singleplayerGames[x].url+"><button>"+singleplayerGames[x].name+"</button></a>"
