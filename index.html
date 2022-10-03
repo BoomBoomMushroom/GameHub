@@ -1,9 +1,9 @@
+<link rel="icon" href="GamesHubLogo.png">
 <head>
 	<title>Gameshub</title>
 	<meta name="keywords" content="Games,Chat,Online,Offline,Multiplayer,SinglePlayer,Dev,Development,Code,Coding,JavaScript,Unity,Bad games,Horrible Games,Stolen Games, AOT, ">
 	<meta name="description" content="Gameshub... because what could go wrong?">
 	<meta name="author" content="Dillion Weaver">
-	<link rel="icon" href="GamesHubLogo.png">
 	<!--
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	-->
@@ -251,6 +251,9 @@ var e = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/Gamehu
 	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background3.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background4.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background5.png"]
+if(getMonth()=="October"){
+	//e.push("https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background_Spooky.png")
+}
 var rand = Math.floor( Math.random() * (e.length-0) )+0
 document.body.style.backgroundImage="url('"+e[rand]+"')"
 </script>
@@ -352,36 +355,43 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
 <button id="logout" onclick="setCookie('accToken','',365*10);location.reload()">Logout</button>
 
 <script>
-paragraphs = document.getElementsByTagName("p")
-header1s = document.getElementsByTagName("h1")
-links = document.getElementsByTagName("a")
-labels = document.getElementsByTagName("label")
-spans = document.getElementsByTagName("span")
+var paragraphs = document.getElementsByTagName("p")
+var header1s = document.getElementsByTagName("h1")
+var links = document.getElementsByTagName("a")
+var labels = document.getElementsByTagName("label")
+var spans = document.getElementsByTagName("span")
+
+var color = "#ffffff"
+var spookyTextColor = "#f26c2e"
+
+if(getMonth()=="October"){
+	color = spookyTextColor
+}
 
 //document.body.style.background = darkmodeColor
 for(var x=0;x<paragraphs.length;x++){
 	para = paragraphs[x]
-	para.style.color = "#ffffff"
+	para.style.color = color
 	// para.classList.add("darkmode_text")
 }
 for(var x=0;x<header1s.length;x++){
 	h1 = header1s[x]
-	h1.style.color = "#ffffff"
+	h1.style.color = color
 	// para.classList.add("darkmode_text")
 }
 for(var x=0;x<links.length;x++){
 	link = links[x]
-	link.style.color = "#ffffff"
+	link.style.color = color
 	// para.classList.add("darkmode_text")
 }
 for(var x=0;x<labels.length;x++){
 	lab = labels[x]
-	lab.style.color = "#ffffff"
+	lab.style.color = color
 	// para.classList.add("darkmode_text")
 }
 for(var x=0;x<spans.length;x++){
 	span = spans[x]
-	span.style.color = "#ffffff"
+	span.style.color = color
 	// para.classList.add("darkmode_text")
 }
 /*
@@ -419,10 +429,14 @@ setInterval(()=>{
 	}
 	*/
 	function modeEnable(){
+		
+		document.getElementById("welcome").innerHTML = "Welcome to GamesHub - "+getMonth()
+	}
+	function getMonth(){
 		var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 		var d = new Date()
 		var month = monthList[d.getMonth()]
-		document.getElementById("welcome").innerHTML = "Welcome to GamesHub - "+month
+		return month
 	}
 </script>
 
