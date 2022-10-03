@@ -248,6 +248,7 @@ if(enabled){
 		background-repeat: repeat-y;
   		background-size: cover;
 		image-rendering: pixelated;
+		color: white;
 	}
 	.ad{
 		position: absolute;
@@ -366,6 +367,7 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
 <button id="logout" onclick="setCookie('accToken','',365*10);location.reload()">Logout</button>
 
 <script>
+/*
 var paragraphs = document.getElementsByTagName("p")
 var header1s = document.getElementsByTagName("h1")
 var links = document.getElementsByTagName("a")
@@ -400,7 +402,7 @@ for(var x=0;x<spans.length;x++){
 	span.style.color = color
 	// para.classList.add("darkmode_text")
 }
-/*
+
 setInterval(()=>{
 	modeEnable()
 },50)
