@@ -379,14 +379,11 @@ var links = document.getElementsByTagName("a")
 var labels = document.getElementsByTagName("label")
 var spans = document.getElementsByTagName("span")
 
-t.concat(paragraphs,header1s,header2s,header3s,header4s,links,labels,spans)
-
 //document.body.style.background = darkmodeColor
 for(var x=0;x<t.length;x++){
 	s = t[x]
 	s.style.color = "#ffffff"
 }
-/*
 for(var x=0;x<paragraphs.length;x++){
 	para = paragraphs[x]
 	para.style.color = "#ffffff"
@@ -395,6 +392,21 @@ for(var x=0;x<paragraphs.length;x++){
 for(var x=0;x<header1s.length;x++){
 	h1 = header1s[x]
 	h1.style.color = "#ffffff"
+	// para.classList.add("darkmode_text")
+}
+for(var x=0;x<header2s.length;x++){
+	h2 = header2s[x]
+	h2.style.color = "#ffffff"
+	// para.classList.add("darkmode_text")
+}
+for(var x=0;x<header3s.length;x++){
+	h3 = header3s[x]
+	h3.style.color = "#ffffff"
+	// para.classList.add("darkmode_text")
+}
+for(var x=0;x<header4s.length;x++){
+	h4 = header4s[x]
+	h4.style.color = "#ffffff"
 	// para.classList.add("darkmode_text")
 }
 for(var x=0;x<links.length;x++){
@@ -412,7 +424,6 @@ for(var x=0;x<spans.length;x++){
 	span.style.color = "#ffffff"
 	// para.classList.add("darkmode_text")
 }
-*
 
 /*
 setInterval(()=>{
