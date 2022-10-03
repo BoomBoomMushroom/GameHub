@@ -29,6 +29,17 @@
 
 <script>
 
+function getMonth(){
+	var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+	var d = new Date()
+	var month = monthList[d.getMonth()]
+	return month
+}
+
+if(getMonth()=="October"){
+	l.src = "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/HalloweenGamesHubLogo.png"
+}
+
 const l = document.getElementById("logo")
 var dir = [0,0]
 var pos = {
