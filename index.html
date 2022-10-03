@@ -252,7 +252,7 @@ var e = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/Gamehu
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background4.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background5.png"]
 if(getMonth()=="October"){
-	//e.push("https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background_Spooky.png")
+	e.push("https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background1.png")
 	document.getElementById("logo").href = "HalloweenGamesHubLogo.png"
 }
 var rand = Math.floor( Math.random() * (e.length-0) )+0
@@ -367,6 +367,7 @@ var spookyTextColor = "#f26c2e"
 
 if(getMonth()=="October"){
 	color = spookyTextColor
+	document.getElmentById("logo").href = "HalloweenGamesHubLogo.png"
 }
 
 //document.body.style.background = darkmodeColor
