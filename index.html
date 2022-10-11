@@ -310,6 +310,8 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
 <br>
 <br>
 
+<footer style="position:absolute;bottom:0;width:100%;height:2.5rem;text-align:center">Copyright ©2022 Mushroom Studios, LLC®</footer>
+
 <script>
 	var singleplayerGames = [
   	{name:"Snake", url: "https://gameshub.dev/snake"},
@@ -400,6 +402,7 @@ var header4s = document.getElementsByTagName("h4")
 var links = document.getElementsByTagName("a")
 var labels = document.getElementsByTagName("label")
 var spans = document.getElementsByTagName("span")
+var footers = document.getElementsByTagName("footer")
 
 //document.body.style.background = darkmodeColor
 for(var x=0;x<t.length;x++){
@@ -444,6 +447,11 @@ for(var x=0;x<labels.length;x++){
 for(var x=0;x<spans.length;x++){
 	span = spans[x]
 	span.style.color = "#ffffff"
+	// para.classList.add("darkmode_text")
+}
+for(var x=0;x<footers.length;x++){
+	footer = footers[x]
+	footer.style.color = "#ffffff"
 	// para.classList.add("darkmode_text")
 }
 
