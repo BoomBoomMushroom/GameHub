@@ -17,7 +17,46 @@ https://capitalizemytitle.com/random-topic-generator/
     color: #ffffff;
     background-color: #333333;
   }
+  #s{
+    position: fixed;
+    right: 0;
+    top: 50%;
+  }
 </style>
+
+<div id="s">
+  <input id="suggestion">
+  <button onclick="sendSuggestion()">Send Suggestion</button>
+</div>
+
+<script>
+  function getCookie(cname){
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+	for (let i=0; i<ca.length;i++){
+	let c = ca[i];
+    while (c.charAt(0)==' '){
+      c = c.substring(1);
+    }
+    if(c.indexOf(name)==0){
+      return c.substring(name.length,c.length);
+    }
+	}
+	return "";
+}
+
+function sendSuggestion(){
+	if(document.getElementById("suggestion").value=="") return
+
+  fetch("https://gameshub-api.academyofcode1.repl.co/sendSuggestion?suggestion="+document.getElementById("suggestion").value+"&token="+getCookie("accToken"),{})
+    .then(response => response.text())
+    .then(data => {
+      console.log(JSON.parse(data))
+      document.getElementById("suggestion").value = ""
+    })
+  }
+</script>
 
 <br>
 <br>
