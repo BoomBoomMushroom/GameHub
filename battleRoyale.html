@@ -1,0 +1,330 @@
+<h3 id="wsStatus">WebSocket Status: Unknown</h3>
+
+<center id="btns">
+  <br>
+  <h1 id="title">Battle Royal</h1>
+  <p id="serverCount">There are 0 active servers</p>
+  <button id="randGame" onclick="joinRandomRoom()" class="btn">Random Room</button>
+  <br>
+  <br>
+  <button id="createGame" onclick="ws.send('createRoom')" class="btn">Create Room</button>
+  <br>
+  <br>
+  <button id="refresh" onclick="window.location.reload()" class="btn">Refresh</button>
+</center>
+
+<center id="waiting" style="display:none">
+  <br>
+  <br>
+  <br>
+  <input id="roomUrl"><button onclick="copyLink()">Copy</button>
+  <br>
+  <button class="btn" id="startGame" onclick="ws.send('startGame')">Start Game</button>
+  <br>
+  <br>
+  <li id="players"></li>
+</center>
+
+<span id="game" style="display:none">
+  <canvas id="gameCanvas"></canvas>
+</span>
+
+<style>
+html{
+  color: rgb(255,255,255);
+  user-select: none;
+}
+#wsStatus{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+#gameCanvas{
+  border: 1px solid black;
+  position: fixed;
+}
+.btn{
+  width: 29%;
+  height: 75px;
+  font-size: 3vw;
+}
+#nameInput{
+  position: fixed;
+  top: 0px;
+  right: 0px;
+}
+#serverCount{
+  font-size: 3vw;
+}
+body{
+  background-color: rgb(33,33,33);
+}
+</style>
+<script>
+// Server : https://replit.com/@AcademyofCode1/Battle-Royal-Server#index.js
+
+const c = document.getElementById("gameCanvas")
+const ctx = c.getContext("2d")
+
+c.height = Math.floor(window.innerHeight/100)*100 - 50
+c.width = c.height
+c.style.top = window.innerHeight/2-c.height/2+10 +"px"
+c.style.left = window.innerWidth/2-c.width/2 +"px"
+
+document.addEventListener("keydown",(e)=>{keyboard[e.keyCode]=true})
+document.addEventListener("keyup",(e)=>{keyboard[e.keyCode]=false})
+c.addEventListener("mousedown",(e)=>{
+	var pos = {
+  	x: e.clientX - parseInt(c.style.left.split("px")[0]),
+  	y: e.clientY- parseInt(c.style.top.split("px")[0])
+  }
+  server.players.forEach(function each(player){
+  	if(player.id == playerId){
+    	var posDif = {
+      	x: player.position.x - pos.x,
+      	y: player.position.y - pos.y
+      }
+      var positiveDif = {
+      	x: posDif.x,
+        y: posDif.y
+      }
+      // 0 = x
+      // 1 = y
+      var highestMag = 0
+      if(positiveDif.x<0){positiveDif.x*=-1}
+      if(positiveDif.y<0){positiveDif.y*=-1}
+    	
+      if(positiveDif.x < positiveDif.y){
+      	highestMag = 1
+      }
+      var dir = "up"
+      if(highestMag==0 && posDif.x>0){dir = "right"}
+      if(highestMag==0 && posDif.x<0){dir = "left"}
+      if(highestMag==1 && posDif.y>0){dir = "up"}
+      if(highestMag==1 && posDif.y<0){dir = "down"}
+      shoot(dir)
+      //console.log(dir)
+    }
+  })
+})
+
+const ws = new WebSocket("wss://Battle-Royal-Server.academyofcode1.repl.co")
+const wsStatus = document.getElementById("wsStatus")
+const serverCount = document.getElementById("serverCount")
+var activeServers = []
+var keyboard = []
+var server = null
+var playerId = null
+var showCords = false
+
+var reload = false
+
+var logS = false
+
+function heartbeat(){
+	clearTimeout(this.pingTimeout);
+	this.pingTimeout = setTimeout(() => {
+  	// this.terminate()
+    ws.send("pong")
+	}, 30000);
+}
+
+document.body.onmousemove = (e)=>{
+	if(showCords==false){return}
+	console.log(e.clientX,e.clientY)
+}
+setInterval(drawMap,10)
+
+var emptyMessageSender = setInterval(()=>{
+	if(ws.readyState==ws.CLOSED && reload==false){
+  	setTimeout(console.log("Reloading"),5000)
+    location.reload()
+    reload = true
+  }
+	if(ws.readyState!=ws.OPEN) return
+  ws.send("")
+  if(server==null){return}
+  var player = getPlayer(playerId)
+  if(server.inGame==0){
+  	document.getElementById('roomUrl').value = "https://gameshub.dev/battle?code="+server.name
+  }
+  if(player==null){return}
+  if(player.roomOwner==true){document.getElementById('startGame').disabled=false}
+  else{document.getElementById('startGame').disabled=true}
+},1)
+
+ws.onopen = function open(){
+  //console.log("Websocket opened!")
+  wsStatus.innerText = "WebSocket Status: Open"
+  wsStatus.style.color = "green"
+  heartbeat()
+  
+  const urlParams = new URLSearchParams(window.location.search)
+  const roomCode = urlParams.get('code')
+  if(roomCode!="Lobby"&&roomCode!=null){
+  	ws.send("join-"+roomCode)
+  }
+  
+  var cookie = getCookie("accToken")
+  if(cookie!=null){
+  	ws.send("link-"+cookie)
+  }
+};
+ws.onclose = function close(){
+	//console.log("Websocket closed!")
+  wsStatus.innerText = "WebSocket Status: Closed"
+  wsStatus.style.color = "red"
+  clearTimeout(this.pingTimeout)
+}
+ws.onmessage = function message(data){
+  var msg = data.data
+  var s = msg.split("-")
+  if(s[0]=="serverList"){
+  	s = mendArray(s,1,"")
+  	msg = JSON.parse(s)
+  	serverListCallback(msg)
+    return
+  }
+  else if(s[0]=="currentServer"){
+  	s = mendArray(s,1,"")
+  	msg = JSON.parse(s)
+    server = msg
+    if(logS){
+    	logS = false
+      console.log(msg)
+    }
+    return
+  }
+  else if(s[0]=="joined"){
+  	document.getElementById("btns").style.display = "none"
+    document.getElementById("waiting").style.display = "block"
+  }
+  else if(msg=="startingGame"){
+    document.getElementById("waiting").style.display = "none"
+    document.getElementById("game").style.display = "block"
+  }
+  else if(s[0]=="id"){
+  	playerId = s[1]
+    return
+  }
+  else if(msg=="updatePlayerList"){
+  	drawMap()
+    loadPlayers()
+  	return
+  }
+  
+  else if(msg=="close"){
+  	window.location.reload()
+    return
+  }
+  console.log(msg);
+};
+ws.on('ping',heartbeat)
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+function mendArray(arr,start,joiner){
+	var out = ""
+  for(var i=start;i<arr.length;i++){
+		out += arr[i]+joiner
+  }
+  return out
+}
+function shoot(dir){
+	ws.send("shoot-"+dir)
+}
+function serverListCallback(list){
+	var openRooms = []
+  for(var i=0;i<list.length;i++){
+  	var c = list[i]
+    if(c.players.length!=c.maxPlayers && c.inGame==false && c.name!='Lobby'){
+    	openRooms.push(c.name)
+    }
+  }
+  activeServers = openRooms
+  serverCount.innerText = "There are "+openRooms.length+" active servers"
+}
+function loadPlayers(){
+	var pList = document.getElementById('players')
+  pList.innerHTML = ""
+  if(server==null){return}
+  if(server.name=="Lobby"){return}
+  server.players.forEach(function each(player){
+  	var png = document.createElement("img")
+    png.src = "https://avatars.dicebear.com/api/identicon/"+player.displayName+".png"
+    png.style.backgroundColor = "rgb(255,255,255)"
+    png.style.width = "7%"
+    png.style.height = "7%"
+    png.id = player.id + "-img"
+    
+    var name = document.createElement("span")
+    name.innerText = player.displayName
+    name.id = player.id + "-txt"
+    name.style.fontSize = "3vw"
+    
+    pList.appendChild(png)
+    pList.appendChild(name)
+    pList.appendChild(document.createElement("br"))
+  })
+}
+function drawMap(){
+	if(server==null){return}
+  if(server.inGame!=1){return}
+  
+  if(keyboard[87] || keyboard[38]){ws.send('move-up')}
+  if(keyboard[83] || keyboard[40]){ws.send('move-down')}
+  if(keyboard[65] || keyboard[37]){ws.send('move-left')}
+  if(keyboard[68] || keyboard[39]){ws.send('move-right')}
+  
+	ctx.fillStyle = "#ffffff"
+	ctx.fillRect(0,0,c.width,c.height)
+  ctx.fillStyle = "#000000"
+  for(var i=0;i<server.players.length;i++){
+  	ctx.fillStyle = "#000000"
+  	var p = server.players[i]
+    var pos = p.position
+    var name = p.displayName
+    if(p.dead){continue}
+    if(p.id==playerId){
+    	for(var i=0;i<server.bullets.length;i++){
+        ctx.fillStyle = "#ffff00"
+        var b = server.bullets[i]
+        ctx.fillRect(b.x, b.y, 5,5)
+        
+        if(distance(pos,b)<=b.hurtRadius){ws.send("died-"+b.ownerId)}
+      }
+    }
+    ctx.textAlign = 'center';
+    ctx.fillStyle = "#000000"
+		ctx.fillText(name, pos.x, pos.y-5);
+    
+    ctx.fillRect(pos.x, pos.y, 5,5)
+  }
+}
+function distance(a,b){
+	return Math.sqrt(Math.pow(b.x-a.x,2)+Math.pow(b.y-a.y,2))
+}
+function copyLink(){
+	document.getElementById('roomUrl').select()
+  document.execCommand('copy')
+}
+function getPlayer(id){
+	if(server==null){return}
+	var r = null
+	server.players.forEach(function each(player){
+    if(player.id==id){
+    	r = player
+      return player
+    }
+  })
+  return r
+}
+function joinRandomRoom(){
+	var serverId = activeServers[ Math.floor(Math.random()*activeServers.length) ]
+  if(serverId==undefined) return
+  ws.send("join-"+serverId)
+}
+</script>
