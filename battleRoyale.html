@@ -60,6 +60,7 @@ body{
   background-color: rgb(33,33,33);
 }
 </style>
+
 <script>
 // Server : https://replit.com/@AcademyofCode1/Battle-Royal-Server#index.js
 
@@ -203,7 +204,7 @@ ws.onmessage = function message(data){
     document.getElementById("waiting").style.display = "none"
     document.getElementById("game").style.display = "block"
   }
-  else if(msg=="restart"){
+  else if(msg=="newGame"){
   	ws.send("playAgain")
     return
   }
