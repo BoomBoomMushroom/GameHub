@@ -203,6 +203,10 @@ ws.onmessage = function message(data){
     document.getElementById("waiting").style.display = "none"
     document.getElementById("game").style.display = "block"
   }
+  else if(msg=="restart"){
+  	ws.send("playAgain")
+    return
+  }
   else if(s[0]=="id"){
   	playerId = s[1]
     return
