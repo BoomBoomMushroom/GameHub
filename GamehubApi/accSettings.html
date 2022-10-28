@@ -92,8 +92,8 @@ function getCookie(cname){
 const token = getCookie("accToken")
 
 function logout(){
-	alert("Logging out??")
-	//return
+	window.location.reload()
+	return
 	
 	fetch('https://Gameshub-API.academyofcode1.repl.co/logout?token='+token,{})
 	.then(response => response.text())
@@ -101,7 +101,6 @@ function logout(){
 		const d = JSON.parse(data)
 		console.log(d)
 		alert(d)
-		return
 		setCookie('accToken','',365*10);
 		window.location.reload()
 	})
