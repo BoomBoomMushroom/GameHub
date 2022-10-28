@@ -532,13 +532,13 @@ setInterval(()=>{
 		console.log(JSON.parse(data))
 		if(JSON.parse(data)=="COULDNT_FIND_TOKEN"){
 			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
-			document.getElementById("currentAcc").innerHTML = "You are currently not signed in"
+			document.getElementById("currentAcc").innerText = "You are currently not signed in"
 			document.getElementById("logout").style.display = "none"
 		}
 		else{
-			//document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).Username
-			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/accSettings"
-      document.getElementById("currentAcc").innerHTML = "Currently signed in as " + JSON.parse(data).Username
+			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).Username
+			//document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/accSettings"
+      			document.getElementById("currentAcc").innerText = "Currently signed in as " + JSON.parse(data).Username
 			document.getElementById("tr1").style.display = "none"
 			document.getElementById("tr2").style.display = "none"
 		}
