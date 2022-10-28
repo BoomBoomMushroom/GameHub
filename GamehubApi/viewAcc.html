@@ -44,6 +44,12 @@ var recentActions = []
 const firstVar = window.location.href.split("?")[1] || null
 const placeholderAdvancements = []
 
+function addCommas(x) {
+	var parts = x.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
+}
+
 function loadData(m){
 	m = JSON.parse(m)
   try{
@@ -54,7 +60,7 @@ function loadData(m){
     else{
 	    document.getElementById("pfp").src = "https://avatars.dicebear.com/api/identicon/"+m.Username+".svg"
     }
-    document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + m.GameshubData.Money +" - " + myDate.toLocaleString().split(",")[0]
+    document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + addCommas(m.GameshubData.Money) +" - " + myDate.toLocaleString().split(",")[0]
   }
   catch(err){
 	  if(m.ProfilePicture!=""){
