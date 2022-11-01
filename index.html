@@ -266,7 +266,9 @@ var spookySet = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/mai
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background6.png",
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background7.png",
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background8.png"]
-if(getMonth()=="Febuary" && 10<=getDay()<=18){
+var day = getDay()
+
+if(getMonth()=="Febuary" && 10 <= day && day <=18){
 	//e = valentineSet
 	document.getElementById("logo").href = "ValentineGamesHubLogo.png"
 }
@@ -274,7 +276,7 @@ if(getMonth()=="October"){
 	e = spookySet
 	document.getElementById("logo").href = "HalloweenGamesHubLogo.png"
 }
-if(getMonth()=="November" && 22<=getDay()<=28){
+if(getMonth()=="November" && 22 <= day && day <=28){
 	//e = thanksgivingSet
 	document.getElementById("logo").href = "ThanksgivingGamesHubLogo.png"
 }
