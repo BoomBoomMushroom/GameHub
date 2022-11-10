@@ -183,7 +183,7 @@ if(enabled){
   <style>
     #chatDiv{ position: absolute; border: 1px solid black; top: 45%; right: 1%; overflow: auto; background-color: #ffffff }
     #controls{
-      position: absolute;
+      position: fixed;
       bottom: 1%;
       right: 1%;
     }
@@ -193,7 +193,7 @@ if(enabled){
 	<span></span>
   </div>
     
-  <div id="controls">
+  <div id="controls" style="position:fixed;">
   	<input class='chat' id="msgInput" placeholder='Type your message here...'>
   	<button class='chat' id="sendMsg" onclick='sendMsg()'>Send Message</button>
   </div>
@@ -214,12 +214,12 @@ if(enabled){
         document.getElementById("msgInput").value="";
       }
     }
-    document.onkeypress = function (e) {
+    document.addEventListener("keydown",(e)=>{
       e = e || window.event
       if(e.keyCode == 13){
         sendMsg();
       }
-    }
+    })
 
     function getCookie(name) {
       const value = `; ${document.cookie}`;
@@ -313,7 +313,7 @@ document.body.style.backgroundImage="url('"+e[rand]+"')"
 <!--
 <footer style="position:absolute;bottom:0;width:50%;height:2.5rem;text-align:center">Copyright ©2022 Mushroom Studios, LLC®</footer>
 -->
-<footer style="position:absolute;bottom:0;width:50%;height:4rem;font-size:4vh;text-align:center">Made with ❤️ by Dillion Weaver</footer>
+<footer style="position:fixed;bottom:1%;width:50%;height:4rem;font-size:4vh;text-align:center">Made with ❤️ by Dillion Weaver</footer>
 
 <script>
 	var singleplayerGames = [
@@ -508,7 +508,7 @@ setInterval(()=>{
     "right": 39,
   }
   var codeIndex = 0
-  const konami = function(event){
+  document.addEventListener("keydown",(event)=>{
     const keyCode = event.keyCode
     var reqKeycode = keycodes[konamiCode[codeIndex]]
     if(codeIndex>=konamiCode.length-1){
@@ -524,7 +524,7 @@ setInterval(()=>{
     } else{
       codeIndex = 0
     }
-  }
+  })
 
 </script>
 
@@ -646,7 +646,8 @@ setInterval(()=>{
     "ENTER": 13,
   }
   var codeIndex2 = 0
-  callAnnouncement = function(event){
+  
+  document.addEventListener("keydown",(event)=>{
     const keyCode = event.keyCode
     //console.log(keyCode)
     var reqKeycode = keycodes2[code[codeIndex2]]
@@ -656,7 +657,7 @@ setInterval(()=>{
     } else{
       codeIndex2 = 0
     }
-  }
+  })
 </script>
 
 <script>
@@ -666,10 +667,10 @@ function getCookie(name) {
 	if (parts.length===2) return parts.pop().split(';').shift();
 }
 
-moneyGetKey = function (e) {
+document.addEventListener("keydown", (e)=>{
   e = e || window.event
   window.previousKeyEpoch = Math.ceil(Date.now()/1000)
-}
+})
 
 function httpFetchText(url,callback,onError){
 	fetch(url)
@@ -740,15 +741,7 @@ var i = setInterval(()=>{
   })
   
   function showAnnouncement(d){
-  	alert(d.announcement)
+  	//alert(d.announcement)
     setCookie("lastAnnouncement",d.timestamp.toString(),365*20)
-  }
-</script>
-
-<script>
-  document.onkeydown = (event)=>{
-    callAnnouncement(event)
-    konami(event)
-    moneyGetKey(event)
   }
 </script>
