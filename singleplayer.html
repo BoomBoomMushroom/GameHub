@@ -2,26 +2,6 @@
     <p>Single Player Games</p>
 </div>
 
-<div id="multiplayer">
-    <p>Multiplayer Games</p>
-</div>
-
-<div id="server">
-    <p>Gameshub Server Stuff</p>
-</div>
-
-<div id="legacy">
-    <p>Legacy Games</p>
-</div>
-
-<br>
-<br>
-
-<!--
-<footer style="position:absolute;bottom:0;width:50%;height:2.5rem;text-align:center">Copyright ©2022 Mushroom Studios, LLC®</footer>
--->
-<footer style="position:fixed;bottom:1%;width:50%;height:4rem;font-size:4vh;text-align:center">Made with ❤️ by Dillion Weaver</footer>
-
 <script>
 	var singleplayerGames = [
   	{name:"Snake", url: "https://gameshub.dev/snake"},
@@ -47,45 +27,16 @@
   	{name:"Artificial Life w/ Settings", url: "https://gameshub.dev/life"},
   	{name:"Talking Ben", url: "https://gameshub.dev/ben"},
   ]
-  var multiplayerGames = [
-  	{name:"Existance Simulator", url: "https://gameshub.dev/existancesimulator"},
-  	{name:"Existance Simulator 3D", url: "https://gameshub.dev/existancesimulator3d/"},
-  	{name:"Blackjack", url: "https://gameshub.dev/blackjack"},
-  	{name:"Sprouts (In Person Req)", url: "https://gameshub.dev/sproutssolo"},
-  	{name:"Battle Royale", url: "https://gameshub.dev/battleroyale"},
-  ]
-  var server = [
-  	{name:"Signup", url: "https://gameshub.dev/gamehubapi/signup"},
-  	{name:"Log in", url: "https://gameshub.dev/gamehubapi/signin"},
-  	{name:"Account Settings", url: "https://gameshub.dev/gamehubapi/accsettings"},
-  	{name:"Search Accounts", url: "https://gameshub.dev/gamehubapi/accsearch"},
-  	{name:"Gameshub Shop", url: "https://gameshub.dev/gamehubapi/shop"},
-  ]
-  var legacyGames = []
   
   function insertAfter(newNode, existingNode) {
 		existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 	}
   
   if(singleplayerGames.length==0){document.getElementById("singleplayer").style.display = "none"}
-  if(multiplayerGames.length==0){document.getElementById("multiplayer").style.display = "none"}
-  if(server.length==0){document.getElementById("server").style.display = "none"}
-  if(legacyGames.length==0){document.getElementById("legacy").style.display = "none"}
   
   for(var x=0;x<singleplayerGames.length;x++){
     var t = "<a href="+singleplayerGames[x].url+"><button>"+singleplayerGames[x].name+"</button></a>"
     document.getElementById("singleplayer").innerHTML += t
   }
-  for(var x=0;x<multiplayerGames.length;x++){
-     var t = "<a href="+multiplayerGames[x].url+"><button>"+multiplayerGames[x].name+"</button></a>"
-    document.getElementById("multiplayer").innerHTML += t
-  }
-  for(var x=0;x<server.length;x++){
-     var t = "<a href="+server[x].url+"><button>"+server[x].name+"</button></a>"
-    document.getElementById("server").innerHTML += t
-  }
-  for(var x=0;x<legacyGames.length;x++){
-     var t = "<a href="+legacyGames[x].url+"><button>"+legacyGames[x].name+"</button></a>"
-    document.getElementById("legacy").innerHTML += t
-  }
+  
 </script>
