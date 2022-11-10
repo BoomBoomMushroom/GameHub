@@ -15,7 +15,6 @@
 		existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 	}
   if(server.length==0){document.getElementById("server").style.display = "none"}
-  }
   for(var x=0;x<server.length;x++){
      var t = "<a href="+server[x].url+"><button>"+server[x].name+"</button></a>"
     document.getElementById("server").innerHTML += t
