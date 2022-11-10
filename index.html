@@ -1,5 +1,514 @@
-<center>
-  <h1>Hello! Gameshub is currently undergoing maintenance!</h1>
+<head>
+	<title>Gameshub</title>
+	<meta name="keywords" content="Games,Chat,Online,Offline,Multiplayer,SinglePlayer,Dev,Development,Code,Coding,JavaScript,Unity,Bad games,Horrible Games,Stolen Games, AOT, ">
+	<meta name="description" content="Snake, Worlde, CGoL, MonPoke, and Gravity Simulators. Come play these games on GamesHub!">
+	<meta name="author" content="Dillion Weaver">
+	<link rel="icon" id="logo" href="GamesHubLogo.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+</head>
+
+<!--
+<h3>"Gameshub... because Whats the worst that could happen?"</h3>
+<audio controls autoplay loop style="position:absolute;top:0px;right:0px;width:200px">
+  <source src="https://gameshub.dev/music/GameshubIntro.wav" type="audio/wav">
+</audio>
+-->
+
+<header style="width:100%" id="header" class="header">
+  <img id="headerLogo" class="header" style="height:4vw" src="https://gameshub.dev/gameshublogo.png">
+  <span id="headerTitle" style="font-size:4vw" class="header">GamesHub</span>
+  
+  <div id="headerButtons" class="header">
+    <a href="https://gameshub.dev/singleplayer"><button id="single" class="chip">Single Player</button></a>
+    <a href="https://gameshub.dev/multiplayer"><button id="multi" class="chip">Multiplayer</button></a>
+    <a href="https://gameshub.dev/gameshubserver"><button id="server" class="chip">Account/Server</button></a>
+  </div>
+</header>
+
+<button id="bigRedButton"></button>
+
+<style>
+body{
+  background-color: #333333;
+  color: #ffffff;
+  background-image: url("https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background.png");
+	/*
+  background-repeat: no-repeat;
+  */
+  background-repeat: repeat-y;
+  background-size: cover;
+	image-rendering: pixelated;
+}
+
+.header{
+  vertical-align: middle;
+  display: inline;
+}
+#headerButtons{
+  float: right;
+}
+.chip{
+  border-radius: 12px;
+  transition-duration: 0.4s;
+}
+.chip:hover{
+  background-color: #C8C8C8;
+}
+
+#bigRedButton{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: none;
+  border-radius: 50%;
+  width: 10vw;
+  height: 10vw;
+  color: #fff;
+  box-shadow: 0 9px #999;
+  background-color: #ff4444;
+  transition-duration: 0.5s;
+}
+#bigRedButton:hover {background-color: #ff0000}
+#bigRedButton:active {
+  background-color: #ff0000;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+#single{
+  color: #ff4444;
+}
+#single:hover{
+  box-shadow: 0 12px 16px 0 rgba(255,165,00,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+#multi{
+  color: #A020F0;
+}
+#multi:hover{
+  box-shadow: 0 12px 16px 0 rgba(160,32,240,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+#server{
+  color: #4444ff;
+}
+#server:hover{
+  box-shadow: 0 12px 16px 0 rgba(44,44,255,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.ad{
+	position: absolute;
+	right:  20%;
+  bottom: 10px;
+}
+</style>
+
+<div id="globalChat">
+  <script>
+	let HOST = 'wss://GameshubGlobalChat.academyofcode1.repl.co'
+	// https://replit.com/@AcademyofCode1/GameshubGlobalCHat
+  let ws = new WebSocket(HOST);
+  let el;
+
+  function heartbeat(){
+  	clearTimeout(this.pingTimeout);
+        
+    this.pingTimeout = setTimeout(() => {
+    	this.terminate()
+    }, 30000);
+	}
+      
+  var enterName = false
+  ws.onmessage = function incoming(data) {
+  	var msg = data.data
+    addChat(msg)
+	}
+      
+  ws.on('open', heartbeat);
+  ws.on('ping', heartbeat);
+  ws.on('close', function close() {
+  	clearTimeout(this.pingTimeout);
+	})
+	</script>
+  <style>
+    #chatDiv{ position: absolute; border: 1px solid black; top: 45%; right: 1%; overflow: auto; background-color: #ffffff }
+    #controls{
+      position: fixed;
+      bottom: 1%;
+      right: 1%;
+    }
+  </style>
+
+  <div class='chat' id="chatDiv">
+	<span></span>
+  </div>
+    
+  <div id="controls" style="position:fixed;">
+  	<input class='chat' id="msgInput" placeholder='Type your message here...'>
+  	<button class='chat' id="sendMsg" onclick='sendMsg()'>Send Message</button>
+  </div>
+  <script>
+    function addChat(msg){
+      const output = document.getElementById('chatDiv');
+      output.style.width = window.innerHeight * .4 + "px";
+      output.style.height = window.innerHeight * .4 + "px"
+      var ele = document.createElement('P');
+      ele.innerText = new Date().toTimeString().split(' ')[0] + " " + msg
+      ele.style.wordWrap = 'break-word'
+      output.appendChild(ele);
+      output.scrollTop = output.scrollHeight
+    }
+    function sendMsg(){
+      if(document.getElementById("msgInput").value!=""){
+        ws.send("CHAT-"+document.getElementById("msgInput").value);
+        document.getElementById("msgInput").value="";
+      }
+    }
+    document.addEventListener("keydown",(e)=>{
+      e = e || window.event
+      if(e.keyCode == 13){
+        sendMsg();
+      }
+    })
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length===2) return parts.pop().split(';').shift();
+    }
+
+    var a = setInterval(()=>{
+      if(ws.readyState==ws.OPEN){
+        var cookie = getCookie("accToken")
+        if(cookie!=undefined){
+          ws.send("token-"+cookie)
+          clearInterval(a)
+        }
+      }
+    },10)
+  </script>
+</div>
+
+<script>
+function getMonth(){
+	var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+	var d = new Date()
+	var month = monthList[d.getMonth()]
+	return month
+}
+function getDay(){
+	return new Date().getUTCDate()
+}
+
+var e = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background.png",
+	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background2.png",
+	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background3.png",
+	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background4.png",
+	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background5.png"]
+var spookySet = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background1.png",
+		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background2.png",
+		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background3.png",
+		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background4.png",
+		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background5.png",
+		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background6.png",
+		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background7.png",
+		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background8.png"]
+var day = getDay()
+
+if(getMonth()=="Febuary" && 10 <= day && day <=18){
+	//e = valentineSet
+	document.getElementById("logo").href = "ValentineGamesHubLogo.png"
+	document.getElementById("headerLogo").href = "ValentineGamesHubLogo.png"
+}
+if(getMonth()=="October"){
+	e = spookySet
+	document.getElementById("logo").href = "HalloweenGamesHubLogo.png"
+	document.getElementById("headerLogo").href = "HalloweenGamesHubLogo.png"
+}
+if(getMonth()=="November" && 22 <= day && day <=28){
+	//e = thanksgivingSet
+	document.getElementById("logo").href = "ThanksgivingGamesHubLogo.png"
+	document.getElementById("headerLogo").href = "ThanksgivingGamesHubLogo.png"
+}
+if(getMonth()=="December"){
+	//e = christmasSet
+	document.getElementById("logo").href = "ChristmasGamesHubLogo.png"
+	document.getElementById("headerLogo").href = "ChristmasGamesHubLogo.png"
+}
+var rand = Math.floor( Math.random() * (e.length-0) )+0
+document.body.style.backgroundImage="url('"+e[rand]+"')"
+</script>
+<script>
+function randomInt(min,max){
+	return Math.floor(Math.random() * (max-min+1))+min
+}
+
+document.getElementById("bigRedButton").addEventListener("click",(e)=>{
+	var button = document.getElementById("bigRedButton")
+  button.style.top = randomInt(0,window.innerHeight-button.offsetHeight)+"px"
+  button.style.left = randomInt(0,window.innerWidth-button.offsetWidth)+"px"
+  var cl = parseInt( getCookie("clicks") )
+  if(isNaN(cl)){
+  	cl = 0
+  }
+  setCookie("clicks",(cl+1).toString(),999)
+})
+</script>
+
+<div style="position:absolute;bottom:0px;">
+  <span>Links</span>
   <br>
-  <h3>Go to the <a href="https://gameshub.dev/old_landing">old landing</a> page to reach GamesHub</h3>
-</center>
+  <a href='https://podcasts.gameshub.dev/'>The 5-Minute Podcasts</a>
+  <br>
+  <a href='https://github.com/Academy-of-Code/GameHub'>Gameshub source code here</a>
+  <br>
+  <a disabled href='https://api.gameshub.dev'>API: api.gameshub.dev</a>
+  <br>
+  <a href="" id="currentAcc"></a>
+</div>
+
+<script>
+  const konamiCode = "up up down down left right left right b a".split(" ")
+  const keycodes = {
+    "a": 65,
+    "b": 66,
+    "up": 38,
+    "down": 40,
+    "left": 37,
+    "right": 39,
+  }
+  var codeIndex = 0
+  document.addEventListener("keydown",(event)=>{
+    const keyCode = event.keyCode
+    var reqKeycode = keycodes[konamiCode[codeIndex]]
+    if(codeIndex>=konamiCode.length-1){
+	    alert("Konami entered! Loading data...")
+	    fetch('https://Gameshub-API.academyofcode1.repl.co/awardAdvancement?token='+getCookie("accToken")+"&id=3",{})
+	    .then(response => response.text())
+	    .then(data=>{
+	    	window.location.href = "https://gameshub.dev/pirate"
+	    })
+    }
+    if(keyCode==reqKeycode){
+      codeIndex += 1
+    } else{
+      codeIndex = 0
+    }
+  })
+
+</script>
+<script>
+	fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie("accToken"),{})
+	.then(response => response.text())
+	.then(data => {
+		console.log(JSON.parse(data))
+		if(JSON.parse(data)=="COULDNT_FIND_TOKEN"){
+			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
+			document.getElementById("currentAcc").innerText = "You are currently not signed in"
+			document.getElementById("logout").style.display = "none"
+		}
+		else{
+			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).Username
+			//document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/accSettings"
+      			document.getElementById("currentAcc").innerText = "Currently signed in as " + JSON.parse(data).Username
+			document.getElementById("tr1").style.display = "none"
+			document.getElementById("tr2").style.display = "none"
+		}
+	})
+</script>
+
+<script>
+	// Announcement Maker
+  	function setCookie(cname, cvalue, exdays){
+	  const d = new Date();
+	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	  let expires = "expires="+d.toUTCString();
+	  document.cookie = cname+"="+cvalue+";"+expires+";path=/";
+	}
+	function getCookie(cname){
+	  let name = cname + "=";
+	  let decodedCookie = decodeURIComponent(document.cookie);
+	  let ca = decodedCookie.split(';');
+	  for (let i=0; i<ca.length;i++){
+		let c = ca[i];
+	    while (c.charAt(0)==' '){
+		c = c.substring(1);
+	    }
+	    if(c.indexOf(name)==0){
+		return c.substring(name.length,c.length);
+	    }
+	  }
+	  return "";
+	}
+  
+  async function validateAccount(c){    
+    var token = getCookie("accToken")
+    
+    var r=await fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+token,{})
+    .then(response => response.text())
+    .then(data => {
+      //console.log(JSON.parse(data))
+      if(JSON.parse(data)!="COULDNT_FIND_TOKEN"){
+        return JSON.parse(data)
+      }
+      else{ return {} }
+    })
+    var h = setInterval(()=>{
+      if(r!=undefined){
+        c(r,token)
+        clearInterval(h)
+      }
+    },10)
+  }
+  
+  // code form JavaScript section
+  function httpFetchJSON(url,callback,onError){
+    fetch(url)
+    .then(response=>response.json())
+    .then(data=>callback(data))
+    .catch(error=>onError(error))
+  }
+  function httpFetchText(url,callback,onError){
+    fetch(url)
+    .then(response=>response.text())
+    .then(data=>callback(data))
+    .catch(error=>onError(error))
+  }
+
+  function f(){
+    console.log("Code entered now checking accout!")
+
+    // Validate Token
+    validateAccount(contin)
+    function contin(account,token){
+      var isAdmin = account.IsAdmin == true
+      if(!isAdmin) return
+      console.log("The user is an Admin... proceeding")
+      var announcement = ""
+      var times = 0
+      while(announcement==""){
+        if(times>=5){
+          break
+        }
+        var a = prompt("Give an annoucement to send")
+        if(a.replaceAll(" ", "")!=""){
+          announcement = a
+        }
+        times++
+      }
+      if(announcement=="") return
+      var announce_URL = "https://gameshub-api.academyofcode1.repl.co/announce"
+      // takes 'token' and 'a' as params
+      httpFetchText(announce_URL+"?token="+token+"&a="+announcement,s)
+    }
+    function s(data){
+      console.log(data)
+    }
+  }
+
+  const code = "W A S D ENTER".split(" ")
+  const keycodes2 = {
+    "W": 87,
+    "A": 65,
+    "S": 83,
+    "D": 68,
+    "ENTER": 13,
+  }
+  var codeIndex2 = 0
+  
+  document.addEventListener("keydown",(event)=>{
+    const keyCode = event.keyCode
+    //console.log(keyCode)
+    var reqKeycode = keycodes2[code[codeIndex2]]
+    if(codeIndex2>=code.length-1){f();codeIndex2=0;}
+    if(keyCode==reqKeycode){
+      codeIndex2 += 1
+    } else{
+      codeIndex2 = 0
+    }
+  })
+</script>
+
+<script>
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+	if (parts.length===2) return parts.pop().split(';').shift();
+}
+
+document.addEventListener("keydown", (e)=>{
+  e = e || window.event
+  window.previousKeyEpoch = Math.ceil(Date.now()/1000)
+})
+
+function httpFetchText(url,callback,onError){
+	fetch(url)
+  .then(response=>response.text())
+  .then(data=>callback(data))
+  .catch(error=>onError(error))
+}
+
+var i = setInterval(()=>{
+	var currentEpoch = Math.ceil(Date.now()/1000)
+  if(currentEpoch - window.previousKeyEpoch <= 1000*60*2){
+  	var token = getCookie("accToken")
+    if(token == undefined) return
+  	var coinUrl = "https://gameshub-api.academyofcode1.repl.co/awardmoney?token="+token+"&amount=10"
+    httpFetchText(coinUrl,(data)=>{
+    	console.log(data)
+    })
+  }
+},1000*60)
+
+</script>
+
+<script>
+	//Show Annoucnement
+	function setCookie(cname, cvalue, exdays){
+	  const d = new Date();
+	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	  let expires = "expires="+d.toUTCString();
+	  document.cookie = cname+"="+cvalue+";"+expires+";path=/";
+	}
+	function getCookie(cname){
+	  let name = cname + "=";
+	  let decodedCookie = decodeURIComponent(document.cookie);
+	  let ca = decodedCookie.split(';');
+	  for (let i=0; i<ca.length;i++){
+		let c = ca[i];
+	    while (c.charAt(0)==' '){
+		c = c.substring(1);
+	    }
+	    if(c.indexOf(name)==0){
+		return c.substring(name.length,c.length);
+	    }
+	  }
+	  return "";
+	}
+  function httpFetchJSON(url,callback,onError){
+    fetch(url)
+    .then(response=>response.json())
+    .then(data=>callback(data))
+    .catch(error=>onError(error))
+  }
+  function httpFetchText(url,callback,onError){
+    fetch(url)
+    .then(response=>response.text())
+    .then(data=>callback(data))
+    .catch(error=>onError(error))
+  }
+  
+  httpFetchJSON("https://gameshub-api.academyofcode1.repl.co/getannouncement",(data)=>{
+  	var currentEpoch = Math.ceil(Date.now()/1000)
+    var lastAnnouncement = parseInt(getCookie("lastAnnouncement"))
+    if(isNaN(lastAnnouncement)){
+      showAnnouncement(data)
+    }
+    else if(data.timestamp != lastAnnouncement){
+    	showAnnouncement(data)
+    }
+  })
+  
+  function showAnnouncement(d){
+  	//alert(d.announcement)
+    setCookie("lastAnnouncement",d.timestamp.toString(),365*20)
+  }
+</script>
