@@ -1,0 +1,23 @@
+<div id="multiplayer">
+    <p>Multiplayer Games</p>
+</div>
+
+<script>
+	var multiplayerGames = [
+  	{name:"Existance Simulator", url: "https://gameshub.dev/existancesimulator"},
+  	{name:"Existance Simulator 3D", url: "https://gameshub.dev/existancesimulator3d/"},
+  	{name:"Blackjack", url: "https://gameshub.dev/blackjack"},
+  	{name:"Sprouts (In Person Req)", url: "https://gameshub.dev/sproutssolo"},
+  	{name:"Battle Royale", url: "https://gameshub.dev/battleroyale"},
+  ]
+  
+  function insertAfter(newNode, existingNode) {
+		existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+	}
+  
+  if(multiplayerGames.length==0){document.getElementById("multiplayer").style.display = "none"}
+  for(var x=0;x<multiplayerGames.length;x++){
+     var t = "<a href="+multiplayerGames[x].url+"><button>"+multiplayerGames[x].name+"</button></a>"
+    document.getElementById("multiplayer").innerHTML += t
+  }
+</script>
