@@ -256,17 +256,26 @@ document.getElementById("bigRedButton").addEventListener("click",(e)=>{
 })
 </script>
 
-<div style="position:absolute;bottom:0px;">
+<div style="position:absolute;bottom:0px;color:white">
   <span>Links</span>
   <br>
-  <a href='https://podcasts.gameshub.dev/'>The 5-Minute Podcasts</a>
+  <a class="link" href='https://podcasts.gameshub.dev/'>The 5-Minute Podcasts</a>
   <br>
-  <a href='https://github.com/Academy-of-Code/GameHub'>Gameshub source code here</a>
+  <a class="link" href='https://github.com/Academy-of-Code/GameHub'>Gameshub source code here</a>
   <br>
-  <a disabled href='https://api.gameshub.dev'>API: api.gameshub.dev</a>
+  <a class="link" disabled href='https://api.gameshub.dev'>API: api.gameshub.dev</a>
   <br>
-  <a href="" id="currentAcc"></a>
+  <a class="link" href="" id="currentAcc"></a>
 </div>
+
+<style>
+.link:visited{
+  color: white;
+}
+.link:active{
+  color: white;
+}
+</style>
 
 <script>
   const konamiCode = "up up down down left right left right b a".split(" ")
