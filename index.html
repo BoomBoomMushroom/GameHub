@@ -20,9 +20,26 @@
   <span id="headerTitle" style="font-size:4vw" class="header">GamesHub</span>
   
   <div id="headerButtons" class="header">
+    <div class="dropdown">
+      <button class="dropbtn, header, chip" id="singleHeader">Single Player</button>
+      <div class="dropdown-content" id="single"></div>
+    </div>
+    
+    <div class="dropdown">
+      <button class="dropbtn, header, chip" id="multiHeader">Multiplayer</button>
+      <div class="dropdown-content" id="multi"></div>
+    </div>
+    
+    <div class="dropdown">
+      <button class="dropbtn, header, chip" id="serverHeader">Account/Server</button>
+      <div class="dropdown-content" id="server"></div>
+    </div>
+    
+    <!--
     <a href="https://gameshub.dev/singleplayer"><button id="single" class="chip">Single Player</button></a>
     <a href="https://gameshub.dev/multiplayer"><button id="multi" class="chip">Multiplayer</button></a>
     <a href="https://gameshub.dev/gameshubserver"><button id="server" class="chip">Account/Server</button></a>
+    -->
   </div>
 </header>
 
@@ -52,7 +69,7 @@ body{
 .chip{
   border-radius: 12px;
   transition-duration: 0.4s;
-  font-size: 2vw;
+  font-size: 3vw;
 }
 .chip:hover{
   background-color: #C8C8C8;
@@ -78,22 +95,22 @@ body{
   transform: translateY(4px);
 }
 
-#single{
+#singleHeader{
   color: #ff4444;
 }
-#single:hover{
+#singleHeader:hover{
   box-shadow: 0 12px 16px 0 rgba(255,165,00,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
-#multi{
+#multiHeader{
   color: #A020F0;
 }
-#multi:hover{
+#multiHeader:hover{
   box-shadow: 0 12px 16px 0 rgba(160,32,240,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
-#server{
+#serverHeader{
   color: #4444ff;
 }
-#server:hover{
+#serverHeader:hover{
   box-shadow: 0 12px 16px 0 rgba(44,44,255,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 .ad{
@@ -101,7 +118,46 @@ body{
 	right:  20%;
   bottom: 10px;
 }
+
+
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  overflow: none;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
 </style>
+
+
 
 <div id="globalChat">
   <script>
@@ -525,5 +581,66 @@ var i = setInterval(()=>{
   function showAnnouncement(d){
   	//alert(d.announcement)
     setCookie("lastAnnouncement",d.timestamp.toString(),365*20)
+  }
+</script>
+<script>
+var singleplayerGames = [
+  	{name:"Snake", url: "https://gameshub.dev/snake"},
+  	{name:"Pet the Dog!", url: "https://pet-the-dog.netlify.app/"},
+  	{name:"Solar System Simulator", url: "https://gameshub.dev/solarsystemsimulator"},
+  	{name:"Custom Programming Language Creator", url: "https://custom-programming-language-creator.netlify.app/"},
+  	{name:"Monpoke", url: "https://gameshub.dev/monpoke"},
+  	{name:"Page Counter", url: "https://gameshub.dev/pagecounter"},
+  	{name:"You v.s Snake AI", url: "https://gameshub.dev/snakeaibattle"},
+  	{name:"Snake Based Ecosystem", url: "https://gameshub.dev/snakeecosystem"},
+  	{name:"The Apple Collection", url: "https://gameshub.dev/applecollection"},
+  	{name:"Pokemon Emulator", url: "https://gameshub.dev/stolencode/pokemonemulators"},
+  	{name:"Pixel Art Maker", url: "https://gameshub.dev/pixelartmaker"},
+  	{name:"Snake AI 2", url: "https://gameshub.dev/snake_ai-v2"},
+  	{name:"Conway's Game of Life", url: "https://gameshub.dev/conways_game_of_life"},
+  	{name:"Slaying Sowballs", url: "https://gameshub.dev/slayingsnowballs/"},
+  	{name:"Worlde Copy Old", url: "https://gameshub.dev/wordle"},
+  	{name:"Worlde Copy", url: "https://gameshub.dev/wordlenew"},
+  	{name:"Wordle Solver", url: "https://gameshub.dev/wordlesolver"},
+  	{name:"Getting Over It", url: "https://gameshub.dev/getting_over_it"},
+  	{name:"Money Miner", url: "https://gameshub.dev/money_miner"},
+  	{name:"Dirt Collecting Simulator", url: "https://gameshub.dev/dirtcollectingsimulator"},
+  	{name:"Artificial Life w/ Settings", url: "https://gameshub.dev/life"},
+  	{name:"Talking Ben", url: "https://gameshub.dev/ben"},
+  ]
+  var multiplayerGames = [
+  	{name:"Existance Simulator", url: "https://gameshub.dev/existancesimulator"},
+  	{name:"Existance Simulator 3D", url: "https://gameshub.dev/existancesimulator3d/"},
+  	{name:"Blackjack", url: "https://gameshub.dev/blackjack"},
+  	{name:"Sprouts (In Person Req)", url: "https://gameshub.dev/sproutssolo"},
+  	{name:"Battle Royale", url: "https://gameshub.dev/battleroyale"},
+  ]
+  var server = [
+  	{name:"Signup", url: "https://gameshub.dev/gamehubapi/signup"},
+  	{name:"Log in", url: "https://gameshub.dev/gamehubapi/signin"},
+  	{name:"Account Settings", url: "https://gameshub.dev/gamehubapi/accsettings"},
+  	{name:"Search Accounts", url: "https://gameshub.dev/gamehubapi/accsearch"},
+  	{name:"Gameshub Shop", url: "https://gameshub.dev/gamehubapi/shop"},
+  ]
+  
+  function insertAfter(newNode, existingNode) {
+		existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+	}
+  
+  if(singleplayerGames.length==0){document.getElementById("single").style.display = "none"}
+  if(multiplayerGames.length==0){document.getElementById("multi").style.display = "none"}
+  if(server.length==0){document.getElementById("server").style.display = "none"}
+  
+  for(var x=0;x<singleplayerGames.length;x++){
+    var t = "<a href="+singleplayerGames[x].url+">"+singleplayerGames[x].name+"</a>"
+    document.getElementById("single").innerHTML += t
+  }
+  for(var x=0;x<multiplayerGames.length;x++){
+     var t = "<a href="+multiplayerGames[x].url+">"+multiplayerGames[x].name+"</a>"
+    document.getElementById("multi").innerHTML += t
+  }
+  for(var x=0;x<server.length;x++){
+     var t = "<a href="+server[x].url+">"+server[x].name+"</a>"
+    document.getElementById("server").innerHTML += t
   }
 </script>
