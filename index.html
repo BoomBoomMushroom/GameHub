@@ -201,7 +201,7 @@ function getDay(){
 	return new Date().getUTCDate()
 }
 
-var e = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background.png",
+var backgrounds = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background.png",
 	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background2.png",
 	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background3.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background4.png",
@@ -236,8 +236,11 @@ if(getMonth()=="December"){
 	document.getElementById("logo").href = "ChristmasGamesHubLogo.png"
 	document.getElementById("headerLogo").href = "ChristmasGamesHubLogo.png"
 }
-var rand = Math.floor( Math.random() * (e.length-0) )+0
-document.body.style.backgroundImage="url('"+e[rand]+"')"
+var rand = Math.floor( Math.random() * (backgrounds.length-0) )+0
+if(backgrounds[rand]=="https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background2.png"){
+	document.getElementById("links").style.color = "black"
+}
+document.body.style.backgroundImage="url('"+backgrounds[rand]+"')"
 </script>
 <script>
 function randomInt(min,max){
@@ -256,7 +259,7 @@ document.getElementById("bigRedButton").addEventListener("click",(e)=>{
 })
 </script>
 
-<div style="position:absolute;bottom:0px;color:white">
+<div id="links" style="position:absolute;bottom:0px;color:white">
   <span>Links</span>
   <br>
   <a class="link" href='https://podcasts.gameshub.dev/'>The 5-Minute Podcasts</a>
