@@ -1,0 +1,38 @@
+<div id="login">
+  <label for="pwd">Password: </label>
+  <input id="pwd" type="password">
+  <button onclick="render()" id="loginBtn">Login</button>
+</div>
+
+<div id="repos" style="display:none;">
+  <h1>Your Repositories</h1>
+</div>
+
+<script>
+const url = "https://GithubServer.academyofcode1.repl.co"
+
+// Index Page
+function render(){
+	if(document.getElementById("pwd").value=="") return
+  document.getElementById("loginBtn").disabled = true
+  
+	fetch( url+"/getRepos?password="+document.getElementById("pwd").value )
+  .then(response=>response.json())
+  .then((data)=>{
+  	data = JSON.parse(data)
+  	document.getElementById("login").style.display = 'none'
+  	
+    document.getElementById("repos").style.display = 'block'
+    for(var i=0;i<data.length;i++){
+    	var repoName = data[i]
+      var repoElement = document.createElement("a")
+      repoElement.href = "https://gameshub.dev/github/repo?repoName="+repoName
+      repoElement.innerText = repoName
+      document.getElementById("repos").appendChild(repoElement)
+      document.getElementById("repos").appendChild( document.createElement("br") )
+    }
+    
+    console.log(data)
+  })
+}
+</script>
