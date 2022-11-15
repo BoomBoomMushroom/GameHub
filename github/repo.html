@@ -29,7 +29,7 @@ function render(){
   document.getElementById("loginBtn").disabled = true
   var pwd = document.getElementById("pwd").value
   
-	fetch( url+"/getRepoFiles?password="+pwd+"&repoName="+repoName )
+	fetch( url+"/getRepoFiles?password="+pwd+"&repoName="+repoName+"&path="+path )
   .then(response=>response.json())
   .then((data)=>{
   	data = JSON.parse(data)
