@@ -1,0 +1,123 @@
+<div id="login">
+  <label for="pwd">Password: </label>
+  <input id="pwd" type="password">
+  <button onclick="render()" id="loginBtn">Login</button>
+</div>
+
+<br>
+
+<div id="file" style="display:none;">
+  <a href="" id="rawLink">Raw</a>
+  <textarea disabled id="fileContent"></textarea>
+</div>
+
+<style>
+textarea{
+  position: absolute;
+  resize: none;
+}
+</style>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+
+const url = "https://GithubServer.academyofcode1.repl.co"
+//var repoName = "TabbyCat"
+var repoName = urlParams.get('repoName')
+var path = urlParams.get('path')
+if(path==null) path = ""
+
+var fc = document.getElementById("fileContent")
+var w = (window.innerWidth*0.8)
+var h = (window.innerHeight*0.8)
+
+fc.style.width = w+"px"
+fc.style.left = ((window.innerWidth/2)-w/2)+"px"
+
+fc.style.height = h+"px"
+fc.style.top = ((window.innerHeight/2)-h/2)+"px"
+
+
+// Index Page
+function render(){
+	if(document.getElementById("pwd").value=="") return
+  document.getElementById("loginBtn").disabled = true
+  var pwd = document.getElementById("pwd").value
+  
+	fetch( url+"/getRepoFile?password="+pwd+"&repoName="+repoName+"&fileName="+path )
+  .then(response=>response.json())
+  .then((data)=>{
+  	data = JSON.parse(data)
+  	document.getElementById("login").style.display = 'none'
+  	document.getElementById("file").style.display = 'block'
+    
+    document.getElementById("rawLink").href = data.download
+    
+    if(data.isBinary){
+    	document.getElementById("fileContent").remove()
+    	var image = isImage(data.download)
+      var video = isVideo(data.download)
+      if(image){
+      	var e = document.createElementById("img")
+        e.src = data.download
+        document.getElementById("file").appendChild(e)
+      }
+      else if(video){
+      	var e1 = document.createElementById("video")
+        document.getElementById("file").appendChild(e1)
+        var e = document.createElementById("source")
+        e.src = data.download
+        e1.appendChild(e)
+      }
+    }
+    else{
+    	loadTextURL(data.download, data.ending)
+    }
+    
+    // console.log(data)
+  })
+}
+function loadTextURL(url,ending){
+	fetch(url)
+  .then(response=>response.text())
+  .then((data)=>{
+  	if(ending=="json"){
+    	data = JSON.parse(data)
+    }
+    
+  	document.getElementById("fileContent").value = JSON.stringify(data, null, 2)
+    console.log(data)
+  })
+}
+
+
+function getExtension(filename) {
+  var parts = filename.split('.');
+  return parts[parts.length - 1];
+}
+function isImage(filename) {
+  var ext = getExtension(filename);
+  switch (ext.toLowerCase()) {
+    case 'jpg':
+    case 'gif':
+    case 'bmp':
+    case 'png':
+      //etc
+      return true;
+  }
+  return false;
+}
+
+function isVideo(filename) {
+  var ext = getExtension(filename);
+  switch (ext.toLowerCase()) {
+    case 'm4v':
+    case 'avi':
+    case 'mpg':
+    case 'mp4':
+      // etc
+      return true;
+  }
+  return false;
+}
+</script>
