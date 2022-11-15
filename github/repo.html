@@ -19,7 +19,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 
 const url = "https://GithubServer.academyofcode1.repl.co"
-var repoName = "TabbyCat"
+var repoName = urlParams.get('repoName') // "TabbyCat"
 var path = urlParams.get('path')
 if(path==null) path = ""
 
