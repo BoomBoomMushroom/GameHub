@@ -637,6 +637,11 @@ var singleplayerGames = [
   	{name:"Search Accounts", url: "https://gameshub.dev/gamehubapi/accsearch"},
   	{name:"Gameshub Shop", url: "https://gameshub.dev/gamehubapi/shop"},
   ]
+  var unblocked = [
+	{name:"Holy Unblocker", url: "holy-unblocker.academyofcode1.repl.co/"},
+  	{name:"Tabby Cat", url: "https://tabbycat-unblocked.netlify.app/public/"},
+	{name:"Boxel Rebound", url: "https://boxel-rebound-unblocked.netlify.app/www/"},
+  ]
   
   function insertAfter(newNode, existingNode) {
 		existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
@@ -645,6 +650,7 @@ var singleplayerGames = [
   if(singleplayerGames.length==0){document.getElementById("single").style.display = "none"}
   if(multiplayerGames.length==0){document.getElementById("multi").style.display = "none"}
   if(server.length==0){document.getElementById("server").style.display = "none"}
+  if(unblocked.length==0){document.getElementById("unblocked").style.display = "none"}
   
   for(var x=0;x<singleplayerGames.length;x++){
     var t = "<a href="+singleplayerGames[x].url+">"+singleplayerGames[x].name+"</a>"
@@ -657,5 +663,9 @@ var singleplayerGames = [
   for(var x=0;x<server.length;x++){
      var t = "<a href="+server[x].url+">"+server[x].name+"</a>"
     document.getElementById("server").innerHTML += t
+  }
+  for(var x=0;x<unblocked.length;x++){
+     var t = "<a href="+unblocked[x].url+">"+unblocked[x].name+"</a>"
+    document.getElementById("unblocked").innerHTML += t
   }
 </script>
