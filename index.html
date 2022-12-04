@@ -287,22 +287,22 @@ var day = getDay()
 if(getMonth()=="Febuary" && 10 <= day && day <=18){
 	//e = valentineSet
 	document.getElementById("logo").href = "ValentineGamesHubLogo.png"
-	document.getElementById("headerLogo").href = "ValentineGamesHubLogo.png"
+	document.getElementById("headerLogo").src = "ValentineGamesHubLogo.png"
 }
 if(getMonth()=="October"){
 	e = spookySet
 	document.getElementById("logo").href = "HalloweenGamesHubLogo.png"
-	document.getElementById("headerLogo").href = "HalloweenGamesHubLogo.png"
+	document.getElementById("headerLogo").src = "HalloweenGamesHubLogo.png"
 }
 if(getMonth()=="November" && 22 <= day && day <=28){
 	//e = thanksgivingSet
 	document.getElementById("logo").href = "ThanksgivingGamesHubLogo.png"
-	document.getElementById("headerLogo").href = "ThanksgivingGamesHubLogo.png"
+	document.getElementById("headerLogo").src = "ThanksgivingGamesHubLogo.png"
 }
 if(getMonth()=="December"){
 	//e = christmasSet
 	document.getElementById("logo").href = "ChristmasGamesHubLogo.png"
-	document.getElementById("headerLogo").href = "ChristmasGamesHubLogo.png"
+	document.getElementById("headerLogo").src = "ChristmasGamesHubLogo.png"
 }
 var rand = Math.floor( Math.random() * (backgrounds.length-0) )+0
 if(backgrounds[rand]=="https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background2.png"){
@@ -623,8 +623,6 @@ var singleplayerGames = [
   	{name:"Dirt Collecting Simulator", url: "https://gameshub.dev/dirtcollectingsimulator"},
   	{name:"Artificial Life w/ Settings", url: "https://gameshub.dev/life"},
   	{name:"Talking Ben", url: "https://gameshub.dev/ben"},
-	{name:"Tabby Cat", url: "https://tabbycat-unblocked.netlify.app/public/"},
-	{name:"Boxel Rebound", url: "https://boxel-rebound-unblocked.netlify.app/www/"},
   ]
   var multiplayerGames = [
   	{name:"Existance Simulator", url: "https://gameshub.dev/existancesimulator"},
