@@ -398,6 +398,7 @@ document.getElementById("bigRedButton").addEventListener("click",(e)=>{
       			document.getElementById("currentAcc").innerText = "Currently signed in as " + JSON.parse(data).Username
 			document.getElementById("tr1").style.display = "none"
 			document.getElementById("tr2").style.display = "none"
+			alert(data)
 		}
 	})
 </script>
@@ -669,4 +670,12 @@ var singleplayerGames = [
      var t = "<a href="+unblocked[x].url+">"+unblocked[x].name+"</a>"
     document.getElementById("unblocked").innerHTML += t
   }
+</script>
+<script>
+window.addEventListener("beforeunload", function(e){
+   fetch("https://gameshub-api.academyofcode1.repl.co/registerButtonClicks?token="+getCookie("accToken")+"&amount="+getCookie("clicks"))
+   .then(d=>{
+   	console.log(d)
+   })
+});
 </script>
