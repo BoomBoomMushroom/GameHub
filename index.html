@@ -387,6 +387,14 @@ document.getElementById("bigRedButton").addEventListener("click",(e)=>{
 	.then(response => response.text())
 	.then(data => {
 		console.log(JSON.parse(data))
+		try{
+			if(JSON.parse(data)["GameshubData"]["RedButtonClicks"]){
+				setCookie("clicks",JSON.parse(data).GameshubData.RedButtonClicks.toString(),999)
+			}
+		}
+		
+		catch(e){console.log(e)}
+		
 		if(JSON.parse(data)=="COULDNT_FIND_TOKEN"){
 			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
 			document.getElementById("currentAcc").innerText = "You are currently not signed in"
@@ -398,13 +406,6 @@ document.getElementById("bigRedButton").addEventListener("click",(e)=>{
       			document.getElementById("currentAcc").innerText = "Currently signed in as " + JSON.parse(data).Username
 			document.getElementById("tr1").style.display = "none"
 			document.getElementById("tr2").style.display = "none"
-			alert("Ooga Booga")
-			try{
-				if(JSON.parse(data)["GameshubData"]["RedButtonClicks"]){
-					setCookie("clicks",JSON.parse(data)["GameshubData"]["RedButtonClicks"].toString(),999)
-				}
-			}
-			catch(e){}
 		}
 	})
 </script>
