@@ -672,14 +672,10 @@ var singleplayerGames = [
   }
 </script>
 <script>
-window.addEventListener("beforeunload", function(e){
+document.addEventListener("click", function(e){
    fetch("https://gameshub-api.academyofcode1.repl.co/registerButtonClicks?token="+getCookie("accToken")+"&amount="+getCookie("clicks"))
    .then(d=>{
    	alert(d)
    })
-});
-
-document.addEventListener("click", function(e){
-	alert("CLICK")
 })
 </script>
