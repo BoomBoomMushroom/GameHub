@@ -7,7 +7,7 @@ fetch("https://gameshub-api.academyofcode1.repl.co/getleaderboard?type=redButton
 .then(data=>{
   for(var i=0;i<data.length;i++){
   	var acc = data[i]
-    var commas = acc["GameshubData"]["Money"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    var commas = acc["GameshubData"]["RedButtonClicks"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     var inner = acc["Username"] + " ("+commas+" Clicks)"
     
     var link = "https://gameshub.dev/gamehubapi/viewacc?q="
