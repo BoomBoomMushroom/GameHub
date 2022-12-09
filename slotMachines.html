@@ -281,13 +281,12 @@ function getCookie(cname){
 
 function awardMoney(x){
 	var token = getCookie("accToken")
-  token = "7nQeRALMG4yASd0V"
   fetch(moneyUrl+"?token="+token+"&amount="+x)
   .then(d=>d.json())
   .then(data=>{
   	if(data.startsWith("GIVEN")){
     	if(x<0){
-      	alert("You just lost "+addCommas(x))
+      	alert("You just lost "+addCommas(x*-1))
       }
       else{
     		alert("You earned "+addCommas(x))
