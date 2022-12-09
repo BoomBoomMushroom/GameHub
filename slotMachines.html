@@ -1,0 +1,322 @@
+<div id="slotsHolder">
+  <div id="slot1">?</div>
+  <div id="slot2">?</div>
+  <div id="slot3">?</div>
+  <button id="bigRedButton" onclick="trigger(20)">Go!</button>
+  <br>
+  <span id="multiplier">Multiplier: 0.0x</span>
+  <br>
+  <br>
+  <span id="bet">
+    <span>Bet: </span>
+    <span id="betNum">0</span>
+    <span>$</span>
+  </span>
+  <button id="increaseBet">⬆️</button>
+  <button id="decreaseBet">⬇️</button>
+  <br>
+  <div id="betIncrement">
+    <span id="increment">Bet Increment (1$): </span>
+    <br>
+    <button id="inc1" class="IncSize">1$</button>
+    <button id="inc5" class="IncSize">5$</button>
+    <button id="inc10" class="IncSize">10$</button>
+    <button id="inc50" class="IncSize">50$</button>
+    <button id="inc100" class="IncSize">100$</button>
+    <button id="inc1_000" class="IncSize">1,000$</button>
+    <button id="inc10_000" class="IncSize">10,000$</button>
+  </div>
+</div>
+
+<button id="rulesBtn" onclick="document.getElementById('rules').style.display='block'">Weights</button>
+<div id="rules" style="display:none;">
+  <span>Weights</span> <br>
+  <span>7️⃣ => +1.0x</span> <br>
+  <span>🍫 => +0.5x</span> <br>
+  <span>🍌 => +0.4x</span> <br>
+  <span>🍉 => +0.3x</span> <br>
+  <span>🔔 => +0.2x</span> <br>
+  <span>🍋 => -0.2x</span> <br>
+  <span>🍊 => -0.1x</span> <br>
+  <span>🍒 => -0.1x</span> <br>
+  <span>🍇 => -0.3x</span> <br>
+  <button style="font-size:10vh" onclick="document.getElementById('rules').style.display='none'">Ok</button>
+</div>
+
+<style id="styleSheet">
+#increaseBet, #decreaseBet, #bet, #betIncrement{
+  font-size: 5vw;
+  background: none;
+  border: none;
+}
+
+.IncSize{
+  font-size: 3vw;
+}
+
+#slotsHolder{
+  text-align: center;
+  transition-duration: 0.5s;
+}
+#slot1, #slot2, #slot3{
+  display: inline;
+  margin: 10px;
+  font-size: 10vw;
+  transition-duration: 0.5s;
+  transition: all 2s;
+}
+#multiplier{
+  display: inline;
+  margin: 10px;
+  font-size: 5vw;
+  transition-duration: 0.5s;
+  transition: all 2s;
+}
+
+ol{
+  display: inline-block;
+}
+#rules{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition-duration: 0.5s;
+  font-size: 7vh;
+  /*
+  border: 1px solid white;
+  */
+  background-color: #333333;
+}
+#rulesBtn{
+  position: absolute;
+  transition-duration: 0.5s;
+  bottom: 1vw;
+  left: 1vw;
+  font-size: 3vw;
+  opacity: 0.5
+}
+
+body{
+  user-select: none;
+  background-color: #333333;
+  color: #ffffff;
+  transition-duration: 0.5s;
+  overflow: hidden;
+}
+
+#bigRedButton{
+  position: absolute;
+  right: 2vw;
+  display: inline;
+  border: none;
+  border-radius: 10%;
+  width: 15vw;
+  height: 10vw;
+  color: #fff;
+  font-size: 300%;
+  box-shadow: 0 9px #999;
+  background-color: #ff4444;
+  transition-duration: 0.5s;
+}
+#bigRedButton:hover {background-color: #ff0000}
+#bigRedButton:active {
+  background-color: #ff0000;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+</style>
+<script>
+const slot1 = document.getElementById("slot1")
+const slot2 = document.getElementById("slot2")
+const slot3 = document.getElementById("slot3")
+
+const moneyUrl = "https://Gameshub-API.academyofcode1.repl.co/awardmoney"
+
+var isRunning = false
+var bet = 0
+var incrementAmount = 1
+
+var possibleSymbols = [
+  "7️⃣",
+	"🍌",
+  "🍉",
+  "🔔",
+  "🍫", // "Bar Bar Bar"
+  "🍋",
+  "🍊",
+  "🍇",
+  "🍒"
+]
+
+var weights = {
+	"7️⃣": 1,
+	"🍌": 0.4,
+  "🍉": 0.3,
+  "🔔": 0.2,
+  "🍫": 0.5,
+  "🍋": -0.2,
+  "🍊": -0.1,
+  "🍇": -0.3,
+  "🍒": -0.1
+}
+
+function getCount(solution){
+  var count = {}
+  var characters = solution.split(" ")
+  for(var i=0;i<characters.length;i++){
+  	var char = characters[i]
+    if(count[char]){
+    	count[char] += 1
+    }
+    else{
+    	count[char] = 1
+    }
+  }
+  return count
+}
+
+function randomSymbol(){
+	var max = possibleSymbols.length-1
+	return possibleSymbols[ Math.floor(Math.random()*max) ]
+}
+function getCurrentCombo(){
+	return slot1.innerText+" "+slot2.innerText+" "+slot3.innerText
+}
+function calculateMultiplier(){
+	var combo = getCurrentCombo().split(" ")
+  var json = {}
+  var multiplier = 0
+  for(var i=0;i<combo.length;i++){
+  	multiplier += weights[combo[i]]
+  	if(combo[i] in json){
+    	json[combo[i]] += 1
+    }
+    else{
+    	json[combo[i]] = 1
+    }
+  }
+  
+  for(var key in json){
+  	if(json[key]==2){
+    	multiplier = 1.5
+    }
+    if(json[key]==3){
+    	multiplier = 2
+    }
+    if(json[key]==3 && key == "7️⃣"){
+    	multiplier = 3
+    }
+  }
+  return parseFloat(multiplier.toFixed(1))
+}
+function addCommas(x){
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function trigger(iterations){
+	if(isRunning){return}
+  if(bet==0){return alert("Please bet something!")}
+  isRunning = true
+	var timeout = 75
+  //console.log("This run will take: "+timeout*iterations+" ms")
+	
+	var i = 0
+  var j = 0
+  var k = 0
+  var interval = setInterval(()=>{
+  	if(i<=iterations){
+    	slot1.innerText = randomSymbol()
+      i++
+    }
+    if(j<=iterations){    	
+    	slot2.innerText = randomSymbol()
+      if(i>=iterations){j++}
+    }
+    if(k<=iterations){
+    	slot3.innerText = randomSymbol()
+      if(j>=iterations){k++}
+    }
+    
+    var multiplier = calculateMultiplier()
+    if(multiplier == 0){multiplier = "0.0"}
+    document.getElementById("multiplier").innerText = "Multiplier: "+multiplier+"x"
+    
+    if(i>=iterations && j>=iterations && k>=iterations){
+    	clearTimeout(interval)
+  		isRunning = false
+      var modifiedMoney = bet * calculateMultiplier()
+      var moneyDiffrence = modifiedMoney - bet
+      if(moneyDiffrence != 0){
+      	awardMoney(moneyDiffrence)
+      }
+    }
+    
+  },timeout)
+}
+
+setInterval(()=>{
+	if(isRunning==false){
+  	var combo = getCurrentCombo()
+  }
+},10)
+
+function getCookie(cname){
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function awardMoney(x){
+	var token = getCookie("accToken")
+  token = "7nQeRALMG4yASd0V"
+  fetch(moneyUrl+"?token="+token+"&amount="+x)
+  .then(d=>d.json())
+  .then(data=>{
+  	if(data.startsWith("GIVEN")){
+    	if(x<0){
+      	alert("You just lost "+addCommas(x))
+      }
+      else{
+    		alert("You earned "+addCommas(x))
+      }
+    }
+  	console.log(data)
+  })
+}
+
+document.getElementById("increaseBet").addEventListener("click",()=>{
+	bet += incrementAmount
+  document.getElementById("betNum").innerText = addCommas(bet)
+})
+document.getElementById("decreaseBet").addEventListener("click",()=>{
+	bet -= incrementAmount
+  if(bet<0){bet=0}
+  document.getElementById("betNum").innerText = addCommas(bet)
+})
+
+function setIncrement(x){
+	incrementAmount = x
+  var commas = addCommas(x)
+  document.getElementById("increment").innerText = "Bet Increment ("+commas+"$): "
+}
+inc1.addEventListener("click",()=>{setIncrement(1)})
+inc5.addEventListener("click",()=>{setIncrement(5)})
+inc10.addEventListener("click",()=>{setIncrement(10)})
+inc50.addEventListener("click",()=>{setIncrement(50)})
+inc100.addEventListener("click",()=>{setIncrement(100)})
+inc1_000.addEventListener("click",()=>{setIncrement(1000)})
+inc10_000.addEventListener("click",()=>{setIncrement(10000)})
+</script>
