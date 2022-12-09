@@ -34,6 +34,11 @@
       <button class="dropbtn, header, chip" id="unblockedHeader">Unblocked</button>
       <div class="dropdown-content" id="unblocked"></div>
     </div>
+	  
+    <div class="dropdown">
+      <button class="dropbtn, header, chip" id="gamblingHeader">Gambling</button>
+      <div class="dropdown-content" id="gambling"></div>
+    </div>
     
     <div class="dropdown">
       <button class="dropbtn, header, chip" id="serverHeader">Account/Server</button>
@@ -645,8 +650,14 @@ var singleplayerGames = [
   	{name:"Account Settings", url: "https://gameshub.dev/gamehubapi/accsettings"},
   	{name:"Search Accounts", url: "https://gameshub.dev/gamehubapi/accsearch"},
   	{name:"Gameshub Shop", url: "https://gameshub.dev/gamehubapi/shop"},
+  	{name:"Leaderboards", url: "https://gameshub.dev/gamehubapi/leaderboard"},
   ]
   var unblocked = [
+	{name:"Holy Unblocker", url: "https://holy-unblocker.academyofcode1.repl.co/"},
+  	{name:"Tabby Cat", url: "https://tabbycat-unblocked.netlify.app/public/"},
+	{name:"Boxel Rebound", url: "https://boxel-rebound-unblocked.netlify.app/www/"},
+  ]
+  var gambling = [
 	{name:"Holy Unblocker", url: "https://holy-unblocker.academyofcode1.repl.co/"},
   	{name:"Tabby Cat", url: "https://tabbycat-unblocked.netlify.app/public/"},
 	{name:"Boxel Rebound", url: "https://boxel-rebound-unblocked.netlify.app/www/"},
@@ -676,6 +687,10 @@ var singleplayerGames = [
   for(var x=0;x<unblocked.length;x++){
      var t = "<a href="+unblocked[x].url+">"+unblocked[x].name+"</a>"
     document.getElementById("unblocked").innerHTML += t
+  }
+  for(var x=0;x<gambling.length;x++){
+     var t = "<a href="+gambling[x].url+">"+gambling[x].name+"</a>"
+    document.getElementById("gambling").innerHTML += t
   }
 </script>
 <script>
