@@ -25,6 +25,7 @@
     <button id="inc100" class="IncSize">100$</button>
     <button id="inc1_000" class="IncSize">1,000$</button>
     <button id="inc10_000" class="IncSize">10,000$</button>
+    <button id="inc100_000" class="IncSize">100,000$</button>
   </div>
 </div>
 
@@ -200,14 +201,8 @@ function calculateMultiplier(){
   }
   
   for(var key in json){
-  	if(json[key]==2){
-    	multiplier = 1.5
-    }
-    if(json[key]==3){
-    	multiplier = 2
-    }
     if(json[key]==3 && key == "7️⃣"){
-    	multiplier = 3
+    	// idk award advancement
     }
   }
   return parseFloat(multiplier.toFixed(1))
@@ -249,6 +244,7 @@ function trigger(iterations){
   		isRunning = false
       var modifiedMoney = bet * calculateMultiplier()
       var moneyDiffrence = modifiedMoney - bet
+      moneyDiffrence = Math.ceil(moneyDiffrence)
       if(moneyDiffrence != 0){
       	awardMoney(moneyDiffrence)
       }
@@ -318,4 +314,5 @@ inc50.addEventListener("click",()=>{setIncrement(50)})
 inc100.addEventListener("click",()=>{setIncrement(100)})
 inc1_000.addEventListener("click",()=>{setIncrement(1000)})
 inc10_000.addEventListener("click",()=>{setIncrement(10000)})
+inc100_000.addEventListener("click",()=>{setIncrement(100000)})
 </script>
