@@ -24,8 +24,6 @@
     <button id="inc50" class="IncSize">50$</button>
     <button id="inc100" class="IncSize">100$</button>
     <button id="inc1_000" class="IncSize">1,000$</button>
-    <button id="inc10_000" class="IncSize">10,000$</button>
-    <button id="inc100_000" class="IncSize">100,000$</button>
   </div>
 </div>
 
@@ -294,6 +292,7 @@ function awardMoney(x){
 
 document.getElementById("increaseBet").addEventListener("click",()=>{
 	bet += incrementAmount
+  if(bet>2500){bet=2500}
   document.getElementById("betNum").innerText = addCommas(bet)
 })
 document.getElementById("decreaseBet").addEventListener("click",()=>{
@@ -313,6 +312,4 @@ inc10.addEventListener("click",()=>{setIncrement(10)})
 inc50.addEventListener("click",()=>{setIncrement(50)})
 inc100.addEventListener("click",()=>{setIncrement(100)})
 inc1_000.addEventListener("click",()=>{setIncrement(1000)})
-inc10_000.addEventListener("click",()=>{setIncrement(10000)})
-inc100_000.addEventListener("click",()=>{setIncrement(100000)})
 </script>
