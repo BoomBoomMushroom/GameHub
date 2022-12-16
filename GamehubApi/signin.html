@@ -16,12 +16,6 @@
     <p style="font-size:12px;" align="center" id="passwordAlert">Password must be longer than 8 characters</p>
     <input id="passwordInput" class="pass" type="password" align="center" placeholder="Password">
     <button class="submit g-recaptcha" align="center" data-sitekey="6LeciP4bAAAAABX1aPDRWQJZAeix90Xcby-9Z2ap" data-callback='onSubmit' onclick="onSubmit()" data-action='submit'>Sign in</button>
-    <br>
-    <br>
-    <center>
-      <input type="checkbox" id="rememberMe" name="rememberMe">
-      <label for="rememberMe">Remember Me</label>
-    </center>
     <!--
     <p class="forgot" align="center"><a href="#">Forgot Password?</a></p>
     -->
@@ -30,7 +24,6 @@
 
 <form action="https://gameshub-api.herokuapp.com/login" method="get" id="signin"></form>
 
-<script src="https://www.google.com/recaptcha/api.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     const usernameInput = document.getElementById("usernameInput")
@@ -57,10 +50,9 @@
           alert(data)
           console.log(JSON.parse(data))
           if(JSON.parse(data)!="INVALID_ACCOUNT_TOKEN" && data.startsWith("<!DOCTYPE html>") == false){
-            if(JSON.parse(data)!="INVALID_ACCOUNT_TOKEN"){
-              setCookie("accToken",JSON.parse(data),365*10)
-              window.location.replace("https://gameshub.netlify.app")
-            }
+            setCookie("accToken",JSON.parse(data),365*10)
+            alert("You are now logged in!")
+            window.location.replace("https://gameshub.netlify.app")
           }
           else{
             alert("Invailid Username or Password!")
