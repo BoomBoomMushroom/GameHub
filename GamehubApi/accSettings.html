@@ -92,6 +92,9 @@ function getCookie(cname){
 const token = getCookie("accToken")
 
 function logout(){
+  setCookie('accToken','',365*10);
+  setCookie('clicks',0,365*10);
+  
 	window.location.reload()
 	return
 	
