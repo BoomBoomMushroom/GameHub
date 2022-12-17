@@ -70,7 +70,7 @@ body{
 const ws = new WebSocket("wss://BlackJack-Server.academyofcode1.repl.co")
 const wsStatus = document.getElementById("wsStatus")
 const serverCount = document.getElementById("serverCount")
-const cardBack = "https://gameshub.dev/playing_cards/card_back.png"
+const cardBack = "https://gameshub.dev/GameFiles/BlackJack/playing_cards/card_back.png"
 var activeServers = []
 var server = null
 var playerId = null
@@ -249,7 +249,12 @@ function loadPlayers(){
   if(server.name=="Lobby"){return}
   server.players.forEach(function each(player){
   	var png = document.createElement("img")
-    png.src = "https://avatars.dicebear.com/api/identicon/"+player.displayName+".png"
+    if(player.profilePictureURL!=""){
+      png.src = player.profilePictureURL
+    }
+    else{
+      png.src = "https://avatars.dicebear.com/api/identicon/"+player.displayName+".png"
+    }
     png.style.backgroundColor = "rgb(255,255,255)"
     png.style.width = "7%"
     png.style.height = "7%"
@@ -333,7 +338,7 @@ function getCard(face,suit){
 	var fileName = face+"_of_"+suit
   if(face=="queen"||face=="king"||face=="jack"){fileName += "2"}
   fileName += ".svg"
-  return "https://gameshub.dev/playing_cards/"+fileName
+  return "https://gameshub.dev/GameAssets/BlackJack/playing_cards/"+fileName
 }
 function getPlayer(id){
 	if(server==null){return}
