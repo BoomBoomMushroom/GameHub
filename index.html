@@ -3,7 +3,7 @@
 	<meta name="keywords" content="Games,Chat,Online,Offline,Multiplayer,SinglePlayer,Dev,Development,Code,Coding,JavaScript,Unity,Bad games,Horrible Games,Stolen Games, AOT, ">
 	<meta name="description" content="Snake, Worlde, CGoL, MonPoke, and Gravity Simulators. Come play these games on GamesHub!">
 	<meta name="author" content="Dillion Weaver">
-	<link rel="icon" id="logo" href="GamesHubLogo.png">
+	<link rel="icon" id="logo" href="GamehubApi/logos/GamesHubLogo.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="UTF-8">
 </head>
@@ -15,7 +15,7 @@
 -->
 
 <header style="width:100%" id="header" class="header">
-  <img id="headerLogo" class="header" style="height:4vw" src="https://gameshub.dev/gameshublogo.png">
+  <img id="headerLogo" class="header" style="height:4vw" src="https://gameshub.dev/GamehubApi/logos/gameshublogo.png">
   <span id="headerTitle" style="font-size:4vw" class="header">GamesHub</span>
   
   <div id="headerButtons" class="header">
@@ -296,23 +296,23 @@ var day = getDay()
 
 if(getMonth()=="Febuary" && 10 <= day && day <=18){
 	//e = valentineSet
-	document.getElementById("logo").href = "ValentineGamesHubLogo.png"
-	document.getElementById("headerLogo").src = "ValentineGamesHubLogo.png"
+	document.getElementById("logo").href = "GamehubApi/logos/ValentineGamesHubLogo.png"
+	document.getElementById("headerLogo").src = "GamehubApi/logos/ValentineGamesHubLogo.png"
 }
 if(getMonth()=="October"){
 	e = spookySet
-	document.getElementById("logo").href = "HalloweenGamesHubLogo.png"
-	document.getElementById("headerLogo").src = "HalloweenGamesHubLogo.png"
+	document.getElementById("logo").href = "GamehubApi/logos/HalloweenGamesHubLogo.png"
+	document.getElementById("headerLogo").src = "GamehubApi/logos/HalloweenGamesHubLogo.png"
 }
 if(getMonth()=="November" && 22 <= day && day <=28){
 	//e = thanksgivingSet
-	document.getElementById("logo").href = "ThanksgivingGamesHubLogo.png"
-	document.getElementById("headerLogo").src = "ThanksgivingGamesHubLogo.png"
+	document.getElementById("logo").href = "GamehubApi/logos/ThanksgivingGamesHubLogo.png"
+	document.getElementById("headerLogo").src = "GamehubApi/logos/ThanksgivingGamesHubLogo.png"
 }
 if(getMonth()=="December"){
 	//e = christmasSet
-	document.getElementById("logo").href = "ChristmasGamesHubLogo.png"
-	document.getElementById("headerLogo").src = "ChristmasGamesHubLogo.png"
+	document.getElementById("logo").href = "GamehubApi/logos/ChristmasGamesHubLogo.png"
+	document.getElementById("headerLogo").src = "GamehubApi/logos/ChristmasGamesHubLogo.png"
 }
 var rand = Math.floor( Math.random() * (backgrounds.length-0) )+0
 if(backgrounds[rand]=="https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background2.png"){
