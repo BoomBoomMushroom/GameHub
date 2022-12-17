@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamesHubLogo.png" id="logo">
+<img src="GamehubApi/logos/GamesHubLogo.png" id="logo">
 
 <canvas id='snake'></canvas>
 <center class="caption">
@@ -49,10 +49,17 @@ function getMonth(){
 	var month = monthList[d.getMonth()]
 	return month
 }
+var day = getDay()
 
-if(getMonth()=="October"){
-	l.src = "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/HalloweenGamesHubLogo.png"
-}
+var logoSrc = "GamehubApi/logos/GamesHubLogo.png"
+
+if(getMonth()=="Febuary" && 10 <= day && day <=18){ logoSrc = "GamehubApi/logos/ValentineGamesHubLogo.png" }
+if(getMonth()=="October"){ logoSrc = "GamehubApi/logos/HalloweenGamesHubLogo.png" }
+if(getMonth()=="November" && 22 <= day && day <=28){ logoSrc = "GamehubApi/logos/ThanksgivingGamesHubLogo.png" }
+if(getMonth()=="December"){ logoSrc = "GamehubApi/logos/ChristmasGamesHubLogo.png" }
+
+l.src = logoSrc
+
 
 setInterval(()=>{
   document.getElementById("logo").style.left = pos.x+"px"
