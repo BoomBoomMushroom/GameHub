@@ -1,0 +1,312 @@
+<center>
+  <h1>Rota</h1>
+  <h2 id="actionBar">Player x's Turn</h2>
+  <button id="playAgain" onclick="window.location.reload()">Play Again</button>
+  
+  <div id="rotaBoard">
+    <div class="rotaCircle" id="center">
+      <div id="rotaCircleOutline"></div>
+      
+      <div class="line" id="N-S"></div>
+      <div class="line" id="NE-SW"></div>
+      <div class="line" id="E-W"></div>
+      <div class="line" id="SE-NW"></div>
+      
+      <div class="rotaCircle" id="centerRender"></div>
+      
+      <div class="rotaCircle" id="n"></div>
+      <div class="rotaCircle" id="ne"></div>
+      <div class="rotaCircle" id="e"></div>
+      <div class="rotaCircle" id="se"></div>
+      <div class="rotaCircle" id="s"></div>
+      <div class="rotaCircle" id="sw"></div>
+      <div class="rotaCircle" id="w"></div>
+      <div class="rotaCircle" id="nw"></div>
+    </div>
+  </div>
+</center>
+
+<style>
+@import url('https://fonts.cdnfonts.com/css/luminari');
+body{
+  user-select: none;
+  color: white;
+  background-color: #333333;
+  transition-duration: 0.5s;
+}
+h1{
+  font-size: 5vw;
+  display: inline-block;
+  text-align: center;
+  letter-spacing: 2rem;
+  font-family: 'Luminari', sans-serif;
+}
+
+.line{
+  width: 1vw;
+  height: 600%;
+  border: 2px solid black;
+  background-color: black;
+  position: fixed;
+}
+.rotaCircle{
+  border-radius: 50%;
+  border: 2px solid black;
+  background-color: white;
+  display: inline-block;
+  width: 5vw;
+  height: 5vw;
+}
+#rotaCircleOutline{
+  border-radius: 100%;
+  border: 5px solid black;
+  width: 600%;
+  height: 600%;
+  position: relative;
+  left: -250%;
+  top: -250%;
+}
+
+#n{
+  top: -300%;
+  left: 0%;
+  
+  position: fixed;
+}
+#ne{
+  top: -220%;
+  left: 220%;
+  
+  position: fixed;
+}
+#e{
+  top: 0%;
+  left: 300%;
+  
+  position: fixed;
+}
+#se{
+  top: 220%;
+  left: 220%;
+  
+  position: fixed;
+}
+#s{
+  top: 300%;
+  left: 0%;
+  
+  position: fixed;
+}
+#sw{
+  top: 220%;
+  left: -220%;
+  
+  position: fixed;
+}
+#w{
+  top: 0%;
+  left: -300%;
+  
+  position: fixed;
+}
+#nw{
+  top: -220%;
+  left: -220%;
+  
+  position: fixed;
+}
+#centerRender{
+  top: -5%;
+  left: 0%;
+  
+  position: fixed;
+}
+#center{
+  top: 50%;
+  left: 50%;
+  transform: translate(0%, 0%);
+  
+  position: fixed;
+}
+
+#N-S{
+  top: -275%;
+  left: 2vw;
+  transform: rotate(0deg);
+}
+#NE-SW{
+  top: -275%;
+  left: 2vw;
+  transform: rotate(90deg);
+}
+#E-W{
+  top: -275%;
+  left: 2vw;
+  transform: rotate(135deg);
+}
+#SE-NW{
+  top: -275%;
+  left: 2vw;
+  transform: rotate(-135deg);
+}
+
+</style>
+
+<script>
+var placements = {
+	"n": "#ffffff",
+  "ne": "#ffffff",
+  "e": "#ffffff",
+  "se": "#ffffff",
+  "s": "#ffffff",
+  "sw": "#ffffff",
+  "w": "#ffffff",
+  "nw": "#ffffff",
+  
+  "center": "#ffffff",
+}
+
+var adjacent = {
+	"n": ["nw","ne"],
+  "ne": ["n","e"],
+  "e": ["ne","se"],
+  "se": ["e","s"],
+  "s": ["se","sw"],
+  "sw": ["s","w"],
+  "w": ["sw","nw"],
+  "nw": ["w","n"],
+  
+  "center": ["n","ne","e","se","s","sw","w","nw"]
+}
+var opposite = {
+	"n": "s",
+  "ne": "sw",
+  "e": "w",
+  "se": "nw",
+}
+var playerColors = [
+	"#4287f5",
+  "#f54842"
+]
+
+var playerIndex = 0
+var gameOutput = -1
+
+var playerPlaced = [0,0]
+var selected = ""
+
+function checkStrightLine(playerNum){
+	color = playerColors[playerNum]
+  if(placements.center != color){ return false }
+  
+  var isLine = false
+  for(var key in adjacent){
+  	
+  	if( placements[key] == color && placements[opposite[key]] == color ){
+			isLine = true
+      break
+    }
+  }
+  return isLine
+}
+function checkCurved(playerNum){
+	color = playerColors[playerNum]
+  
+  var isCurved = false
+  for(var key in adjacent){
+  	if(key == "center"){ continue }
+  
+  	var adj1 = placements[adjacent[key][0]]
+    var adj2 = placements[adjacent[key][1]]
+    
+    if( placements[key] == color && adj1 == color && adj2 == color ){
+    	isCurved = true
+      break
+		}
+  }
+  return isCurved
+}
+
+function clickOnto(direction){
+	if(playerPlaced[playerIndex]>=3){
+  	if(selected != ""){
+    	var included = direction == "center" || adjacent[selected].includes(direction)
+    	if(included && placements[direction] == "#ffffff"){
+      	placements[direction] = playerColors[playerIndex]
+        placements[selected] = "#ffffff"
+        playerIndex += 1
+      }
+      else{
+      	console.log(included, placements[direction] == "#ffffff")
+      }
+      selected = ""
+    }
+    else if(placements[direction] == playerColors[playerIndex]){
+    	selected = direction
+    }
+    
+    if(playerIndex>=2){playerIndex=0}
+    return
+  }
+	if(gameOutput != -1){ return }
+	// console.log(direction)
+  if(placements[direction]!="#ffffff"){return}
+  var color = playerColors[playerIndex]
+  
+  placements[direction] = color
+  
+  playerPlaced[playerIndex] += 1
+  playerIndex += 1
+}
+
+setInterval(()=>{
+	if(playerIndex>=2){playerIndex=0}
+
+	for(var key in placements){
+  	if(placements[key] == undefined){
+    	placements[key] = "#ffffff"
+    }
+  }
+
+	if(gameOutput == -1){ playAgain.style.display = "none" }
+  if(gameOutput != -1){ playAgain.style.display = "block" }
+
+	if(gameOutput == -1){
+		actionBar.innerText = "Player "+(playerIndex+1)+"'s Turn"
+    
+    if(checkStrightLine(0) || checkCurved(0)){
+      gameOutput = 0
+    }
+    else if(checkStrightLine(1) || checkCurved(1)){
+      gameOutput = 1
+    }
+  }
+  else if(gameOutput == 0){
+  	actionBar.innerText = "Player 1 won!"
+  }
+  else if(gameOutput == 1){
+  	actionBar.innerText = "Player 2 won!"
+  }
+
+	n.style.backgroundColor = placements.n
+  ne.style.backgroundColor = placements.ne
+  e.style.backgroundColor = placements.e
+  se.style.backgroundColor = placements.se
+  s.style.backgroundColor = placements.s
+  sw.style.backgroundColor = placements.sw
+  w.style.backgroundColor = placements.w
+  nw.style.backgroundColor = placements.nw
+  
+  centerRender.style.backgroundColor = placements.center
+},10)
+
+centerRender.addEventListener("click", (e)=>{clickOnto("center")})
+n.addEventListener("click", (e)=>{clickOnto("n")})
+ne.addEventListener("click", (e)=>{clickOnto("ne")})
+e.addEventListener("click", (e)=>{clickOnto("e")})
+se.addEventListener("click", (e)=>{clickOnto("se")})
+s.addEventListener("click", (e)=>{clickOnto("s")})
+sw.addEventListener("click", (e)=>{clickOnto("sw")})
+w.addEventListener("click", (e)=>{clickOnto("w")})
+nw.addEventListener("click", (e)=>{clickOnto("nw")})
+</script>
