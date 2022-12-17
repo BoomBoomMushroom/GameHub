@@ -49,6 +49,10 @@ function getMonth(){
 	var month = monthList[d.getMonth()]
 	return month
 }
+function getDay(){
+	return new Date().getUTCDate()
+}
+
 var day = getDay()
 
 var logoSrc = "GamehubApi/logos/GamesHubLogo.png"
