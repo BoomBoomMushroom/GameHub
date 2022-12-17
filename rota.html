@@ -1,7 +1,6 @@
 <center>
   <h1>Rota</h1>
   <h2 id="actionBar">Player x's Turn</h2>
-  <button id="playAgain" onclick="window.location.reload()">Play Again</button>
   
   <div id="rotaBoard">
     <div class="rotaCircle" id="center">
@@ -157,7 +156,6 @@ h1{
 }
 
 </style>
-
 <script>
 var placements = {
 	"n": "#ffffff",
@@ -273,9 +271,6 @@ setInterval(()=>{
     	placements[key] = "#ffffff"
     }
   }
-
-	if(gameOutput == -1){ playAgain.style.display = "none" }
-  if(gameOutput != -1){ playAgain.style.display = "block" }
 
 	if(gameOutput == -1){
 		actionBar.innerText = "Player "+(playerIndex+1)+"'s Turn"
