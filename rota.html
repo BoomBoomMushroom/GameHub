@@ -156,6 +156,7 @@ h1{
 }
 
 </style>
+
 <script>
 var placements = {
 	"n": "#ffffff",
@@ -232,6 +233,8 @@ function checkCurved(playerNum){
 }
 
 function clickOnto(direction){
+	if(gameOutput != -1){ return }
+
 	if(playerPlaced[playerIndex]>=3){
   	if(selected != ""){
     	var included = direction == "center" || adjacent[selected].includes(direction)
@@ -252,7 +255,6 @@ function clickOnto(direction){
     if(playerIndex>=2){playerIndex=0}
     return
   }
-	if(gameOutput != -1){ return }
 	// console.log(direction)
   if(placements[direction]!="#ffffff"){return}
   var color = playerColors[playerIndex]
