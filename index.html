@@ -268,8 +268,6 @@ body{
   </script>
 </div>
 
-<script src="https://gameshub.dev/js_modules/gameshubBackground.js"></script>
-
 <div id="links" style="position:absolute;bottom:0px;color:white">
   <span>Links</span>
   <br>
@@ -360,10 +358,11 @@ var i = setInterval(()=>{
 </script>
 -->
 
+<script src="https://gameshub.dev/js_modules/gameshubBackground.js"></script>
 <script src="https://gameshub.dev/js_modules/konamiCodeEnter.js"></script>
 <script src="https://gameshub.dev/js_modules/createAnnouncement.js"></script>
-<script src="https://gamehub.dev/js_modules/announcement.js"></script>
-<script src="https://gamehub.dev/js_modules/loadGames.js"></script>
+<script src="https://gameshub.dev/js_modules/announcement.js"></script>
+<script src="https://gameshub.dev/js_modules/loadGames.js"></script>
 
 <script>
 function randomInt(min,max){
@@ -382,7 +381,7 @@ document.getElementById("bigRedButton").addEventListener("click",(e)=>{
   button.innerText = (cl+1).toString()
 })
 
-document.addEventListener("click", function(e){
+document.getElementById("bigRedButton").addEventListener("click", function(e){
    fetch("https://gameshub-api.academyofcode1.repl.co/registerButtonClicks?token="+getCookie("accToken")+"&amount="+getCookie("clicks"))
    .then(d=>{
     console.log(d)
