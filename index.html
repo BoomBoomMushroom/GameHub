@@ -53,7 +53,7 @@
 </header>
 
 <button id="bigRedButton"></button>
-<footer style="position:fixed;float:middle;bottom:1%;width:50%;height:4rem;font-size:4vh;text-align:center">Made with ❤️ by Dillion Weaver</footer>
+<footer style="position:fixed;float:middle;bottom:1%;width:100%;height:4rem;font-size:4vh;text-align:center">Made with ❤️ by Dillion Weaver</footer>
 
 <style>
 body{
@@ -268,81 +268,15 @@ body{
   </script>
 </div>
 
-<script>
-function getMonth(){
-	var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-	var d = new Date()
-	var month = monthList[d.getMonth()]
-	return month
-}
-function getDay(){
-	return new Date().getUTCDate()
-}
-
-var backgrounds = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background.png",
-	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background2.png",
-	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background3.png",
-	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background4.png",
-	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background5.png"]
-var spookySet = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background1.png",
-		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background2.png",
-		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background3.png",
-		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background4.png",
-		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background5.png",
-		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background6.png",
-		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background7.png",
-		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background8.png"]
-var day = getDay()
-
-if(getMonth()=="Febuary" && 10 <= day && day <=18){
-	//e = valentineSet
-	document.getElementById("logo").href = "GamehubApi/logos/ValentineGamesHubLogo.png"
-	document.getElementById("headerLogo").src = "GamehubApi/logos/ValentineGamesHubLogo.png"
-}
-if(getMonth()=="October"){
-	e = spookySet
-	document.getElementById("logo").href = "GamehubApi/logos/HalloweenGamesHubLogo.png"
-	document.getElementById("headerLogo").src = "GamehubApi/logos/HalloweenGamesHubLogo.png"
-}
-if(getMonth()=="November" && 22 <= day && day <=28){
-	//e = thanksgivingSet
-	document.getElementById("logo").href = "GamehubApi/logos/ThanksgivingGamesHubLogo.png"
-	document.getElementById("headerLogo").src = "GamehubApi/logos/ThanksgivingGamesHubLogo.png"
-}
-if(getMonth()=="December"){
-	//e = christmasSet
-	document.getElementById("logo").href = "GamehubApi/logos/ChristmasGamesHubLogo.png"
-	document.getElementById("headerLogo").src = "GamehubApi/logos/ChristmasGamesHubLogo.png"
-}
-var rand = Math.floor( Math.random() * (backgrounds.length-0) )+0
-if(backgrounds[rand]=="https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background2.png"){
-	document.getElementById("links").style.color = "black"
-}
-document.body.style.backgroundImage="url('"+backgrounds[rand]+"')"
-</script>
-<script>
-function randomInt(min,max){
-	return Math.floor(Math.random() * (max-min+1))+min
-}
-
-document.getElementById("bigRedButton").addEventListener("click",(e)=>{
-	var button = document.getElementById("bigRedButton")
-  button.style.top = randomInt(0,window.innerHeight-button.offsetHeight)+"px"
-  button.style.left = randomInt(0,window.innerWidth-button.offsetWidth)+"px"
-  var cl = parseInt( getCookie("clicks") )
-  if(isNaN(cl)){
-  	cl = 0
-  }
-  setCookie("clicks",(cl+1).toString(),999)
-  button.innerText = (cl+1).toString()
-})
-</script>
+<script src="https://gameshub.dev/js_modules/gameshubBackground.js"></script>
 
 <div id="links" style="position:absolute;bottom:0px;color:white">
   <span>Links</span>
   <br>
+  <!--
   <a class="link" href='https://podcasts.gameshub.dev/'>The 5-Minute Podcasts</a>
   <br>
+  -->
   <a class="link" href='https://github.com/Academy-of-Code/GameHub'>Gameshub source code here</a>
   <br>
   <a class="link" disabled href='https://api.gameshub.dev'>API: api.gameshub.dev</a>
@@ -362,37 +296,9 @@ document.getElementById("bigRedButton").addEventListener("click",(e)=>{
 }
 </style>
 
-<script>
-  const konamiCode = "up up down down left right left right b a".split(" ")
-  const keycodes = {
-    "a": 65,
-    "b": 66,
-    "up": 38,
-    "down": 40,
-    "left": 37,
-    "right": 39,
-  }
-  var codeIndex = 0
-  document.addEventListener("keydown",(event)=>{
-    const keyCode = event.keyCode
-    var reqKeycode = keycodes[konamiCode[codeIndex]]
-    if(codeIndex>=konamiCode.length-1){
-	    alert("Konami entered! Loading data...")
-	    fetch('https://Gameshub-API.academyofcode1.repl.co/awardAdvancement?token='+getCookie("accToken")+"&id=3",{})
-	    .then(response => response.text())
-	    .then(data=>{
-	    	window.location.href = "https://gameshub.dev/Piracy/pirate"
-	    })
-    }
-    if(keyCode==reqKeycode){
-      codeIndex += 1
-    } else{
-      codeIndex = 0
-    }
-  })
 
-</script>
 <script>
+  // Get Account
 	fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie("accToken"),{})
 	.then(response => response.text())
 	.then(data => {
@@ -413,125 +319,14 @@ document.getElementById("bigRedButton").addEventListener("click",(e)=>{
 		else{
 			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).Username
 			//document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/accSettings"
-      			document.getElementById("currentAcc").innerText = "Currently signed in as " + JSON.parse(data).Username
+      document.getElementById("currentAcc").innerText = "Currently signed in as " + JSON.parse(data).Username
 			document.getElementById("tr1").style.display = "none"
 			document.getElementById("tr2").style.display = "none"
 		}
 	})
 </script>
 
-<script>
-	// Announcement Maker
-  	function setCookie(cname, cvalue, exdays){
-	  const d = new Date();
-	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	  let expires = "expires="+d.toUTCString();
-	  document.cookie = cname+"="+cvalue+";"+expires+";path=/";
-	}
-	function getCookie(cname){
-	  let name = cname + "=";
-	  let decodedCookie = decodeURIComponent(document.cookie);
-	  let ca = decodedCookie.split(';');
-	  for (let i=0; i<ca.length;i++){
-		let c = ca[i];
-	    while (c.charAt(0)==' '){
-		c = c.substring(1);
-	    }
-	    if(c.indexOf(name)==0){
-		return c.substring(name.length,c.length);
-	    }
-	  }
-	  return "";
-	}
-  
-  async function validateAccount(c){    
-    var token = getCookie("accToken")
-    
-    var r=await fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+token,{})
-    .then(response => response.text())
-    .then(data => {
-      //console.log(JSON.parse(data))
-      if(JSON.parse(data)!="COULDNT_FIND_TOKEN"){
-        return JSON.parse(data)
-      }
-      else{ return {} }
-    })
-    var h = setInterval(()=>{
-      if(r!=undefined){
-        c(r,token)
-        clearInterval(h)
-      }
-    },10)
-  }
-  
-  // code form JavaScript section
-  function httpFetchJSON(url,callback,onError){
-    fetch(url)
-    .then(response=>response.json())
-    .then(data=>callback(data))
-    .catch(error=>onError(error))
-  }
-  function httpFetchText(url,callback,onError){
-    fetch(url)
-    .then(response=>response.text())
-    .then(data=>callback(data))
-    .catch(error=>onError(error))
-  }
-
-  function f(){
-    console.log("Code entered now checking accout!")
-
-    // Validate Token
-    validateAccount(contin)
-    function contin(account,token){
-      var isAdmin = account.IsAdmin == true
-      if(!isAdmin) return
-      console.log("The user is an Admin... proceeding")
-      var announcement = ""
-      var times = 0
-      while(announcement==""){
-        if(times>=5){
-          break
-        }
-        var a = prompt("Give an annoucement to send")
-        if(a.replaceAll(" ", "")!=""){
-          announcement = a
-        }
-        times++
-      }
-      if(announcement=="") return
-      var announce_URL = "https://gameshub-api.academyofcode1.repl.co/announce"
-      // takes 'token' and 'a' as params
-      httpFetchText(announce_URL+"?token="+token+"&a="+announcement,s)
-    }
-    function s(data){
-      console.log(data)
-    }
-  }
-
-  const code = "W A S D ENTER".split(" ")
-  const keycodes2 = {
-    "W": 87,
-    "A": 65,
-    "S": 83,
-    "D": 68,
-    "ENTER": 13,
-  }
-  var codeIndex2 = 0
-  
-  document.addEventListener("keydown",(event)=>{
-    const keyCode = event.keyCode
-    //console.log(keyCode)
-    var reqKeycode = keycodes2[code[codeIndex2]]
-    if(codeIndex2>=code.length-1){f();codeIndex2=0;}
-    if(keyCode==reqKeycode){
-      codeIndex2 += 1
-    } else{
-      codeIndex2 = 0
-    }
-  })
-</script>
-
+<!--
 <script>
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -562,145 +357,35 @@ var i = setInterval(()=>{
     })
   }
 },1000*60)
+</script>
+-->
 
-</script>
+<script src="https://gameshub.dev/js_modules/konamiCodeEnter.js"></script>
+<script src="https://gameshub.dev/js_modules/createAnnouncement.js"></script>
+<script src="https://gamehub.dev/js_modules/announcement.js"></script>
+<script src="https://gamehub.dev/js_modules/loadGames.js"></script>
 
 <script>
-	//Show Annoucnement
-	function setCookie(cname, cvalue, exdays){
-	  const d = new Date();
-	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	  let expires = "expires="+d.toUTCString();
-	  document.cookie = cname+"="+cvalue+";"+expires+";path=/";
-	}
-	function getCookie(cname){
-	  let name = cname + "=";
-	  let decodedCookie = decodeURIComponent(document.cookie);
-	  let ca = decodedCookie.split(';');
-	  for (let i=0; i<ca.length;i++){
-		let c = ca[i];
-	    while (c.charAt(0)==' '){
-		c = c.substring(1);
-	    }
-	    if(c.indexOf(name)==0){
-		return c.substring(name.length,c.length);
-	    }
-	  }
-	  return "";
-	}
-  function httpFetchJSON(url,callback,onError){
-    fetch(url)
-    .then(response=>response.json())
-    .then(data=>callback(data))
-    .catch(error=>onError(error))
+function randomInt(min,max){
+  return Math.floor(Math.random() * (max-min+1))+min
+}
+
+document.getElementById("bigRedButton").addEventListener("click",(e)=>{
+  var button = document.getElementById("bigRedButton")
+  button.style.top = randomInt(0,window.innerHeight-button.offsetHeight)+"px"
+  button.style.left = randomInt(0,window.innerWidth-button.offsetWidth)+"px"
+  var cl = parseInt( getCookie("clicks") )
+  if(isNaN(cl)){
+    cl = 0
   }
-  function httpFetchText(url,callback,onError){
-    fetch(url)
-    .then(response=>response.text())
-    .then(data=>callback(data))
-    .catch(error=>onError(error))
-  }
-  
-  httpFetchJSON("https://gameshub-api.academyofcode1.repl.co/getannouncement",(data)=>{
-  	var currentEpoch = Math.ceil(Date.now()/1000)
-    var lastAnnouncement = parseInt(getCookie("lastAnnouncement"))
-    if(isNaN(lastAnnouncement)){
-      showAnnouncement(data)
-    }
-    else if(data.timestamp != lastAnnouncement){
-    	showAnnouncement(data)
-    }
-  })
-  
-  function showAnnouncement(d){
-  	//alert(d.announcement)
-    setCookie("lastAnnouncement",d.timestamp.toString(),365*20)
-  }
-</script>
-<script>
-var singleplayerGames = [
-  	{name:"Snake", url: "https://gameshub.dev/games/snake"},
-  	{name:"Pet the Dog!", url: "https://pet-the-dog.netlify.app/"},
-  	{name:"Solar System Simulator", url: "https://gameshub.dev/games/solarsystemsimulator"},
-  	{name:"Custom Programming Language Creator", url: "https://custom-programming-language-creator.netlify.app/"},
-  	{name:"Monpoke", url: "https://gameshub.dev/games/monpoke"},
-  	{name:"Page Counter", url: "https://gameshub.dev/games/pagecounter"},
-  	{name:"You v.s Snake AI", url: "https://gameshub.dev/games/snakeaibattle"},
-  	{name:"Snake Based Ecosystem", url: "https://gameshub.dev/games/snakeecosystem"},
-  	{name:"The Apple Collection", url: "https://gameshub.dev/games/applecollection"},
-  	{name:"Pixel Art Maker", url: "https://gameshub.dev/games/pixelartmaker"},
-  	{name:"Snake AI 2", url: "https://gameshub.dev/games/snake_ai-v2"},
-  	{name:"Conway's Game of Life", url: "https://gameshub.dev/games/conways_game_of_life"},
-  	{name:"Slaying Sowballs", url: "https://gameshub.dev/FiledGames/slayingsnowballs/"},
-  	{name:"Worlde Copy Old", url: "https://gameshub.dev/games/wordle"},
-  	{name:"Worlde Copy", url: "https://gameshub.dev/games/wordlenew"},
-  	{name:"Wordle Solver", url: "https://gameshub.dev/games/wordlesolver"},
-  	{name:"Getting Over It", url: "https://gameshub.dev/games/getting_over_it"},
-  	{name:"Money Miner", url: "https://gameshub.dev/games/money_miner"},
-  	{name:"Dirt Collecting Simulator", url: "https://gameshub.dev/FiledGames/dirtcollectingsimulator"},
-  	{name:"Artificial Life w/ Settings", url: "https://gameshub.dev/games/life"},
-  	{name:"Talking Ben", url: "https://gameshub.dev/FiledGames/ben"},
-	  {name:"Rota", url: "https://gameshub.dev/games/rota"},
-  ]
-  var multiplayerGames = [
-  	{name:"Existance Simulator", url: "https://gameshub.dev/games/existancesimulator"},
-  	{name:"Existance Simulator 3D", url: "https://gameshub.dev/FiledGames/games/existancesimulator3d/"},
-  	{name:"Sprouts (In Person Req)", url: "https://gameshub.dev/games/sproutssolo"},
-  	{name:"Battle Royale", url: "https://gameshub.dev/games/battleroyale"},
-  ]
-  var server = [
-  	{name:"Signup", url: "https://gameshub.dev/gamehubapi/signup"},
-  	{name:"Log in", url: "https://gameshub.dev/gamehubapi/signin"},
-  	{name:"Account Settings", url: "https://gameshub.dev/gamehubapi/accsettings"},
-  	{name:"Search Accounts", url: "https://gameshub.dev/gamehubapi/accsearch"},
-  	{name:"Gameshub Shop", url: "https://gameshub.dev/gamehubapi/shop"},
-  	{name:"Leaderboards", url: "https://gameshub.dev/gamehubapi/leaderboard"},
-  ]
-  var unblocked = [
-	  {name:"Holy Unblocker", url: "https://holy-unblocker.academyofcode1.repl.co/"},
-  	{name:"Tabby Cat", url: "https://tabbycat-unblocked.netlify.app/public/"},
-	  {name:"Boxel Rebound", url: "https://boxel-rebound-unblocked-2.netlify.app/www/"},
-  ]
-  var gambling = [
-  	{name:"Blackjack", url: "https://gameshub.dev/games/blackjack"},
-  	{name:"Slot Machines", url: "https://gameshub.dev/games/slotMachines"},
-  ]
-  
-  function insertAfter(newNode, existingNode) {
-		existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
-	}
-  
-  if(singleplayerGames.length==0){document.getElementById("single").style.display = "none"}
-  if(multiplayerGames.length==0){document.getElementById("multi").style.display = "none"}
-  if(server.length==0){document.getElementById("server").style.display = "none"}
-  if(unblocked.length==0){document.getElementById("unblocked").style.display = "none"}
-  
-  for(var x=0;x<singleplayerGames.length;x++){
-    var t = "<a href="+singleplayerGames[x].url+">"+singleplayerGames[x].name+"</a>"
-    document.getElementById("single").innerHTML += t
-  }
-  for(var x=0;x<multiplayerGames.length;x++){
-     var t = "<a href="+multiplayerGames[x].url+">"+multiplayerGames[x].name+"</a>"
-    document.getElementById("multi").innerHTML += t
-  }
-  for(var x=0;x<server.length;x++){
-     var t = "<a href="+server[x].url+">"+server[x].name+"</a>"
-    document.getElementById("server").innerHTML += t
-  }
-  for(var x=0;x<unblocked.length;x++){
-     var t = "<a href="+unblocked[x].url+">"+unblocked[x].name+"</a>"
-    document.getElementById("unblocked").innerHTML += t
-  }
-  for(var x=0;x<gambling.length;x++){
-     var t = "<a href="+gambling[x].url+">"+gambling[x].name+"</a>"
-    document.getElementById("gambling").innerHTML += t
-  }
-</script>
-<script>
+  setCookie("clicks",(cl+1).toString(),999)
+  button.innerText = (cl+1).toString()
+})
+
 document.addEventListener("click", function(e){
    fetch("https://gameshub-api.academyofcode1.repl.co/registerButtonClicks?token="+getCookie("accToken")+"&amount="+getCookie("clicks"))
    .then(d=>{
-   	console.log(d)
+    console.log(d)
    })
 })
 </script>
