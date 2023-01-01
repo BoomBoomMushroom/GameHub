@@ -1,0 +1,62 @@
+<center>
+  <h1>About Me (Dillion Weaver)</h1>
+  <span id="description">My name is Dillion Weaver and I am <span id="age">x</span> years old.<br> I made this website <span id="websiteAge">y</span> years ago for fun during school!<br> I used this website to mainly code some fun little projects and improve my coding skills.</span>
+</center>
+
+<div id="widgets">
+  <div id="fiverr">
+    <h2>My Fiverr</h2>
+    <div itemscope itemtype='http://schema.org/Person' class='fiverr-seller-widget' style='display: inline-block;'>
+         <a itemprop='url' href=https://www.fiverr.com/mc_host rel="nofollow" target="_blank" style='display: inline-block;'>
+            <div class='fiverr-seller-content' id='fiverr-seller-widget-content-1cc2a8d1-4ba4-4b9a-8469-20da3a69f76d' itemprop='contentURL' style='display: none;'></div>
+            <div id='fiverr-widget-seller-data' style='display: none;'>
+                <div itemprop='name' >mc_host</div>
+                <div itemscope itemtype='http://schema.org/Organization'><span itemprop='name'>Fiverr</span></div>
+                <div itemprop='jobtitle'>Seller</div>
+                <div itemprop='description'>My name is Dillion and I know C#, Lua, Python, and JavaScript. I have been programming since 2017.</div>
+            </div>
+        </a>
+    </div>
+
+    <script id='fiverr-seller-widget-script-1cc2a8d1-4ba4-4b9a-8469-20da3a69f76d' src='https://widgets.fiverr.com/api/v1/seller/mc_host?widget_id=1cc2a8d1-4ba4-4b9a-8469-20da3a69f76d' data-config='{"category_name":"\nProgramming \u0026 Tech\n\n"}' async='true' defer='true'></script>
+  </div>
+
+  <iframe id="discord" src="https://discord.com/widget?id=967177569877237841&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+</div>
+
+<style>
+body{
+  color: white;
+  background-color: #333333;
+  user-select: none;
+}
+span{
+  font-size: 20px;
+}
+#widgets{
+  display: flex;
+  justify-content: right;
+  align-self: flex-end;
+  margin: 10px;
+}
+#fiverr{
+  text-align: center;
+  color: lightgreen;
+  margin: 10px;
+}
+</style>
+<script>
+	function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+	}
+  
+  age.innerText = getAge("2008/02/14")
+  websiteAge.innerText = getAge("2021/02/02")
+</script>
