@@ -15,9 +15,11 @@
 -->
 
 <header style="width:100%" id="header" class="header">
-  <img id="headerLogo" class="header" style="height:4vw" src="https://gameshub.dev/GamehubApi/logos/gameshublogo.png">
+  <abbr title="GamesHub, whats the worst that could possibly happen?">
+    <img id="headerLogo" class="header" style="height:4vw" src="https://gameshub.dev/GamehubApi/logos/gameshublogo.png">
+  </abbr>
   <span id="headerTitle" style="font-size:4vw" class="header">GamesHub</span>
-  
+
   <div id="headerButtons" class="header">
     <div class="dropdown">
       <button class="dropbtn, header, chip" id="singleHeader">Single Player</button>
@@ -188,6 +190,19 @@ body{
   let ws = new WebSocket(HOST);
   let el;
 
+
+  var filterOn = false
+  function toggleFilter(){
+    filterOn = !filterOn
+    ws.send("setFilter-"+filterOn)
+    var a = "Off"
+    if(filterOn){
+      a = "On"
+    }
+    document.getElementById("toggleFilter").innerText = "Profanity Filter is "+a
+  }
+
+
   function heartbeat(){
   	clearTimeout(this.pingTimeout);
         
@@ -222,7 +237,8 @@ body{
   </div>
     
   <div id="controls" style="position:fixed;">
-  	<input class='chat' id="msgInput" placeholder='Type your message here...'>
+  	<button class='chat' id="toggleFilter" onclick="toggleFilter()">Profanity Filter is Off</button>
+    <input class='chat' id="msgInput" placeholder='Type your message here...'>
   	<button class='chat' id="sendMsg" onclick='sendMsg()'>Send Message</button>
   </div>
   <script>
