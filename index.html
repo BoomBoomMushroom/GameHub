@@ -181,7 +181,63 @@ body{
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 </style>
 
-
+<div id="cookiesPopup">
+  <center>
+    <h2 id="cookiesTxt">Heyo! Gameshub uses cookies to store data.<br>Would you pwease accept them? 👉👈</h2>
+    <button onclick="accept()" id="cookiesAccept">Accept</button>
+    <script>
+    	function accept(){
+      	setCookie("acceptedCookies", "true", 99*365)
+      	document.getElementById("cookiesPopup").remove()
+      }
+      function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+      function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+      
+      if(getCookie('acceptedCookies')=="true"){
+      	accept()
+      }
+    </script>
+  </center>
+  <style>
+  #cookiesPopup{
+    background-color: rgba(0,0,0,0.8);
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+  #cookiesAccept{
+    color: white;
+    background-color: lightgreen;
+    width: 150px;
+    height: 50px;
+    font-size: 3vw;
+  }
+  #cookiesTxt{
+    color: white;
+  }
+  </style>
+</div>
 
 <div id="globalChat">
   <script>
