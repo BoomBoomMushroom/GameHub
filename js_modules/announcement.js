@@ -45,6 +45,6 @@ httpFetchJSON("https://gameshub-api.academyofcode1.repl.co/getannouncement",(dat
 })
 
 function showAnnouncement(d){
-    //alert(d.announcement)
+  //alert(d.announcement)
   setCookie("lastAnnouncement",d.timestamp.toString(),365*20)
 }
