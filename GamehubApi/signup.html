@@ -6,7 +6,7 @@
     
     <p style="font-size:12px;" align="center" id="passwordAlert">Password must be longer than 8 characters</p>
     <input id="passwordInput" class="pass" type="password" align="center" placeholder="Password">
-    <button class="submit" align="center" onclick='onSubmit()'>Sign up</button>
+    <button id="submitButton" class="submit" align="center" onclick='onSubmit()'>Sign up</button>
     <br>
     <br>
     <!--
@@ -134,6 +134,9 @@ var recentActions = []
 var signedIn = false
 
 function onSubmit() {
+  document.getElementById("submitButton").disabled = true
+  alert("Sending Message to Server, Please Wait...")
+
   inputUsername = usernameInput.value
   inputPassword = passwordInput.value
   if (inputUsername.length >= 3 && inputUsername.length <= 16 && inputPassword.length >= 8) {
@@ -145,11 +148,12 @@ function onSubmit() {
       fetch('https://Gameshub-API.academyofcode1.repl.co/login?username='+inputUsername+'&password='+inputPassword,{})
       .then(response => response.text())
       .then(data => {
-        alert(data)
+        //alert(data)
         console.log(JSON.parse(data))
         if(data!="INVALID_ACCOUNT_TOKEN" && data.startsWith("<!DOCTYPE html>") == false){
           setCookie("accToken",JSON.parse(data),365*10)
-          window.location.replace("https://gameshub.netlify.app")
+          alert("Signed up and logged in, redirecting now!")
+          window.location.replace("https://gameshub.dev")
         }
         else{
           alert("Invailid Username or Password!")

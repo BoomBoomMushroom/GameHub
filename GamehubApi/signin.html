@@ -15,7 +15,7 @@
     
     <p style="font-size:12px;" align="center" id="passwordAlert">Password must be longer than 8 characters</p>
     <input id="passwordInput" class="pass" type="password" align="center" placeholder="Password">
-    <button class="submit g-recaptcha" align="center" data-sitekey="6LeciP4bAAAAABX1aPDRWQJZAeix90Xcby-9Z2ap" data-callback='onSubmit' onclick="onSubmit()" data-action='submit'>Sign in</button>
+    <button id="submitButton" class="submit g-recaptcha" align="center" data-sitekey="6LeciP4bAAAAABX1aPDRWQJZAeix90Xcby-9Z2ap" data-callback='onSubmit' onclick="onSubmit()" data-action='submit'>Sign in</button>
     <!--
     <p class="forgot" align="center"><a href="#">Forgot Password?</a></p>
     -->
@@ -41,18 +41,21 @@
       } 
     }
     function onSubmit(token){
+      document.getElementById("submitButton").disabled = true
+      alert("Sending Message to Server, Please Wait...")
+
       inputUsername = usernameInput.value
       inputPassword = passwordInput.value
       if(inputUsername.length >= 3 && inputUsername.length <= 16 && inputPassword.length >= 8){
         fetch('https://Gameshub-API.academyofcode1.repl.co/login?username='+inputUsername+'&password='+inputPassword,{})
         .then(response => response.text())
         .then(data => {
-          alert(data)
+          //alert(data)
           console.log(JSON.parse(data))
           if(JSON.parse(data)!="INVALID_ACCOUNT_TOKEN" && data.startsWith("<!DOCTYPE html>") == false){
             setCookie("accToken",JSON.parse(data),365*10)
             alert("You are now logged in!")
-            window.location.replace("https://gameshub.netlify.app")
+            window.location.replace("https://gameshub.dev")
           }
           else{
             alert("Invailid Username or Password!")
