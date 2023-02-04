@@ -178,7 +178,7 @@ function loader(){
 </script>
 <script>
   if(firstVar.split("=")[0]=="q"){
-    fetch('https://Gameshub-API.academyofcode1.repl.co/getaccount?username='+firstVar.split("=")[1],{})
+    fetch('https://Gameshub-API.academyofcode1.repl.co/getaccount?uuid='+firstVar.split("=")[1],{})
     .then(response => response.text())
     .then(data => {
       // console.log(JSON.parse(data))
