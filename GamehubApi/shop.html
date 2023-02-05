@@ -48,7 +48,7 @@ httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getshop',shopLoad,()=
 
 httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
 	console.log(d)
-	httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?username='+d.Username,(x)=>{
+	httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?uuid='+d.UUID,(x)=>{
     console.log(x)
     money.innerHTML = addCommas( x.GameshubData.Money )+"G"
   },()=>{})
