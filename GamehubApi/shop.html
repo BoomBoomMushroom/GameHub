@@ -1,6 +1,8 @@
 <h2>Gameshub Shop!</h2>
 <p id="money" style="position:absolute;right:10px;top:0px;">0G</p>
 
+<img id="loadingWheel" src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif">
+
 <script>
 function httpFetchJSON(url,callback,onError){
 	fetch(url)
@@ -29,10 +31,10 @@ function httpFetchText(url,callback,onError){
 	  for (let i=0; i<ca.length;i++){
 		let c = ca[i];
 	    while (c.charAt(0)==' '){
-		c = c.substring(1);
+			c = c.substring(1);
 	    }
 	    if(c.indexOf(name)==0){
-		return c.substring(name.length,c.length);
+			return c.substring(name.length,c.length);
 	    }
 	  }
 	  return "";
@@ -71,19 +73,20 @@ function buy(id){
 }
 function shopLoad(d){
 	console.log(d)
-  d.forEach(item=>{
-  	var itemPage = document.createElement("BUTTON")
-    itemPage.id = item.id
-    itemPage.addEventListener('click',()=>{buy(item.id);})
-    document.body.appendChild(itemPage)
-    
-    var itemName = document.createElement("H3")
-    itemName.innerText = item.name + " - " +addCommas(item.price)+"G"
-    itemPage.appendChild(itemName)
-    
-    var itemDesc = document.createElement("P")
-    itemDesc.innerText = item.description
-    itemPage.appendChild(itemDesc)
-  })
+	d.forEach(item=>{
+		var itemPage = document.createElement("BUTTON")
+		itemPage.id = item.id
+		itemPage.addEventListener('click',()=>{buy(item.id);})
+		document.body.appendChild(itemPage)
+		
+		var itemName = document.createElement("H3")
+		itemName.innerText = item.name + " - " +addCommas(item.price)+"G"
+		itemPage.appendChild(itemName)
+		
+		var itemDesc = document.createElement("P")
+		itemDesc.innerText = item.description
+		itemPage.appendChild(itemDesc)
+	})
+	document.removeChild( document.getElementById("loadingWheel") )
 }
 </script>

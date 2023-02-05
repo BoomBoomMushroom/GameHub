@@ -1,3 +1,4 @@
+<img id="loadingWheel" src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif">
 
 <img id="pfp" src="" style="border:1px solid black;background-color:white;border-radius:10%;" width=150 height=150>
 <p id="accountUsername">{USERNAME}</p>
@@ -51,6 +52,8 @@ function addCommas(x) {
 }
 
 function loadData(m){
+  document.removeChild( document.getElementById("loadingWheel") )
+  
 	m = JSON.parse(m)
   try{
   	var myDate = new Date(m.AccountCreationTime*1000)
