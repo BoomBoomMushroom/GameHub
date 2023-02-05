@@ -379,7 +379,9 @@ body{
     d = JSON.parse(data)
     if (d["GameshubData"]["RedButtonClicks"] >= 666){
       backgrounds.push( "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/666_Clicks.png" )
-      loadBackground()
+      if(Math.random() <= 1 / backgrounds.length){
+        document.body.style.backgroundImage="url('"+"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/666_Clicks.png"+"')"
+      }
     }
 		console.log(JSON.parse(data))
 		try{
