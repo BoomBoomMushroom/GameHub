@@ -76,8 +76,6 @@ function shopLoad(d){
 	
 	console.log(d)
 	d.forEach(item=>{
-		console.log(item)
-
 		var itemPage = document.createElement("BUTTON")
 		itemPage.id = item.id
 		itemPage.addEventListener('click',()=>{buy(item.id);})
