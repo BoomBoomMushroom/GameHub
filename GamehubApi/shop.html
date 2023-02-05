@@ -73,6 +73,7 @@ function buy(id){
 }
 function shopLoad(d){
 	console.log(d)
+	document.getElementById("loadingWheel").remove()
 	d.forEach(item=>{
 		var itemPage = document.createElement("BUTTON")
 		itemPage.id = item.id
@@ -87,6 +88,5 @@ function shopLoad(d){
 		itemDesc.innerText = item.description
 		itemPage.appendChild(itemDesc)
 	})
-	document.getElementById("loadingWheel").remove()
 }
 </script>
