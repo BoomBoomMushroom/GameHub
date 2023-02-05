@@ -377,7 +377,10 @@ body{
 	.then(response => response.text())
 	.then(data => {
     d = JSON.parse(data)
-    backgrounds.push( "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/666_Clicks.png" )
+    if (d["GameshubData"]["RedButtonClicks"] >= 666){
+      backgrounds.push( "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/666_Clicks.png" )
+      loadBackground()
+    }
 		console.log(JSON.parse(data))
 		try{
 			if(JSON.parse(data)["GameshubData"]["RedButtonClicks"]){
