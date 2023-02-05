@@ -18,6 +18,6 @@ fetch("https://gameshub-api.academyofcode1.repl.co/getleaderboard?type=money")
     
   	document.getElementById("leaderboard").innerHTML += "<li>"+inner
   }
-  document.removeChild( document.getElementById("loadingWheel") )
+  document.getElementById("loadingWheel").remove()
 })
 </script>

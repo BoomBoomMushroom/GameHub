@@ -52,7 +52,7 @@ function addCommas(x) {
 }
 
 function loadData(m){
-  document.removeChild( document.getElementById("loadingWheel") )
+  document.getElementById("loadingWheel").remove()
   
 	m = JSON.parse(m)
   try{
