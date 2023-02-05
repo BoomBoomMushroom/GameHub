@@ -376,6 +376,8 @@ body{
 	fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie("accToken"),{})
 	.then(response => response.text())
 	.then(data => {
+    d = JSON.parse(data)
+    backgrounds.push( "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/666_Clicks.png" )
 		console.log(JSON.parse(data))
 		try{
 			if(JSON.parse(data)["GameshubData"]["RedButtonClicks"]){
