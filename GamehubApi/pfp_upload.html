@@ -1,0 +1,65 @@
+<form enctype = "multipart/form-data" onsubmit="return false;" >
+	<input id="file" type="file" accept="video/*" name="static_file" />
+	<br>
+	<button id="upload-button" onclick="uploadFile(this.form)"> Upload </button>
+ </form>
+  <div id="static_file_response"> </div>
+ 
+ <!--
+ <input type="file" id="videoInput" accept="video/mp4, video/mov, video/webm" name="filename">
+ 
+ <br>
+ <br>
+ 
+ <video controls id="preview"></video>
+ -->
+
+<script>
+	/*
+document.querySelector("#preview").width = window.innerHeight + ""
+
+document.querySelector("#videoInput").addEventListener("change", ()=>{
+	var file = document.querySelector("#videoInput").files[0]
+  var blob = getBlobUrl(file)
+  console.log(file)
+	console.log(blob)
+  document.querySelector("#preview").src = blob
+})
+*/
+
+function getCookie(cname){
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+		for (let i=0; i<ca.length;i++){
+		let c = ca[i];
+			while (c.charAt(0)==' '){
+			c = c.substring(1);
+		}
+			if(c.indexOf(name)==0){
+			return c.substring(name.length,c.length);
+		}
+	}
+	return "";
+}
+
+const token = getCookie("accToken")
+const serverUrl = "https://Gameshub-API.boomboommushroom.repl.co/uploadProfilePicture?token="+token
+function uploadFile(form){
+	const formData = new FormData(form);
+ 	var oOutput = document.getElementById("static_file_response")
+ 	var oReq = new XMLHttpRequest();
+  	oReq.open("POST", serverUrl, true);
+ 	oReq.onload = function(oEvent) {
+		if (oReq.status == 200) {
+			oOutput.innerHTML = "Uploaded!";
+			console.log(JSON.parse(oReq.response))
+		} else {
+			oOutput.innerHTML = "Error occurred when trying to upload your file.<br \/>";
+		}
+	};
+ 	oOutput.innerHTML = "Sending file!";
+ 	console.log("Sending file!")
+ 	oReq.send(formData);
+}
+</script>
