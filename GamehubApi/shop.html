@@ -72,6 +72,8 @@ function buy(id){
   ()=>{})
 }
 function shopLoad(d){
+	d = JSON.parse(d)
+	
 	console.log(d)
 	d.forEach(item=>{
 		console.log(item)
