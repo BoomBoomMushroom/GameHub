@@ -392,7 +392,7 @@ body{
 		
 		catch(e){console.log(e)}
 		
-		if(JSON.parse(data)=="Err"){
+		if(JSON.parse(data)=="COULDNT_FIND_TOKEN"){
 			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
 			document.getElementById("currentAcc").innerText = "You are currently not signed in"
 			document.getElementById("logout").style.display = "none"
