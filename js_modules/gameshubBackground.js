@@ -50,3 +50,4 @@ function loadBackground(){
 	}
 	document.body.style.backgroundImage="url('"+backgrounds[rand]+"')"
 }
+loadBackground()
