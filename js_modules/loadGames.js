@@ -37,7 +37,7 @@ var server = [
     {name:"Leaderboards", url: "https://gameshub.dev/gamehubapi/leaderboard"},
 ]
 var unblocked = [
-    {name:"Holy Unblocker", url: "https://holy-unblocker.academyofcode1.repl.co/"},
+    {name:"Holy Unblocker", url: "https://Holy-Unblocker.boomboommushroom.repl.co/"},
     {name:"Tabby Cat", url: "https://tabbycat-unblocked.netlify.app/public/"},
     {name:"Boxel Rebound", url: "https://boxel-rebound-unblocked-2.netlify.app/www/"},
 ]
