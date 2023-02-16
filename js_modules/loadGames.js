@@ -39,7 +39,7 @@ var server = [
 var unblocked = [
     {name:"Holy Unblocker", url: "https://holy-unblocker-new.onrender.com/"},
     {name:"Tabby Cat", url: "https://tabbycat-unblocked.netlify.app/public/"},
-    {name:"Boxel Rebound", url: "https://boxel-rebound-unblocked-2.netlify.app/www/"},
+    {name:"Boxel Rebound", url: "https://boxel-rebound-unblocked-3.netlify.app/www/"},
 ]
 var gambling = [
     {name:"Blackjack", url: "https://gameshub.dev/games/blackjack"},
