@@ -39,11 +39,11 @@
     return "";
   }
 
-  if(getCookie('acceptedCookies')=="true"){
-    cookieBox.classList.remove("show");
-  }
-
   const executeCodes = () => {
+    if(getCookie('acceptedCookies')=="true"){
+      cookieBox.classList.remove("show");
+    }
+    
     //if cookie contains codinglab it will be returned and below of this code will not run
     if (document.cookie.includes("codinglab")) return;
     cookieBox.classList.add("show");
