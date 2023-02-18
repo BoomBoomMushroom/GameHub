@@ -186,6 +186,7 @@ body{
 </style>
 
 
+<!-- Start Of Cookies -->
 <div class="wrapper">
   <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
   <header>
@@ -235,11 +236,13 @@ body{
 
 		if(getCookie('acceptedCookies')=="true"){
       cookieBox.classList.remove("show");
+      cookieBox.classList.add("gone");
     }
 
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
         cookieBox.classList.remove("show");
+        cookieBox.classList.add("gone");
 
         //if button has acceptBtn id
         if (button.id == "acceptBtn") {
@@ -273,6 +276,9 @@ body{
   }
   .wrapper.show {
     right: 20px;
+  }
+  .wrapper.gone {
+    right: -400px;
   }
   .wrapper header {
     display: flex;
@@ -332,6 +338,7 @@ body{
   }
   </style>
 </div>
+<!-- End Of Cookies -->
 
 <div id="globalChat">
   <script>
