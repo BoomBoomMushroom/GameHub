@@ -185,6 +185,121 @@ body{
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 </style>
 
+<div id="globalChat">
+  <script>
+	let HOST = 'wss://GameshubGlobalChat.academyofcode1.repl.co'
+	// https://replit.com/@AcademyofCode1/GameshubGlobalCHat
+  let ws = new WebSocket(HOST);
+  let el;
+
+
+  var filterOn = false
+  function toggleFilter(){
+    filterOn = !filterOn
+    ws.send("setFilter-"+filterOn)
+    var a = "Off"
+    if(filterOn){
+      a = "On"
+    }
+    document.getElementById("toggleFilter").innerText = "Profanity Filter is "+a
+  }
+
+
+  function heartbeat(){
+  	clearTimeout(this.pingTimeout);
+        
+    this.pingTimeout = setTimeout(() => {
+    	this.terminate()
+    }, 30000);
+	}
+      
+  var enterName = false
+  ws.onmessage = function incoming(data) {
+  	var msg = data.data
+    addChat(msg)
+	}
+      
+  ws.on('open', heartbeat);
+  ws.on('ping', heartbeat);
+  ws.on('close', function close() {
+  	clearTimeout(this.pingTimeout);
+	})
+	</script>
+  <style>
+    #chatDiv{ position: absolute; border: 1px solid black; top: 45%; right: 1%; overflow: auto; background-color: #ffffff }
+    #controls{
+      position: fixed;
+      bottom: 1%;
+      right: 1%;
+    }
+  </style>
+
+  <div class='chat' id="chatDiv">
+	<span></span>
+  </div>
+    
+  <div id="controls" style="position:fixed;">
+  	<button class='chat' id="toggleFilter" onclick="toggleFilter()">Profanity Filter is Off</button>
+    <input class='chat' id="msgInput" placeholder='Type your message here...'>
+  	<button class='chat' id="sendMsg" onclick='sendMsg()'>Send Message</button>
+  </div>
+  <script>
+    function addChat(msg){
+      const output = document.getElementById('chatDiv');
+      output.style.width = window.innerHeight * .4 + "px";
+      output.style.height = window.innerHeight * .4 + "px"
+      var ele = document.createElement('P');
+      ele.innerText = new Date().toTimeString().split(' ')[0] + " " + msg
+      ele.style.wordWrap = 'break-word'
+      ele.style.color = "black"
+      output.appendChild(ele);
+      output.scrollTop = output.scrollHeight
+    }
+    function sendMsg(){
+      if(document.getElementById("msgInput").value!=""){
+        ws.send("CHAT-"+document.getElementById("msgInput").value);
+        document.getElementById("msgInput").value="";
+      }
+    }
+    document.addEventListener("keydown",(e)=>{
+      e = e || window.event
+      if(e.keyCode == 13){
+        sendMsg();
+      }
+    })
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length===2) return parts.pop().split(';').shift();
+    }
+
+    var a = setInterval(()=>{
+      if(ws.readyState==ws.OPEN){
+        var cookie = getCookie("accToken")
+        if(cookie!=undefined){
+          ws.send("token-"+cookie)
+          clearInterval(a)
+        }
+      }
+    },10)
+  </script>
+</div>
+
+<div id="links" style="position:absolute;bottom:0px">
+  <span style="color:white">Links</span>
+  <br>
+  <!--
+  <a class="link" href='https://podcasts.gameshub.dev/'>The 5-Minute Podcasts</a>
+  <br>
+  -->
+  <a class="link" href='https://github.com/Academy-of-Code/GameHub'>Gameshub source code here</a>
+  <br>
+  <a class="link" disabled href='https://api.gameshub.dev'>API: api.gameshub.dev</a>
+  <br>
+  <a class="link" href="" id="currentAcc"></a>
+</div>
+
 
 <!-- Start Of Cookies -->
 <div class="wrapper">
@@ -340,120 +455,6 @@ body{
 </div>
 <!-- End Of Cookies -->
 
-<div id="globalChat">
-  <script>
-	let HOST = 'wss://GameshubGlobalChat.academyofcode1.repl.co'
-	// https://replit.com/@AcademyofCode1/GameshubGlobalCHat
-  let ws = new WebSocket(HOST);
-  let el;
-
-
-  var filterOn = false
-  function toggleFilter(){
-    filterOn = !filterOn
-    ws.send("setFilter-"+filterOn)
-    var a = "Off"
-    if(filterOn){
-      a = "On"
-    }
-    document.getElementById("toggleFilter").innerText = "Profanity Filter is "+a
-  }
-
-
-  function heartbeat(){
-  	clearTimeout(this.pingTimeout);
-        
-    this.pingTimeout = setTimeout(() => {
-    	this.terminate()
-    }, 30000);
-	}
-      
-  var enterName = false
-  ws.onmessage = function incoming(data) {
-  	var msg = data.data
-    addChat(msg)
-	}
-      
-  ws.on('open', heartbeat);
-  ws.on('ping', heartbeat);
-  ws.on('close', function close() {
-  	clearTimeout(this.pingTimeout);
-	})
-	</script>
-  <style>
-    #chatDiv{ position: absolute; border: 1px solid black; top: 45%; right: 1%; overflow: auto; background-color: #ffffff }
-    #controls{
-      position: fixed;
-      bottom: 1%;
-      right: 1%;
-    }
-  </style>
-
-  <div class='chat' id="chatDiv">
-	<span></span>
-  </div>
-    
-  <div id="controls" style="position:fixed;">
-  	<button class='chat' id="toggleFilter" onclick="toggleFilter()">Profanity Filter is Off</button>
-    <input class='chat' id="msgInput" placeholder='Type your message here...'>
-  	<button class='chat' id="sendMsg" onclick='sendMsg()'>Send Message</button>
-  </div>
-  <script>
-    function addChat(msg){
-      const output = document.getElementById('chatDiv');
-      output.style.width = window.innerHeight * .4 + "px";
-      output.style.height = window.innerHeight * .4 + "px"
-      var ele = document.createElement('P');
-      ele.innerText = new Date().toTimeString().split(' ')[0] + " " + msg
-      ele.style.wordWrap = 'break-word'
-      ele.style.color = "black"
-      output.appendChild(ele);
-      output.scrollTop = output.scrollHeight
-    }
-    function sendMsg(){
-      if(document.getElementById("msgInput").value!=""){
-        ws.send("CHAT-"+document.getElementById("msgInput").value);
-        document.getElementById("msgInput").value="";
-      }
-    }
-    document.addEventListener("keydown",(e)=>{
-      e = e || window.event
-      if(e.keyCode == 13){
-        sendMsg();
-      }
-    })
-
-    function getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length===2) return parts.pop().split(';').shift();
-    }
-
-    var a = setInterval(()=>{
-      if(ws.readyState==ws.OPEN){
-        var cookie = getCookie("accToken")
-        if(cookie!=undefined){
-          ws.send("token-"+cookie)
-          clearInterval(a)
-        }
-      }
-    },10)
-  </script>
-</div>
-
-<div id="links" style="position:absolute;bottom:0px">
-  <span style="color:white">Links</span>
-  <br>
-  <!--
-  <a class="link" href='https://podcasts.gameshub.dev/'>The 5-Minute Podcasts</a>
-  <br>
-  -->
-  <a class="link" href='https://github.com/Academy-of-Code/GameHub'>Gameshub source code here</a>
-  <br>
-  <a class="link" disabled href='https://api.gameshub.dev'>API: api.gameshub.dev</a>
-  <br>
-  <a class="link" href="" id="currentAcc"></a>
-</div>
 
 <style>
 .link{
