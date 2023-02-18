@@ -4,19 +4,13 @@
 
 <head>
 	<title>Gameshub</title>
-	<meta name="keywords" content="Games,Chat,Online,Offline,Multiplayer,SinglePlayer,Dev,Development,Code,Coding,JavaScript,Unity,Bad games,Horrible Games,Stolen Games, AOT, ">
+	<meta name="keywords" content="Games,Chat,Online,Offline,Multiplayer,SinglePlayer,Dev,Development,Code,Coding,JavaScript,Unity,Bad games,Horrible Games,Stolen Games, AOT">
 	<meta name="description" content="GamesHub, whats the worst that could possibly happen?">
 	<meta name="author" content="Dillion Weaver">
 	<link rel="icon" id="logo" href="https://gameshub.dev/GamehubApi/logos/GamesHubLogo.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="UTF-8">
 </head>
-<!--
-<h3>"Gameshub... because Whats the worst that could happen?"</h3>
-<audio controls autoplay loop style="position:absolute;top:0px;right:0px;width:200px">
-  <source src="https://gameshub.dev/music/GameshubIntro.wav" type="audio/wav">
-</audio>
--->
 
 <header style="width:100%" id="header" class="header">
   <abbr title="GamesHub, whats the worst that could possibly happen?">
@@ -49,12 +43,6 @@
       <button class="dropbtn, header, chip" id="serverHeader">Account/Server</button>
       <div class="dropdown-content" id="server"></div>
     </div>
-    
-    <!--
-    <a href="https://gameshub.dev/singleplayer"><button id="single" class="chip">Single Player</button></a>
-    <a href="https://gameshub.dev/multiplayer"><button id="multi" class="chip">Multiplayer</button></a>
-    <a href="https://gameshub.dev/gameshubserver"><button id="server" class="chip">Account/Server</button></a>
-    -->
   </div>
 </header>
 
@@ -235,7 +223,19 @@ body{
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.link{
+  color: white;
+}
+.link:visited{
+  color: white;
+}
+.link:active{
+  color: white;
+}
 </style>
+
+
 
 <div id="globalChat">
   <script>
@@ -287,7 +287,7 @@ body{
   </style>
 
   <div class='chat' id="chatDiv">
-	<span></span>
+    <span></span>
   </div>
     
   <div id="controls" style="position:fixed;">
@@ -341,14 +341,20 @@ body{
 <div id="links" style="position:absolute;bottom:0px">
   <span style="color:white">Links</span>
   <br>
+  
   <!--
   <a class="link" href='https://podcasts.gameshub.dev/'>The 5-Minute Podcasts</a>
   <br>
   -->
-  <a class="link" href='https://github.com/Academy-of-Code/GameHub'>Gameshub source code here</a>
+  
+  <a class="link" href='https://github.com/Academy-of-Code/GameHub'>Gameshub's Github</a>
   <br>
+  
+  <!---
   <a class="link" disabled href='https://api.gameshub.dev'>API: api.gameshub.dev</a>
   <br>
+  -->
+
   <a class="link" href="" id="currentAcc"></a>
 </div>
 
@@ -508,117 +514,10 @@ body{
 <!-- End Of Cookies -->
 
 
-<style>
-.link{
-  color: white;
-}
-.link:visited{
-  color: white;
-}
-.link:active{
-  color: white;
-}
-</style>
-
-
-<script>
-  // Get Account
-	fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie("accToken"),{})
-	.then(response => response.text())
-	.then(data => {
-    d = JSON.parse(data)
-		console.log(JSON.parse(data))
-		try{
-      if (d["GameshubData"]["RedButtonClicks"] >= 666){
-        backgrounds.push( "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/666_Clicks.png" )
-        if(Math.random() <= 1 / backgrounds.length){
-          document.body.style.backgroundImage="url('"+"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/666_Clicks.png"+"')"
-        }
-      }
-      
-			if(JSON.parse(data)["GameshubData"]["RedButtonClicks"]){
-				setCookie("clicks",JSON.parse(data).GameshubData.RedButtonClicks.toString(),999)
-			}
-		}
-		
-		catch(e){console.log(e)}
-		
-		if(JSON.parse(data)=="COULDNT_FIND_TOKEN"){
-			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
-			document.getElementById("currentAcc").innerText = "You are currently not signed in"
-			document.getElementById("logout").style.display = "none"
-		}
-		else{
-			document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).UUID
-			//document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/accSettings"
-      document.getElementById("currentAcc").innerText = "Currently signed in as " + JSON.parse(data).Username
-			document.getElementById("tr1").style.display = "none"
-			document.getElementById("tr2").style.display = "none"
-		}
-	})
-</script>
-
-<!--
-<script>
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-	if (parts.length===2) return parts.pop().split(';').shift();
-}
-
-document.addEventListener("keydown", (e)=>{
-  e = e || window.event
-  window.previousKeyEpoch = Math.ceil(Date.now()/1000)
-})
-
-function httpFetchText(url,callback,onError){
-	fetch(url)
-  .then(response=>response.text())
-  .then(data=>callback(data))
-  .catch(error=>onError(error))
-}
-
-var i = setInterval(()=>{
-	var currentEpoch = Math.ceil(Date.now()/1000)
-  if(currentEpoch - window.previousKeyEpoch <= 1000*60*2){
-  	var token = getCookie("accToken")
-    if(token == undefined) return
-  	var coinUrl = "https://gameshub-api.academyofcode1.repl.co/awardmoney?token="+token+"&amount=10"
-    httpFetchText(coinUrl,(data)=>{
-    	console.log(data)
-    })
-  }
-},1000*60)
-</script>
--->
-
+<script src="https://gameshub.dev/js_modules/loadAccount.js"></script>
 <script src="https://gameshub.dev/js_modules/gameshubBackground.js"></script>
 <script src="https://gameshub.dev/js_modules/konamiCodeEnter.js"></script>
 <script src="https://gameshub.dev/js_modules/createAnnouncement.js"></script>
 <script src="https://gameshub.dev/js_modules/announcement.js"></script>
 <script src="https://gameshub.dev/js_modules/loadGames.js"></script>
-
-<script>
-function randomInt(min,max){
-  return Math.floor(Math.random() * (max-min+1))+min
-}
-
-document.getElementById("bigRedButton").addEventListener("click",(e)=>{
-  var button = document.getElementById("bigRedButton")
-  button.style.top = randomInt(0,window.innerHeight-button.offsetHeight)+"px"
-  button.style.left = randomInt(0,window.innerWidth-button.offsetWidth)+"px"
-  var cl = parseInt( getCookie("clicks") )
-  if(isNaN(cl)){
-    cl = 0
-  }
-  setCookie("clicks",(cl+1).toString(),999)
-  button.innerText = (cl+1).toString()
-})
-
-document.getElementById("bigRedButton").addEventListener("click", function(e){
-   fetch("https://gameshub-api.academyofcode1.repl.co/registerButtonClicks?token="+getCookie("accToken")+"&amount="+getCookie("clicks"))
-   .then(d=>{
-    console.log(d)
-   })
-})
-</script>
+<script src="https://gameshub.dev/js_modules/bigRedButton.js"></script>
