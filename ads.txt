@@ -1,1 +1,3 @@
+google.com, pub-8306950387559564, DIRECT, f08c47fec0942fa0
 gameshub.dev, pub-8306950387559564, DIRECT, f08c47fec0942fa0
+gameshub.netlify.app, pub-8306950387559564, DIRECT, f08c47fec0942fa0
