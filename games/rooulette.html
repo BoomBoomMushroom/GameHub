@@ -571,7 +571,7 @@
       .then(d=>d.json())
       .then(data=>{
           if(data.startsWith("GIVEN")){
-            if(x<0){
+            if(amount<0){
               alert("You just lost "+addCommas(amount*-1))
           }
           else{
