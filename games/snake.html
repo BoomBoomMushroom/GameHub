@@ -669,6 +669,7 @@ function httpFetchText(url,callback,onError){
                     screen_setting.style.display = "none";
                     screen_gameover.style.display = "block";
                     cooldown = 0;
+                    excess_food = [];
 										                    
                     httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/snakeHighScore?token='+getCookie('accToken')+"&score="+score,(d)=>{
                         console.log(d)
