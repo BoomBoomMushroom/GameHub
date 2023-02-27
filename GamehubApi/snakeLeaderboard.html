@@ -1,0 +1,23 @@
+<strong>Snake High Score Leaderboard</strong>
+
+<img id="loadingWheel" src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif">
+
+<ol id="leaderboard"></ol>
+
+<script>
+fetch("https://gameshub-api.academyofcode1.repl.co/getleaderboard?type=snake")
+.then(d=>d.json())
+.then(data=>{
+  for(var i=0;i<data.length;i++){
+  	var acc = data[i]
+    var commas = acc["Misc"]["Snake"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    var inner = acc["Username"] + " ("+commas+")"
+    
+    var link = "https://gameshub.dev/gamehubapi/viewacc?q="
+    var inner = "<a href='"+link+acc["UUID"]+"'>"+inner+"</a>"
+    
+  	document.getElementById("leaderboard").innerHTML += "<li>"+inner
+  }
+  document.getElementById("loadingWheel").remove()
+})
+</script>
