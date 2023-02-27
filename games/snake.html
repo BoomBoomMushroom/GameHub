@@ -286,7 +286,7 @@ function httpFetchText(url,callback,onError){
       httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?uuid='+d.UUID,(x)=>{
         if( x.GameshubData.Purchases.includes('snakeDLC') ){
         	window.canEquipPowerups = true
-          account = d
+            account = d
         }
       },()=>{})
     },()=>{})
