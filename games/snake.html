@@ -283,7 +283,7 @@ function httpFetchText(url,callback,onError){
     
     httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
       console.log(d)
-      httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?username='+d.Username,(x)=>{
+      httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?uuid='+d.UUID,(x)=>{
         if( x.GameshubData.Purchases.includes('snakeDLC') ){
         	window.canEquipPowerups = true
           account = d
@@ -669,6 +669,11 @@ function httpFetchText(url,callback,onError){
                     screen_setting.style.display = "none";
                     screen_gameover.style.display = "block";
                     cooldown = 0;
+										                    
+                    httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/snakeHighScore?token='+getCookie('accToken')+"&score="+score,(d)=>{
+                        console.log(d)
+                      },()=>{})
+
                     break;
         }
     }
