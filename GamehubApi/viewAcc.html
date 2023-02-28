@@ -51,6 +51,13 @@ function addCommas(x) {
   return parts.join(".");
 }
 
+const getMeta = (url, cb) => {
+  const img = new Image();
+  img.onload = () => cb(null, img);
+  img.onerror = (err) => cb(err);
+  img.src = url;
+};
+	
 function loadData(m){
   document.getElementById("loadingWheel").remove()
   
@@ -58,6 +65,11 @@ function loadData(m){
   try{
   	var myDate = new Date(m.AccountCreationTime*1000)
     if(m.ProfilePicture!=""){
+	var url = m.ProfilePicture;
+      getMeta(url, (err, img) => {
+	var ratio = img.naturalHeight / img.naturalWidth;
+	document.getElementById("pfp").height = document.getElementById("pfp").width * ratio;
+      });
       document.getElementById("pfp").src = m.ProfilePicture
     }
     else{
