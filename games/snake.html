@@ -204,14 +204,14 @@
                     
                     <abbr title="Slows time down for 5s"> <input id="blue" type="radio" name="color" value="0"/><label for="blue">Blue</label> </abbr>
                     
-                    <abbr title="Does nothing"> <input id="orange" type="radio" name="color" value="0"/><label for="orange">Orange</label> </abbr>
+                    <abbr title="Decreases your snake length by 5"> <input id="orange" type="radio" name="color" value="0"/><label for="orange">Orange</label> </abbr>
                     
                     <abbr title="Teleports fruit into your mouth"> <input id="yellow" type="radio" name="color" value="0"/><label for="yellow">Yellow</label> </abbr>
                     
                     <abbr title="Turns off walls for 5s"> <input id="green" type="radio" name="color" value="0"/><label for="green">Green</label> </abbr>
                     
                     <input id="black" type="radio" name="color" value="0"/>
-                    <label for="black">Black</label>
+                    <abbr title="Invinible"><label for="black">Black</label></abbr>
                     
                     <abbr title="Makes 10 apples"> <input id="purple" type="radio" name="color" value="0"/><label for="purple">Purple</label> </abbr>
                     
@@ -278,6 +278,7 @@ function httpFetchText(url,callback,onError){
     
     // Gameshub API
     window.canEquipPowerups = false
+    window.endGame = false
     var account = null
     
     httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
@@ -354,7 +355,7 @@ function httpFetchText(url,callback,onError){
       if (document.getElementById("orange").checked){return(orange);}
       if (document.getElementById("yellow").checked){return(yellow);}
       if (document.getElementById("green").checked){return(green);}
-      if (document.getElementById("black").checked){return(black);}
+      if (document.getElementById("black").checked){invincible=1;return(black);}
       if (document.getElementById("purple").checked){return(purple);}
       if (document.getElementById("pink").checked){return(pink);}
       if (document.getElementById("random").checked){}
@@ -421,7 +422,12 @@ function httpFetchText(url,callback,onError){
         cooldown = 10
       }
       else if (document.getElementById("orange").checked){
-      	return
+      	try{
+      		snake.splice( snake.length-5 , 5)
+        }catch(e){
+        	window.endGame = true
+        }
+        cooldown = 15
       }
       else if (document.getElementById("white").checked){
       	snake[0].x = Math.floor(Math.random()*((canvas.width/10)-1));
@@ -484,6 +490,11 @@ function httpFetchText(url,callback,onError){
     /////////////////////////////////////////////////////////////
 
     var mainLoop = function(){
+    				if(snake.length<=0 || window.endGame == true){
+            	showScreen(3)
+              return;
+            }
+    
         		cooldown -= snake_speed / 1000
         
             var _x = snake[0].x;
