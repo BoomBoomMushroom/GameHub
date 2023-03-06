@@ -26,23 +26,23 @@ var day = getDay()
 function loadBackground(){
 	if(getMonth()=="Febuary" && 10 <= day && day <=18){
 		//e = valentineSet
-		document.getElementById("logo").href = "https://gameshub.dev/GamehubApi/logos/ValentineGamesHubLogo.png"
-		document.getElementById("headerLogo").src = "https://gameshub.dev/GamehubApi/logos/ValentineGamesHubLogo.png"
+		document.getElementById("logo").href = "./GamehubApi/logos/ValentineGamesHubLogo.png"
+		document.getElementById("headerLogo").src = "./GamehubApi/logos/ValentineGamesHubLogo.png"
 	}
 	if(getMonth()=="October"){
 		e = spookySet
-		document.getElementById("logo").href = "https://gameshub.dev/GamehubApi/logos/HalloweenGamesHubLogo.png"
-		document.getElementById("headerLogo").src = "https://gameshub.dev/GamehubApi/logos/HalloweenGamesHubLogo.png"
+		document.getElementById("logo").href = "./GamehubApi/logos/HalloweenGamesHubLogo.png"
+		document.getElementById("headerLogo").src = "./GamehubApi/logos/HalloweenGamesHubLogo.png"
 	}
 	if(getMonth()=="November" && 22 <= day && day <=28){
 		//e = thanksgivingSet
-		document.getElementById("logo").href = "https://gameshub.dev/GamehubApi/logos/ThanksgivingGamesHubLogo.png"
-		document.getElementById("headerLogo").src = "https://gameshub.dev/GamehubApi/logos/ThanksgivingGamesHubLogo.png"
+		document.getElementById("logo").href = "./GamehubApi/logos/ThanksgivingGamesHubLogo.png"
+		document.getElementById("headerLogo").src = "./GamehubApi/logos/ThanksgivingGamesHubLogo.png"
 	}
 	if(getMonth()=="December"){
 		//e = christmasSet
-		document.getElementById("logo").href = "https://gameshub.dev/GamehubApi/logos/ChristmasGamesHubLogo.png"
-		document.getElementById("headerLogo").src = "https://gameshub.dev/GamehubApi/logos/ChristmasGamesHubLogo.png"
+		document.getElementById("logo").href = "./GamehubApi/logos/ChristmasGamesHubLogo.png"
+		document.getElementById("headerLogo").src = "./GamehubApi/logos/ChristmasGamesHubLogo.png"
 	}
 	var rand = Math.floor( Math.random() * (backgrounds.length-0) )+0
 	if(backgrounds[rand]=="https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background2.png"){
