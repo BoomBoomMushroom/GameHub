@@ -55,7 +55,12 @@
           if(JSON.parse(data)!="INVALID_ACCOUNT_TOKEN" && data.startsWith("<!DOCTYPE html>") == false){
             setCookie("accToken",JSON.parse(data),365*10)
             alert("You are now logged in!")
-            window.location.replace("https://gameshub.dev")
+            a = window.location.href.split("/")
+            b = ""
+            for(var i=0;i<3;i++){
+              b += a[i]+"/"
+            }
+            window.location.replace(b)
           }
           else{
             alert("Invailid Username or Password!")

@@ -3,7 +3,6 @@
 <img id="loadingWheel" src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif">
 
 <ol id="leaderboard"></ol>
-
 <script>
 fetch("https://gameshub-api.academyofcode1.repl.co/getleaderboard?type=redButton")
 .then(d=>d.json())
@@ -13,7 +12,7 @@ fetch("https://gameshub-api.academyofcode1.repl.co/getleaderboard?type=redButton
     var commas = acc["GameshubData"]["RedButtonClicks"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     var inner = acc["Username"] + " ("+commas+" Clicks)"
     
-    var link = "https://gameshub.dev/gamehubapi/viewacc?q="
+    var link = "./viewacc?q="
     var inner = "<a href='"+link+acc["UUID"]+"'>"+inner+"</a>"
     
   	document.getElementById("leaderboard").innerHTML += "<li>"+inner

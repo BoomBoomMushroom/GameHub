@@ -16,7 +16,7 @@ document.addEventListener("keydown",(event)=>{
         fetch('https://Gameshub-API.academyofcode1.repl.co/awardAdvancement?token='+getCookie("accToken")+"&id=3",{})
         .then(response => response.text())
         .then(data=>{
-            window.location.href = "https://gameshub.dev/Piracy/pirate"
+            window.location.href = "./Piracy/pirate"
         })
     }
     if(keyCode==reqKeycode){

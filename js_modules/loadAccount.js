@@ -19,13 +19,13 @@ fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie("
     catch(e){console.log(e)}
     
     if(JSON.parse(data)=="COULDNT_FIND_TOKEN"){
-        document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/signup"
+        document.getElementById("currentAcc").href = "./gamehubapi/signup"
         document.getElementById("currentAcc").innerText = "You are currently not signed in"
         document.getElementById("logout").style.display = "none"
     }
     else{
-        document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/viewacc?q=" + JSON.parse(data).UUID
-        //document.getElementById("currentAcc").href = "https://gameshub.dev/gamehubapi/accSettings"
+        document.getElementById("currentAcc").href = "./gamehubapi/viewacc?q=" + JSON.parse(data).UUID
+        //document.getElementById("currentAcc").href = "./gamehubapi/accSettings"
         document.getElementById("currentAcc").innerText = "Currently signed in as " + JSON.parse(data).Username
         document.getElementById("tr1").style.display = "none"
         document.getElementById("tr2").style.display = "none"

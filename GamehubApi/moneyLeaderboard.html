@@ -13,7 +13,7 @@ fetch("https://gameshub-api.academyofcode1.repl.co/getleaderboard?type=money")
     var commas = acc["GameshubData"]["Money"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     var inner = acc["Username"] + " ("+commas+"$)"
     
-    var link = "https://gameshub.dev/gamehubapi/viewacc?q="
+    var link = "./viewacc?q="
     var inner = "<a href='"+link+acc["UUID"]+"'>"+inner+"</a>"
     
   	document.getElementById("leaderboard").innerHTML += "<li>"+inner
