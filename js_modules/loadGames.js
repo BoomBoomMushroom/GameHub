@@ -37,9 +37,7 @@ var server = [
     {name:"Leaderboards", url: "./gamehubapi/leaderboard"},
 ]
 var unblocked = [
-    {name:"Holy Unblocker", url: "https://holy-unblocker-new.onrender.com/"},
-    {name:"Tabby Cat", url: "https://tabbycat-unblocked.netlify.app/public/"},
-    {name:"Boxel Rebound", url: "https://boxel-rebound-unblocked-3.netlify.app/www/"},
+    {name:"Holy Unblocker", url: "https://school-api-k5mb.onrender.com/"}
 ]
 var gambling = [
     {name:"Blackjack", url: "./games/blackjack"},
