@@ -12,7 +12,8 @@ var backgrounds = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/m
 	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background2.png",
 	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background3.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background4.png",
-	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background5.png"]
+	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background5.png",
+	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background6.png"]
 var spookySet = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background1.png",
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background2.png",
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background3.png",
