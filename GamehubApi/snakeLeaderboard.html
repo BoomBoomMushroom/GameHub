@@ -13,7 +13,7 @@ fetch("https://gameshub-api.academyofcode1.repl.co/getleaderboard?type=snake")
   for(var i=0;i<data.length;i++){
   	var acc = data[i]
     var commas = acc["Misc"]["Snake"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    var inner = "("+i+")" + acc["Username"] + " ("+commas+")"
+    var inner = "("+i+") " + acc["Username"] + " ("+commas+")"
     
     var link = "./viewacc?q="
     var inner = "<a href='"+link+acc["UUID"]+"'>"+inner+"</a>"
