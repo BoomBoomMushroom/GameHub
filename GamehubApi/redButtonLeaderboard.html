@@ -1,25 +1,107 @@
-<center>
-  <strong>Red Button Clicks Leaderboard</strong>
+<div id="board">
+  <div id="first">
+    <center>
+      <span class="Txt" id="1">BBM</span>
 
+      <h1 class="Rank">#1</h1>
+    </center>
+  </div>
+
+  <div id="second">
+    <center>
+      <span class="Txt" id="2">BBM</span>
+
+      <h1 class="Rank">#2</h1>
+    </center>
+  </div>
+
+  <div id="third">
+    <center>
+      <span class="Txt" id="3">BBM</span>
+
+      <h1 class="Rank">#3</h1>
+    </center>
+  </div>
+</div>
+
+<center id="leader">
   <img id="loadingWheel" src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif">
-
-  <ol id="leaderboard"></ol>
 </center>
 
+<style>
+body{
+  background-color: #333333;
+  color: white;
+}
+a{
+  color: white;
+}
+#first{
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  width: 125px;
+  height: 125px;
+  background-color: gold;
+  transform: translateX(-62.5px);
+}
+#second{
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  width: 125px;
+  height: 90px;
+  background-color: silver;
+  transform: translateX(-187.5px) translateY(35px);
+}
+#third{
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  width: 125px;
+  height: 65px;
+  background-color: brown;
+  transform: translateX(62.5px) translateY(60px);
+}
+#leader{
+  position: absolute;
+  top: 180px;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+}
+.Txt{
+  position: absolute;
+  left: 25%;
+  width: 200%;
+  transform: translateX(-35%) translateY(-40px);
+}
+</style>
+
 <script>
+document.getElementById("board").style.display = "none"
+
 fetch("https://gameshub-api.academyofcode1.repl.co/getleaderboard?type=redButton")
 .then(d=>d.json())
 .then(data=>{
   for(var i=0;i<data.length;i++){
   	var acc = data[i]
     var commas = acc["GameshubData"]["RedButtonClicks"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    var inner = "("+i+")" + acc["Username"] + " ("+commas+" Clicks)"
+    var inner = "#"+(i+1)+"  |  " + acc["Username"] + " ("+commas+" Clicks)"
     
     var link = "./viewacc?q="
-    var inner = "<a href='"+link+acc["UUID"]+"'>"+inner+"</a>"
+    var inner = "<a href='"+link+acc["UUID"]+"'>"+inner+"</a><br>"
     
-  	document.getElementById("leaderboard").innerHTML += "<li>"+inner
+    if(i == 0 || i == 1 || i == 2){
+    	inner = acc["Username"] + " ("+commas+")"
+      inner = "<a href='"+link+acc["UUID"]+"'>"+inner+"</a><br>"
+    	document.getElementById((i+1)+"").innerHTML = inner
+      continue
+    }
+    
+  	document.getElementById("leader").innerHTML += inner
   }
+  document.getElementById("board").style.display = "block"
   document.getElementById("loadingWheel").remove()
 })
 </script>
