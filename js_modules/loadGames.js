@@ -27,6 +27,7 @@ var multiplayerGames = [
     {name:"Existance Simulator 3D", url: "./FiledGames/games/existancesimulator3d/"},
     {name:"Sprouts (In Person Req)", url: "./games/sproutssolo"},
     {name:"Battle Royale", url: "./games/battleroyale"},
+    {name:"Cards Against Humanity", url: "./games/CardsAgainstHumanity"},
 ]
 var server = [
     {name:"Signup", url: "./gamehubapi/signup"},
