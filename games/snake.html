@@ -221,7 +221,7 @@
                     <input id="pink" type="radio" name="color" value="0"/>
                     <label for="pink">Pink</label>
                     
-                    <abbr title="???"> <input id="random" type="radio" name="color" value="0"/><label for="random">--Rapid Change--</label> </abbr>
+                    <abbr title="Combines 2-3 random powerups into 1 user"> <input id="random" type="radio" name="color" value="0"/><label for="random">Rainbow</label> </abbr>
                 </p>
 
             </div>
@@ -273,6 +273,69 @@ function httpFetchText(url,callback,onError){
 	  return "";
 	}
 </script>	
+
+<script>
+function hex (c) {
+  var s = "0123456789abcdef";
+  var i = parseInt (c);
+  if (i == 0 || isNaN (c))
+    return "00";
+  i = Math.round (Math.min (Math.max (0, i), 255));
+  return s.charAt ((i - i % 16) / 16) + s.charAt (i % 16);
+}
+
+/* Convert an RGB triplet to a hex string */
+function convertToHex (rgb) {
+  return hex(rgb[0]) + hex(rgb[1]) + hex(rgb[2]);
+}
+
+/* Remove '#' in color hex string */
+function trim (s) { return (s.charAt(0) == '#') ? s.substring(1, 7) : s }
+
+/* Convert a hex string to an RGB triplet */
+function convertToRGB (hex) {
+  var color = [];
+  color[0] = parseInt ((trim(hex)).substring (0, 2), 16);
+  color[1] = parseInt ((trim(hex)).substring (2, 4), 16);
+  color[2] = parseInt ((trim(hex)).substring (4, 6), 16);
+  return color;
+}
+
+function generateColor(colorStart,colorEnd,colorCount){
+
+	// The beginning of your gradient
+	var start = convertToRGB (colorStart);    
+
+	// The end of your gradient
+	var end   = convertToRGB (colorEnd);    
+
+	// The number of colors to compute
+	var len = colorCount;
+
+	//Alpha blending amount
+	var alpha = 0.0;
+
+	var saida = [];
+	
+	for (i = 0; i < len; i++) {
+		var c = [];
+		alpha += (1.0/len);
+		
+		c[0] = start[0] * alpha + (1 - alpha) * end[0];
+		c[1] = start[1] * alpha + (1 - alpha) * end[1];
+		c[2] = start[2] * alpha + (1 - alpha) * end[2];
+
+		saida.push(convertToHex (c));
+		
+	}
+	
+	return saida;
+	
+}
+// https://stackoverflow.com/questions/3080421/javascript-color-gradient
+
+// var tmp = generateColor('#000000','#ff0ff0',10);
+</script>
 
 <script type="text/javascript">
 
@@ -343,15 +406,39 @@ function httpFetchText(url,callback,onError){
       const purple = "#6E21FF"
       const pink = "#FF21FC"
 
+			var colors = [
+      	"red",
+        "blue",
+        "green",
+        "orange",
+        "white",
+        "yellow",
+        "purple",
+      ]
 
-    var activeDot = function(x, y, isApple){
-    		let rainbow = true
-        ctx.fillStyle = randomColor();
-	    if(isApple){ctx.fillStyle = "#ff4444";}
+
+    var activeDot = function(x, y, isApple, i=0){
+        ctx.fillStyle = randomColor(i);
+        
+	    	if(isApple){ctx.fillStyle = "#ff4444";}
         ctx.fillRect(x * 10, y * 10, 10, 10);
     }
     
-    function randomColor(){
+    function colorFromName(name){
+    	if (name == "red"){return(red);}
+      if (name == "white"){return(white);}
+      if (name == "blue"){return(blue);}
+      if (name == "orange"){return(orange);}
+      if (name == "yellow"){return(yellow);}
+      if (name == "green"){return(green);}
+      if (name == "black"){return(black);}
+      if (name == "purple"){return(purple);}
+      if (name == "pink"){return(pink);}
+      
+      return "#ffffff"
+    }
+    
+    function randomColor(i = 0){
 			
       if (document.getElementById("red").checked){return(red);}
       if (document.getElementById("white").checked){return(white);}
@@ -363,18 +450,26 @@ function httpFetchText(url,callback,onError){
       if (document.getElementById("purple").checked){return(purple);}
       if (document.getElementById("pink").checked){return(pink);}
       if (document.getElementById("random").checked){}
-    
-			let rng = Math.floor(Math.random() * 10);
       
-      if (rng === 1){return red;}
-      else if (rng === 2){return white;}
-      else if (rng === 3){return blue;}
-      else if (rng === 4){return orange;}
-      else if (rng === 5){return yellow;}
-      else if (rng === 6){return green;}
-      else if (rng === 7){ return blue /* return cyan; */ }
-      else if (rng === 8){return purple;}
-      else if (rng === 9){return pink;}
+      if(window.powerups.length == 0){
+        let rng = Math.floor(Math.random() * 10);
+
+        if (rng === 1){return red;}
+        else if (rng === 2){return white;}
+        else if (rng === 3){return blue;}
+        else if (rng === 4){return orange;}
+        else if (rng === 5){return yellow;}
+        else if (rng === 6){return green;}
+        else if (rng === 7){ return blue /* return cyan; */ }
+        else if (rng === 8){return purple;}
+        else if (rng === 9){return pink;}
+      }
+      else{
+      	var a = colorFromName(window.powerups[0])
+        var b = colorFromName(window.powerups[ window.powerups.length-1 ])
+      
+      	return "#" + generateColor(a,b,snake.length)[i];
+      }
     }
     /////////////////////////////////////////////////////////////
 
@@ -397,7 +492,7 @@ function httpFetchText(url,callback,onError){
     
     /////////////////////////////////////////////////////////////
     function powerup(){
-    	if(window.canEquipPowerups == false){
+      if(window.canEquipPowerups == false){
       	window.powerups = []
         return
       }
@@ -451,16 +546,29 @@ function httpFetchText(url,callback,onError){
         	// 0 - Up, 1 - Right, 2 - Down, 3 - Left
           if(snake_next_dir==0){ snakeDirection = {x:0,y:-1} }
           if(snake_next_dir==1){ snakeDirection = {x:1,y:0} }
-          if(snake_next_dir==2){ snakeDirection = {x:0,y:-1} }
+          if(snake_next_dir==2){ snakeDirection = {x:0,y:1} }
           if(snake_next_dir==3){ snakeDirection = {x:-1,y:0} }
           
-          food.x = snake[0].x + snakeDirection.x
-          food.y = snake[0].y + snakeDirection.y
+          //food.x = snake[0].x + (snakeDirection.x * 2)
+          //food.y = snake[0].y + (snakeDirection.y * 2)
+          
+          //window.powerups = ["purple","yellow","orange"]
+          
+          snake[snake.length] = {x: snake[0].x, y: snake[0].y};
+          score += 1;
+          altScore(score);
+          addFood();
+          activeDot(food.x, food.y, true);
           
           for(var i=0;i<excess_food.length;i++){
-          	excess_food[i].x = snake[0].x + (snakeDirection.x * (i+1))
-            excess_food[i].y = snake[0].y + (snakeDirection.y * (i+1))
+          	//excess_food[i].x = snake[0].x + (snakeDirection.x * (i+1))
+            //excess_food[i].y = snake[0].y + (snakeDirection.y * (i+1))
+            
+            snake[snake.length] = {x: snake[0].x, y: snake[0].y};
+            score += 1;
+            altScore(score);
           }
+          excess_food = []
         },
         "purple": ()=>{
         	for(var i=0;i<10;i++){
@@ -505,6 +613,7 @@ function httpFetchText(url,callback,onError){
       else if (document.getElementById("random").checked){
       	// showScreen(3)
         var k = 0;
+        var h = true
         
         if(window.powerups.length == 0){
         	var r = Math.floor(Math.random() * (4-2))+2
@@ -514,6 +623,7 @@ function httpFetchText(url,callback,onError){
           	window.powerups.push( Object.keys(cooldowns)[r2] )
           }
         	cooldown = 0
+          h = false
         }
         else{
         	for(var i=0;i<window.powerups.length;i++){
@@ -524,6 +634,8 @@ function httpFetchText(url,callback,onError){
           }
         }
         cooldown = k / window.powerups.length
+        
+        if(cooldown <= 5 && h){ cooldown = 10; }
       }
     }
     
@@ -549,13 +661,24 @@ function httpFetchText(url,callback,onError){
     
     var altScore = function(score_val){
     		var str_cooldown = Math.ceil(cooldown)
+        
+        if(window.powerups.length == 0 && window.canEquipPowerups == false){
+        	var r = Math.floor(Math.random() * (4-2))+2
+        	for(var j=0;j<r;j++){
+          	var le = colors.length
+          	var r2 = Math.floor(Math.random() * (le))
+          	window.powerups.push( colors[r2] )
+          }
+        }
+        
         var a = ""
+        var j = !window.canEquipPowerups && document.getElementById("random").checked
         for(var i=0;i<window.powerups.length;i++){
         	a += window.powerups[i]+", "
         }
         
         if(0>cooldown){str_cooldown = 0}
-        ele_score.innerHTML = "Cooldown: "+ String(str_cooldown) + " - " +"Score: " + String(score_val) + "<br>"+a;
+        ele_score.innerHTML = "Cooldown: "+ String(str_cooldown) + " - " +"Score: " + String(score_val) + (j ? "" : "<br>"+a);
     }
     
     /////////////////////////////////////////////////////////////
@@ -636,16 +759,15 @@ function httpFetchText(url,callback,onError){
                 altScore(score);
                 addFood();
                 activeDot(food.x, food.y, true);
-            } else{
-            	for(var i=0;i<excess_food.length;i++){
-              	var fod = excess_food[i]
-                if(checkBlock(snake[0].x,snake[0].y,fod.x,fod.y)){
-									snake[snake.length] = {x:snake[0].x, y:snake[0].y};
-                  score += 1;
-                  altScore(score);
-                  
-                  excess_food.splice(i,1)
-                }
+            }
+            for(var i=0;i<excess_food.length;i++){
+              var fod = excess_food[i]
+              if(checkBlock(snake[0].x,snake[0].y,fod.x,fod.y)){
+                snake[snake.length] = {x:snake[0].x, y:snake[0].y};
+                score += 1;
+                altScore(score);
+
+                excess_food.splice(i,1)
               }
             }
         
@@ -658,7 +780,7 @@ function httpFetchText(url,callback,onError){
         // --------------------
 
             for(var i = 0; i < snake.length; i++){
-                activeDot(snake[i].x, snake[i].y, false);
+                activeDot(snake[i].x, snake[i].y, false, i);
             }
         
         // --------------------
