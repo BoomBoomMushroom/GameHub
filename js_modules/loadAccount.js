@@ -1,9 +1,12 @@
 // Get Account
+window.account = null;
+
 fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie("accToken"),{})
 .then(response => response.text())
 .then(data => {
     d = JSON.parse(data)
     console.log(JSON.parse(data))
+    window.account = JSON.parse(data)
     try{
         if (d["GameshubData"]["RedButtonClicks"] >= 666){
             backgrounds.push( "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/666_Clicks.png" )
