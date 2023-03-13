@@ -282,6 +282,7 @@ function httpFetchText(url,callback,onError){
     // Gameshub API
     window.canEquipPowerups = false
     window.endGame = false
+    window.powerups = []
     var account = null
     
     httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
@@ -371,7 +372,7 @@ function httpFetchText(url,callback,onError){
       else if (rng === 4){return orange;}
       else if (rng === 5){return yellow;}
       else if (rng === 6){return green;}
-      else if (rng === 7){return cyan;}
+      else if (rng === 7){ return blue /* return cyan; */ }
       else if (rng === 8){return purple;}
       else if (rng === 9){return pink;}
     }
@@ -396,71 +397,133 @@ function httpFetchText(url,callback,onError){
     
     /////////////////////////////////////////////////////////////
     function powerup(){
-    	if(window.canEquipPowerups == false){return}
+    	if(window.canEquipPowerups == false){
+      	window.powerups = []
+        return
+      }
     	if(cooldown>0){return}
       
+      var cooldowns = {
+      	"red": 20,
+        "blue": 10,
+        "green": 10,
+        "orange": 15,
+        "white": 5,
+        "yellow": 2,
+        "purple": 15,
+      }
+      var cooldownFuncts = {
+      	"red": ()=>{
+        	invincible = 1
+          x = setInterval(()=>{
+            invincible = 0
+            clearInterval(x)
+          },10*1000)
+        },
+        "blue": ()=>{
+        	var before_speed = snake_speed + 0
+          snake_speed *= 3
+          x = setInterval(()=>{
+            snake_speed /= 3
+            clearInterval(x)
+          },5*1000)
+        },
+        "green": ()=>{
+        	wall = 0
+          x = setInterval(()=>{
+            wall = 1
+            clearInterval(x)
+          },5*1000)
+        },
+        "orange": ()=>{
+        	try{
+            snake.splice( snake.length-5 , 5)
+          }catch(e){
+            window.endGame = true
+          }
+        },
+        "white": ()=>{
+        	snake[0].x = Math.floor(Math.random()*((canvas.width/10)-1));
+          snake[0].y = Math.floor(Math.random()*((canvas.height/10)-1));
+          snake_next_dir = Math.floor(Math.random()*3-0);
+        },
+        "yellow": ()=>{
+        	// 0 - Up, 1 - Right, 2 - Down, 3 - Left
+          if(snake_next_dir==0){ snakeDirection = {x:0,y:-1} }
+          if(snake_next_dir==1){ snakeDirection = {x:1,y:0} }
+          if(snake_next_dir==2){ snakeDirection = {x:0,y:-1} }
+          if(snake_next_dir==3){ snakeDirection = {x:-1,y:0} }
+          
+          food.x = snake[0].x + snakeDirection.x
+          food.y = snake[0].y + snakeDirection.y
+          
+          for(var i=0;i<excess_food.length;i++){
+          	excess_food[i].x = snake[0].x + (snakeDirection.x * (i+1))
+            excess_food[i].y = snake[0].y + (snakeDirection.y * (i+1))
+          }
+        },
+        "purple": ()=>{
+        	for(var i=0;i<10;i++){
+            var fod = {
+              x: Math.floor(Math.random()*((canvas.width / 10)-1)),
+              y: Math.floor(Math.random()*((canvas.height / 10)-1))
+            };
+            excess_food.push(fod);
+          }
+        },
+      }
+      
+      
     	if (document.getElementById("red").checked){
-        invincible = 1
-        x = setInterval(()=>{
-        	invincible = 0
-          clearInterval(x)
-        },10*1000)
-        cooldown = 20
+        cooldownFuncts['red']()
+        cooldown = cooldowns['red']
       }
       else if (document.getElementById("blue").checked){
-      	var before_speed = snake_speed + 0
-        snake_speed *= 3
-        x = setInterval(()=>{
-        	snake_speed /= 3
-          clearInterval(x)
-        },5*1000)
-        cooldown = 10
+      	cooldownFuncts['blue']()
+        cooldown = cooldowns['blue']
       }
       else if (document.getElementById("green").checked){
-      	wall = 0
-        x = setInterval(()=>{
-        	wall = 1
-          clearInterval(x)
-        },5*1000)
-        cooldown = 10
+      	cooldownFuncts['green']()
+        cooldown = cooldowns['green']
       }
       else if (document.getElementById("orange").checked){
-      	try{
-      		snake.splice( snake.length-5 , 5)
-        }catch(e){
-        	window.endGame = true
-        }
-        cooldown = 15
+      	cooldownFuncts['orange']()
+        cooldown = cooldowns['orange']
       }
       else if (document.getElementById("white").checked){
-      	snake[0].x = Math.floor(Math.random()*((canvas.width/10)-1));
-        snake[0].y = Math.floor(Math.random()*((canvas.height/10)-1));
-        snake_next_dir = Math.floor(Math.random()*3-0);
-        cooldown = 5
+      	cooldownFuncts['white']()
+        cooldown = cooldowns['white']
       }
       else if (document.getElementById("yellow").checked){
-      	// 0 - Up, 1 - Right, 2 - Down, 3 - Left
-        if(snake_next_dir==0){ snakeDirection = {x:0,y:-1} }
-        if(snake_next_dir==1){ snakeDirection = {x:1,y:0} }
-        if(snake_next_dir==2){ snakeDirection = {x:0,y:-1} }
-        if(snake_next_dir==3){ snakeDirection = {x:-1,y:0} }
-        food.x = snake[0].x + snakeDirection.x
-        food.y = snake[0].y + snakeDirection.y
-        cooldown = 2
+      	cooldownFuncts['yellow']()
+        cooldown = cooldowns['yellow']
       }
       else if (document.getElementById("purple").checked){
-      	for(var i=0;i<10;i++){
-        	var fod = {
-          	x: Math.floor(Math.random()*((canvas.width / 10)-1)),
-            y: Math.floor(Math.random()*((canvas.height / 10)-1))
-					};
-          excess_food.push(fod);
-        }
-      	cooldown = 15
+      	cooldownFuncts['purple']()
+      	cooldown = cooldowns['purple']
       }
       else if (document.getElementById("random").checked){
-      	showScreen(3)
-        return
+      	// showScreen(3)
+        var k = 0;
+        
+        if(window.powerups.length == 0){
+        	var r = Math.floor(Math.random() * (4-2))+2
+        	for(var j=0;j<r;j++){
+          	var le = Object.keys(cooldowns).length
+          	var r2 = Math.floor(Math.random() * (le))
+          	window.powerups.push( Object.keys(cooldowns)[r2] )
+          }
+        	cooldown = 0
+        }
+        else{
+        	for(var i=0;i<window.powerups.length;i++){
+            var p = window.powerups[i]
+            cooldownFuncts[p]()
+            //cooldown += cooldowns[p]
+            k++;
+          }
+        }
+        cooldown = k / window.powerups.length
       }
     }
     
@@ -486,8 +549,13 @@ function httpFetchText(url,callback,onError){
     
     var altScore = function(score_val){
     		var str_cooldown = Math.ceil(cooldown)
+        var a = ""
+        for(var i=0;i<window.powerups.length;i++){
+        	a += window.powerups[i]+", "
+        }
+        
         if(0>cooldown){str_cooldown = 0}
-        ele_score.innerHTML = "Cooldown: "+ String(str_cooldown) + " - " +"Score: " + String(score_val);
+        ele_score.innerHTML = "Cooldown: "+ String(str_cooldown) + " - " +"Score: " + String(score_val) + "<br>"+a;
     }
     
     /////////////////////////////////////////////////////////////
@@ -683,6 +751,7 @@ function httpFetchText(url,callback,onError){
                     screen_setting.style.display = "none";
                     screen_gameover.style.display = "block";
                     cooldown = 0;
+                    window.powerups = [];
                     excess_food = [];
 										                    
                     httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/snakeHighScore?token='+getCookie('accToken')+"&score="+score,(d)=>{
