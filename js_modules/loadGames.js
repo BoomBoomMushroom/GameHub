@@ -30,8 +30,7 @@ var multiplayerGames = [
     {name:"Cards Against Humanity", url: "./games/CardsAgainstHumanity"},
 ]
 var server = [
-    {name:"Signup", url: "./gamehubapi/signup"},
-    {name:"Log in", url: "./gamehubapi/signin"},
+    {name:"Login / Signup", url: "./gamehubapi/signup"},
     {name:"Account Settings", url: "./gamehubapi/accsettings"},
     {name:"Search Accounts", url: "./gamehubapi/accsearch"},
     {name:"Gameshub Shop", url: "./gamehubapi/shop"},
@@ -43,6 +42,7 @@ var unblocked = [
 var gambling = [
     {name:"Blackjack", url: "./games/blackjack"},
     {name:"Slot Machines", url: "./games/slotMachines"},
+    {name:"Rooulette", url: "./games/rooulette"},
 ]
 
 function insertAfter(newNode, existingNode) {
