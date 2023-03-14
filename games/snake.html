@@ -603,6 +603,8 @@ function generateColor(colorStart,colorEnd,colorCount){
     
     /////////////////////////////////////////////////////////////
     function powerup(){
+      updateSlots();
+      
       if(window.canEquipPowerups == false){
       	window.powerups = []
         return
