@@ -494,6 +494,12 @@ function generateColor(colorStart,colorEnd,colorCount){
         document.getElementById("color1").style.display = "block"
         document.getElementById("color2").style.display = "block"
         document.getElementById("color3").style.display = "block"
+
+        window.powerups = [
+        	document.getElementById("color1").value,
+          document.getElementById("color2").value,
+          document.getElementById("color3").value
+        ]
       }
       else{
         document.getElementById("color1").style.display = "none"
@@ -506,6 +512,14 @@ function generateColor(colorStart,colorEnd,colorCount){
       if(window.canUseFive){
         document.getElementById("color4").style.display = "block"
         document.getElementById("color5").style.display = "block"
+
+        window.powerups = [
+        	document.getElementById("color1").value,
+          document.getElementById("color2").value,
+          document.getElementById("color3").value,
+          document.getElementById("color4").value,
+          document.getElementById("color5").value
+        ]
       }
       else{
         document.getElementById("color4").style.display = "none"
@@ -760,13 +774,6 @@ function generateColor(colorStart,colorEnd,colorCount){
     		var str_cooldown = Math.ceil(cooldown)
         
         updateSlots()
-        window.powerups = [
-        	document.getElementById("color1").value,
-          document.getElementById("color2").value,
-          document.getElementById("color3").value,
-          document.getElementById("color4").value,
-          document.getElementById("color5").value
-        ]
         
         if(window.powerups.length == 0 && window.canEquipPowerups == false){
         	var r = Math.floor(Math.random() * (4-2))+2
