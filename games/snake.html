@@ -619,6 +619,7 @@ function generateColor(colorStart,colorEnd,colorCount){
         "white": 5,
         "yellow": 2,
         "purple": 15,
+	"black": 0,
       }
       var cooldownFuncts = {
       	"red": ()=>{
@@ -692,6 +693,9 @@ function generateColor(colorStart,colorEnd,colorCount){
             excess_food.push(fod);
           }
         },
+	"black": ()=>{
+		invincible = 1;
+	}
       }
       
       
