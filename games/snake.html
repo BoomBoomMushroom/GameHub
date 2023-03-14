@@ -222,6 +222,70 @@
                     <label for="pink">Pink</label>
                     
                     <abbr title="Combines 2-3 random powerups into 1 user"> <input id="random" type="radio" name="color" value="0"/><label for="random">Rainbow</label> </abbr>
+                    
+                    <br><br><br><br><br><br>
+                    
+                    <span><span id="numbs">3</span> Color Powerups for Rainbow</span>
+
+                    <select name="color1" id="color1">
+                      <option value="red">Red</option>
+                      <option value="white">White</option>
+                      <option value="blue">Blue</option>
+                      <option value="orange">Orange</option>
+                      <option value="yellow">Yellow</option>
+                      <option value="green">green</option>
+                      <option value="black">Black</option>
+                      <option value="purple">Purple</option>
+                      <option value="pink">Pink</option>
+                    </select>
+                    
+                    <select name="color2" id="color2">
+                      <option value="red">Red</option>
+                      <option value="white">White</option>
+                      <option value="blue">Blue</option>
+                      <option value="orange">Orange</option>
+                      <option value="yellow">Yellow</option>
+                      <option value="green">green</option>
+                      <option value="black">Black</option>
+                      <option value="purple">Purple</option>
+                      <option value="pink">Pink</option>
+                    </select>
+                    
+                    <select name="color3" id="color3">
+                      <option value="red">Red</option>
+                      <option value="white">White</option>
+                      <option value="blue">Blue</option>
+                      <option value="orange">Orange</option>
+                      <option value="yellow">Yellow</option>
+                      <option value="green">green</option>
+                      <option value="black">Black</option>
+                      <option value="purple">Purple</option>
+                      <option value="pink">Pink</option>
+                    </select>
+                    
+                    <select name="color4" id="color4">
+                      <option value="red">Red</option>
+                      <option value="white">White</option>
+                      <option value="blue">Blue</option>
+                      <option value="orange">Orange</option>
+                      <option value="yellow">Yellow</option>
+                      <option value="green">green</option>
+                      <option value="black">Black</option>
+                      <option value="purple">Purple</option>
+                      <option value="pink">Pink</option>
+                    </select>
+                    
+                    <select name="color5" id="color5">
+                      <option value="red">Red</option>
+                      <option value="white">White</option>
+                      <option value="blue">Blue</option>
+                      <option value="orange">Orange</option>
+                      <option value="yellow">Yellow</option>
+                      <option value="green">green</option>
+                      <option value="black">Black</option>
+                      <option value="purple">Purple</option>
+                      <option value="pink">Pink</option>
+                    </select>
                 </p>
 
             </div>
@@ -344,6 +408,7 @@ function generateColor(colorStart,colorEnd,colorCount){
     
     // Gameshub API
     window.canEquipPowerups = false
+    window.canUseFive = false
     window.endGame = false
     window.powerups = []
     var account = null
@@ -353,7 +418,9 @@ function generateColor(colorStart,colorEnd,colorCount){
       httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?uuid='+d.UUID,(x)=>{
         if( x.GameshubData.Purchases.includes('snakeDLC') ){
         	window.canEquipPowerups = true
-            account = d
+        }
+        if( x.GameshubData.Purchases.includes('canUseFive') ){
+        	window.canUseFive = true
         }
       },()=>{})
     },()=>{})
@@ -415,7 +482,37 @@ function generateColor(colorStart,colorEnd,colorCount){
         "yellow",
         "purple",
       ]
+        
+    function updateSlots(){
+    	document.getElementById("color1").style.display = "none"
+      document.getElementById("color2").style.display = "none"
+      document.getElementById("color3").style.display = "none"
+      document.getElementById("color4").style.display = "none"
+      document.getElementById("color5").style.display = "none"
 
+      if(window.canEquipPowerups){
+        document.getElementById("color1").style.display = "block"
+        document.getElementById("color2").style.display = "block"
+        document.getElementById("color3").style.display = "block"
+      }
+      else{
+        document.getElementById("color1").style.display = "none"
+        document.getElementById("color2").style.display = "none"
+        document.getElementById("color3").style.display = "none"
+        document.getElementById("color4").style.display = "none"
+        document.getElementById("color5").style.display = "none"
+      }
+
+      if(window.canUseFive){
+        document.getElementById("color4").style.display = "block"
+        document.getElementById("color5").style.display = "block"
+      }
+      else{
+        document.getElementById("color4").style.display = "none"
+        document.getElementById("color5").style.display = "none"
+      }
+    }
+		updateSlots()
 
     var activeDot = function(x, y, isApple, i=0){
         ctx.fillStyle = randomColor(i);
@@ -661,6 +758,15 @@ function generateColor(colorStart,colorEnd,colorCount){
     
     var altScore = function(score_val){
     		var str_cooldown = Math.ceil(cooldown)
+        
+        updateSlots()
+        window.powerups = [
+        	document.getElementById("color1").value,
+          document.getElementById("color2").value,
+          document.getElementById("color3").value,
+          document.getElementById("color4").value,
+          document.getElementById("color5").value
+        ]
         
         if(window.powerups.length == 0 && window.canEquipPowerups == false){
         	var r = Math.floor(Math.random() * (4-2))+2
