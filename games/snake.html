@@ -526,7 +526,7 @@ function generateColor(colorStart,colorEnd,colorCount){
         document.getElementById("color5").style.display = "none"
       }
     }
-		updateSlots()
+		setInterval(()=>{updateSlots()}, 100)
 
     var activeDot = function(x, y, isApple, i=0){
         ctx.fillStyle = randomColor(i);
