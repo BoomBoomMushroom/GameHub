@@ -25,6 +25,20 @@
   </div>
 </center>
 
+<div id="AiSettings" style="position:absolute;bottom:0px;">
+  <label for="AiEnabled">AI Enabled: </label>
+  <input type="checkbox" id="AiEnabled" name="AiEnabled">
+  
+  <br>
+  
+  <label for="AiDifficulties">AI Difficulty: </label>
+  <select name="AiDifficulties" id="AiDifficulties">
+    <option value="0">Easy</option>
+    <option value="1">Medium</option>
+    <option value="2">Hard</option>
+  </select>
+</div>
+
 <style>
 @import url('https://fonts.cdnfonts.com/css/luminari');
 body{
@@ -200,6 +214,122 @@ var gameOutput = -1
 var playerPlaced = [0,0]
 var selected = ""
 
+var isAi = true
+var aiDifficulty = parseInt(AiDifficulties.value)
+
+/*
+0 = Random / Easy
+1 = Minimax - depth 2
+2 = Minimax - depth 10
+*/
+
+function max(a,b){
+	if(a > b){ return a }
+  else{ return b }
+}
+function min(a,b){
+	if(a < b){ return a }
+  else{ return b }
+}
+
+function allPossibleMoves(player){
+	var t = []
+  
+  var n = Object.keys(placements)
+  for(var i=0;i<n.length;i++){
+  	if( placements[n[i]] != playerColors[player] ){continue}
+
+    var m = adjacent[ n[i] ]
+    if(n[i] != "center"){ m.push("center") }
+    t.push( {"start": n[i], "ends": m} )
+  }
+  return t
+}
+
+function minimax(player, depth=10){
+	if( depth <= 0){
+  	return [0, "", ""]
+  }
+	if( checkStrightLine(0) || checkCurved(0) ){
+  	return [-10, "", ""]
+  }
+  if( checkStrightLine(1) || checkCurved(1) ){
+  	return [10, "", ""]
+  }
+  
+  //console.log(player)
+  
+  if(player == 1){
+  	var best = -1000
+    var pos = "center"
+    var p1 = "center"
+    
+    var n = Object.keys(placements)
+    for(var i=0;i<n.length;i++){
+      if( placements[n[i]] != playerColors[1] ){continue}
+
+      var m = adjacent[ n[i] ]
+      for(var j=0;j<m.length;j++){
+        if( placements[m[j]] != "#ffffff" ){continue}
+        // an empty spot
+        
+        // place player called
+        placements[ n[i] ] = "#ffffff"
+        placements[ m[j] ] = playerColors[1]
+        
+        // minimax again
+        var og = best + 0
+        best = max(best, minimax(0, depth - 1)[0])
+        
+        if( best != og){
+        	pos = m[j]
+          p1 = n[j]
+        }
+        
+        // return to normal
+        placements[ n[i] ] = playerColors[1]
+        placements[ m[j] ] = "#ffffff"
+      }
+    }
+    return [best, p1, pos]
+  }
+  if(player == 0){
+  	var worst = 1000
+    var pos = "center"
+    var p1 = ""
+    
+    var n = Object.keys(placements)
+    for(var i=0;i<n.length;i++){
+      if( placements[n[i]] != playerColors[0] ){continue}
+
+      var m = adjacent[ n[i] ]
+      for(var j=0;j<m.length;j++){
+        if( placements[m[j]] != "#ffffff" ){continue}
+        // an empty spot
+        
+        // place player called
+        placements[ n[i] ] = "#ffffff"
+        placements[ m[j] ] = playerColors[0]
+        
+        // minimax again
+        var og = worst + 0
+        worst = min(worst, minimax(1, depth - 1)[0])
+        
+        if( worst != og){
+        	pos = m[j]
+          p1 = n[j]
+        }
+        
+        // return to normal
+        placements[ n[i] ] = playerColors[0]
+        placements[ m[j] ] = "#ffffff"
+      }
+    }
+    return [worst, p1, pos]
+  }
+}
+
+
 function checkStrightLine(playerNum){
 	color = playerColors[playerNum]
   if(placements.center != color){ return false }
@@ -244,7 +374,7 @@ function clickOnto(direction){
         playerIndex += 1
       }
       else{
-      	console.log(included, placements[direction] == "#ffffff")
+      	// console.log(included, placements[direction] == "#ffffff")
       }
       selected = ""
     }
@@ -267,6 +397,29 @@ function clickOnto(direction){
 
 setInterval(()=>{
 	if(playerIndex>=2){playerIndex=0}
+
+	aiDifficulty = parseInt(AiDifficulties.value)
+  isAi = AiEnabled.checked
+  
+	if(playerIndex == 1 && isAi){  
+  	if(aiDifficulty == 0){
+      var moves = []
+      if(playerPlaced[1] >= 3){
+        moves = allPossibleMoves(1)
+        var i = Math.floor(Math.random() * (moves.length-0))+0
+        var j = Math.floor(Math.random() * (moves[i].ends.length-0))+0
+
+        clickOnto(moves[i].start)
+        clickOnto(moves[i].ends[j])
+      }
+      else{
+        moves = Object.keys(placements)
+        var i = Math.floor(Math.random() * (moves.length-0))+0
+
+        clickOnto( moves[i] )
+      }
+    }
+  }
 
 	for(var key in placements){
   	if(placements[key] == undefined){
