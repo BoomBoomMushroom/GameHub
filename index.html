@@ -47,65 +47,6 @@
 <button id="bigRedButton"></button>
 <footer style="position:fixed;float:middle;bottom:1%;width:100%;height:4rem;font-size:4vh;text-align:center" onclick="window.location.href='./about_me'">Made with ❤️ by Dillion Weaver</footer>
 
-<!-- Start Dooms Day Clock -->
-<div id="doomsDay">
-  <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/segment7" type="text/css"/>
-
-  <h2 id="doomsDayClock">
-    Dooms Day Clock<br>
-    <span class="segment" id="days">00</span> :
-    <span class="segment" id="hours">00</span> :
-    <span class="segment" id="minutes">00</span> :
-    <span class="segment" id="seconds">00</span>
-  </h2>
-
-  <style>
-  .segment {
-     font-family: 'Segment7Standard';
-     letter-spacing: -1.5px;
-  }
-  #doomsDayClock{
-    color: red;
-    font-weight: normal;
-  }
-  </style>
-  
-  <script>
-    function tick(){
-      var now = Date.now() / 1000
-      var end = 1680350400
-
-      var seconds = end - now
-
-      let days = Math.floor(seconds/(24*3600));
-      seconds -= days*24*3600;
-
-      let hours = Math.floor(seconds/3600);
-      seconds -= hours*3600;
-
-      let minutes = Math.floor(seconds/60);
-      seconds -= minutes*60;
-
-      seconds = Math.round(seconds)
-
-      document.getElementById("days").innerText = days > 9 ? days : '0' + days
-      document.getElementById("hours").innerText = hours > 9 ? hours : '0' + hours
-      document.getElementById("minutes").innerText = minutes > 9 ? minutes : '0' + minutes
-      document.getElementById("seconds").innerText = seconds > 9 ? seconds : '0' + seconds
-
-      if(seconds <= -86400 && seconds <= 0){
-        document.getElementById("doomsDayClock").innerHTML = "<h2>April Fool!!1!</h2>"
-      }
-      else if(seconds <= 0){
-        document.getElementById("doomsDayClock").remove();
-      }
-    }
-    tick()
-  	setInterval(tick,900)
-  </script>
-</div>
-<!-- End Dooms Day Clock -->
-
 <style>
 body{
   background-color: #333333;
