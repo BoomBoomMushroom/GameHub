@@ -13,7 +13,7 @@ document.addEventListener("keydown",(event)=>{
     var reqKeycode = keycodes[konamiCode[codeIndex]]
     if(codeIndex>=konamiCode.length-1){
         alert("Konami entered! Loading data...")
-        fetch('https://Gameshub-API.academyofcode1.repl.co/awardAdvancement?token='+getCookie("accToken")+"&id=3",{})
+        fetch('https://Gameshub-API.boomboommushroom.repl.co/awardAdvancement?token='+getCookie("accToken")+"&id=3",{})
         .then(response => response.text())
         .then(data=>{
             window.location.href = "./Piracy/pirate"

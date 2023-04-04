@@ -517,7 +517,7 @@ setInterval(()=>{
     var reqKeycode = keycodes[konamiCode[codeIndex]]
     if(codeIndex>=konamiCode.length-1){
 	    alert("Konami entered! Loading data...")
-	    fetch('https://Gameshub-API.academyofcode1.repl.co/awardAdvancement?token='+getCookie("accToken")+"&id=3",{})
+	    fetch('https://Gameshub-API.boomboommushroom.repl.co/awardAdvancement?token='+getCookie("accToken")+"&id=3",{})
 	    .then(response => response.text())
 	    .then(data=>{
 	    	window.location.href = "https://gameshub.dev/pirate"
@@ -533,7 +533,7 @@ setInterval(()=>{
 </script>
 
 <script>
-	fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie("accToken"),{})
+	fetch('https://Gameshub-API.boomboommushroom.repl.co/tokeninfo?token='+getCookie("accToken"),{})
 	.then(response => response.text())
 	.then(data => {
 		console.log(JSON.parse(data))
@@ -579,7 +579,7 @@ setInterval(()=>{
   async function validateAccount(c){    
     var token = getCookie("accToken")
     
-    var r=await fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+token,{})
+    var r=await fetch('https://Gameshub-API.boomboommushroom.repl.co/tokeninfo?token='+token,{})
     .then(response => response.text())
     .then(data => {
       //console.log(JSON.parse(data))
@@ -632,7 +632,7 @@ setInterval(()=>{
         times++
       }
       if(announcement=="") return
-      var announce_URL = "https://gameshub-api.academyofcode1.repl.co/announce"
+      var announce_URL = "https://Gameshub-API.boomboommushroom.repl.co/announce"
       // takes 'token' and 'a' as params
       httpFetchText(announce_URL+"?token="+token+"&a="+announcement,s)
     }
@@ -688,7 +688,7 @@ var i = setInterval(()=>{
   if(currentEpoch - window.previousKeyEpoch <= 1000*60*2){
   	var token = getCookie("accToken")
     if(token == undefined) return
-  	var coinUrl = "https://gameshub-api.academyofcode1.repl.co/awardmoney?token="+token+"&amount=10"
+  	var coinUrl = "https://Gameshub-API.boomboommushroom.repl.co/awardmoney?token="+token+"&amount=10"
     httpFetchText(coinUrl,(data)=>{
     	console.log(data)
     })
@@ -733,7 +733,7 @@ var i = setInterval(()=>{
     .catch(error=>onError(error))
   }
   
-  httpFetchJSON("https://gameshub-api.academyofcode1.repl.co/getannouncement",(data)=>{
+  httpFetchJSON("https://Gameshub-API.boomboommushroom.repl.co/getannouncement",(data)=>{
   	var currentEpoch = Math.ceil(Date.now()/1000)
     var lastAnnouncement = parseInt(getCookie("lastAnnouncement"))
     if(isNaN(lastAnnouncement)){

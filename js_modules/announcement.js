@@ -33,7 +33,7 @@ function httpFetchText(url,callback,onError){
   .catch(error=>onError(error))
 }
 
-httpFetchJSON("https://gameshub-api.academyofcode1.repl.co/getannouncement",(data)=>{
+httpFetchJSON("https://Gameshub-API.boomboommushroom.repl.co/getannouncement",(data)=>{
     var currentEpoch = Math.ceil(Date.now()/1000)
   var lastAnnouncement = parseInt(getCookie("lastAnnouncement"))
   if(isNaN(lastAnnouncement)){

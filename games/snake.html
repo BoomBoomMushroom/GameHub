@@ -413,9 +413,9 @@ function generateColor(colorStart,colorEnd,colorCount){
     window.powerups = []
     var account = null
     
-    httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
+    httpFetchJSON('https://Gameshub-API.boomboommushroom.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
       console.log(d)
-      httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?uuid='+d.UUID,(x)=>{
+      httpFetchJSON('https://Gameshub-API.boomboommushroom.repl.co/getaccount?uuid='+d.UUID,(x)=>{
         if( x.GameshubData.Purchases.includes('snakeDLC') ){
         	window.canEquipPowerups = true
         }
@@ -995,7 +995,7 @@ function generateColor(colorStart,colorEnd,colorCount){
                     window.powerups = [];
                     excess_food = [];
 										                    
-                    httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/snakeHighScore?token='+getCookie('accToken')+"&score="+score,(d)=>{
+                    httpFetchJSON('https://Gameshub-API.boomboommushroom.repl.co/snakeHighScore?token='+getCookie('accToken')+"&score="+score,(d)=>{
                         console.log(d)
                       },()=>{})
 

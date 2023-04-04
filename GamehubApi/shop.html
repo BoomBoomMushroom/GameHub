@@ -43,12 +43,12 @@ function httpFetchText(url,callback,onError){
 <script>
 var account
 
-// https://Gameshub-API.academyofcode1.repl.co/getshop
-httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getshop',shopLoad,()=>{})
+// https://Gameshub-API.boomboommushroom.repl.co/getshop
+httpFetchJSON('https://Gameshub-API.boomboommushroom.repl.co/getshop',shopLoad,()=>{})
 
-httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
+httpFetchJSON('https://Gameshub-API.boomboommushroom.repl.co/tokeninfo?token='+getCookie('accToken'),(d)=>{
 	console.log(d)
-	httpFetchJSON('https://Gameshub-API.academyofcode1.repl.co/getaccount?uuid='+d.UUID,(x)=>{
+	httpFetchJSON('https://Gameshub-API.boomboommushroom.repl.co/getaccount?uuid='+d.UUID,(x)=>{
     console.log(x)
     money.innerHTML = addCommas( x.GameshubData.Money )+"G"
   },()=>{})
@@ -63,8 +63,8 @@ function addCommas(x) {
 function buy(id){
 	console.log("demo buying item with id of - "+id)
   var token = getCookie("accToken")
-  // https://Gameshub-API.academyofcode1.repl.co/getshop
-  httpFetchText('https://Gameshub-API.academyofcode1.repl.co/buy?id='+id+"&token="+token,
+  // https://Gameshub-API.boomboommushroom.repl.co/getshop
+  httpFetchText('https://Gameshub-API.boomboommushroom.repl.co/buy?id='+id+"&token="+token,
   (d)=>{
   	alert(d)
     window.reload()

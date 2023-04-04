@@ -106,7 +106,7 @@ function logout(){
 	window.location.reload()
 	return
 	
-	fetch('https://Gameshub-API.academyofcode1.repl.co/logout?token='+token,{})
+	fetch('https://Gameshub-API.boomboommushroom.repl.co/logout?token='+token,{})
 	.then(response => response.text())
 	.then(data => {
 		const d = JSON.parse(data)
@@ -118,7 +118,7 @@ function logout(){
 }
 
 function changeName(){
-	fetch('https://Gameshub-API.academyofcode1.repl.co/changename?token='+token+"&name="+document.getElementById("nameInput").value,{})
+	fetch('https://Gameshub-API.boomboommushroom.repl.co/changename?token='+token+"&name="+document.getElementById("nameInput").value,{})
   .then(response => response.text())
   .then(data => {
     const d = JSON.parse(data)
@@ -131,7 +131,7 @@ function changeName(){
   document.getElementById("changeNamePopup").style.display = "none"
 }
 function changePassword(){
-	fetch('https://Gameshub-API.academyofcode1.repl.co/changepassword?token='+token+"&password="+document.getElementById("passwordInput").value,{})
+	fetch('https://Gameshub-API.boomboommushroom.repl.co/changepassword?token='+token+"&password="+document.getElementById("passwordInput").value,{})
   .then(response => response.text())
   .then(data => {
     const d = JSON.parse(data)
@@ -144,7 +144,7 @@ function changePassword(){
   document.getElementById("changePasswordPopup").style.display = "none"
 }
 function deleteAccount(){
-	fetch('https://Gameshub-API.academyofcode1.repl.co/delacc?token='+token,{})
+	fetch('https://Gameshub-API.boomboommushroom.repl.co/delacc?token='+token,{})
   .then(response => response.text())
   .then(data => {
     const d = JSON.parse(data)
@@ -155,7 +155,7 @@ function deleteAccount(){
   document.getElementById("deleteAccountPopup").style.display = "none"
 }
 
-fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+token,{})
+fetch('https://Gameshub-API.boomboommushroom.repl.co/tokeninfo?token='+token,{})
 .then(response => response.text())
 .then(data => {
 	const d = JSON.parse(data)

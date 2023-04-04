@@ -24,7 +24,7 @@ function setCookie(cname, cvalue, exdays){
 async function validateAccount(c){    
   var token = getCookie("accToken")
   
-  var r=await fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+token,{})
+  var r=await fetch('https://Gameshub-API.boomboommushroom.repl.co/tokeninfo?token='+token,{})
   .then(response => response.text())
   .then(data => {
     //console.log(JSON.parse(data))
@@ -77,7 +77,7 @@ function f(){
       times++
     }
     if(announcement=="") return
-    var announce_URL = "https://gameshub-api.academyofcode1.repl.co/announce"
+    var announce_URL = "https://Gameshub-API.boomboommushroom.repl.co/announce"
     // takes 'token' and 'a' as params
     httpFetchText(announce_URL+"?token="+token+"&a="+announcement,s)
   }

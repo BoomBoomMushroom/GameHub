@@ -565,7 +565,7 @@
     }
     
     function awardMoney(amount){
-        const moneyUrl = "https://Gameshub-API.academyofcode1.repl.co/awardmoney"
+        const moneyUrl = "https://Gameshub-API.boomboommushroom.repl.co/awardmoney"
       var token = getCookie("accToken")
       fetch(moneyUrl+"?token="+token+"&amount="+amount)
       .then(d=>d.json())

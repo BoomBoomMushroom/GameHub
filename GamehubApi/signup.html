@@ -141,11 +141,11 @@ function onSubmit() {
   inputPassword = passwordInput.value
   if (inputUsername.length >= 3 && inputUsername.length <= 16 && inputPassword.length >= 8) {
 
-    fetch('https://Gameshub-API.academyofcode1.repl.co/signup?username='+inputUsername+'&password='+inputPassword,{})
+    fetch('https://Gameshub-API.boomboommushroom.repl.co/signup?username='+inputUsername+'&password='+inputPassword,{})
 		.then(response => response.text())
 		.then(data => {
 			console.log(JSON.parse(data))
-      fetch('https://Gameshub-API.academyofcode1.repl.co/login?username='+inputUsername+'&password='+inputPassword,{})
+      fetch('https://Gameshub-API.boomboommushroom.repl.co/login?username='+inputUsername+'&password='+inputPassword,{})
       .then(response => response.text())
       .then(data => {
         //alert(data)

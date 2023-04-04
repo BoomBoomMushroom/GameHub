@@ -9,14 +9,14 @@
 <script>
 	function search(){
 		if(document.getElementById("url").value!=""){
-			fetch('https://Gameshub-API.academyofcode1.repl.co/accsearch?q='+document.getElementById("url").value,{})
+			fetch('https://Gameshub-API.boomboommushroom.repl.co/accsearch?q='+document.getElementById("url").value,{})
 			.then(response => response.text())
 			.then(data => {
 				console.log(JSON.parse(data))
 				document.body.innerHTML = (JSON.parse(data))
 			})
 		} else{
-			fetch('https://Gameshub-API.academyofcode1.repl.co/accsearch?q=*',{})
+			fetch('https://Gameshub-API.boomboommushroom.repl.co/accsearch?q=*',{})
 			.then(response => response.text())
 			.then(data => {
 				console.log(JSON.parse(data))

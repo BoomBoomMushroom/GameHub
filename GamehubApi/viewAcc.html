@@ -130,7 +130,7 @@ function loadData(m){
   if(advancements.length>0){
   	document.getElementById("advancementsHeader").style.display = "block"
     for(var i=0;i<advancements.length;i++){
-      fetch("https://gameshub-api.academyofcode1.repl.co/getadvancement?id="+advancements[i])
+      fetch("https://Gameshub-API.boomboommushroom.repl.co/getadvancement?id="+advancements[i])
       .then(response=>response.text())
 			.then(d=>{
       	var CurrentAdv = JSON.parse(d)
@@ -193,7 +193,7 @@ function loader(){
 </script>
 <script>
   if(firstVar.split("=")[0]=="q"){
-    fetch('https://Gameshub-API.academyofcode1.repl.co/getaccount?uuid='+firstVar.split("=")[1],{})
+    fetch('https://Gameshub-API.boomboommushroom.repl.co/getaccount?uuid='+firstVar.split("=")[1],{})
     .then(response => response.text())
     .then(data => {
       // console.log(JSON.parse(data))

@@ -1,7 +1,7 @@
 // Get Account
 window.account = null;
 
-fetch('https://Gameshub-API.academyofcode1.repl.co/tokeninfo?token='+getCookie("accToken"),{})
+fetch('https://Gameshub-API.boomboommushroom.repl.co/tokeninfo?token='+getCookie("accToken"),{})
 .then(response => response.text())
 .then(data => {
     d = JSON.parse(data)

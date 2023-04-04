@@ -18,7 +18,7 @@ document.getElementById("bigRedButton").addEventListener("click", function(e){
     document.getElementById("bigRedButtonUnselect").style.display = "block"
     document.getElementById("bigRedButtonUnselect").select()
     document.getElementById("bigRedButtonUnselect").style.display = "none"
-    fetch("https://gameshub-api.academyofcode1.repl.co/registerButtonClicks?token="+getCookie("accToken")+"&amount="+getCookie("clicks"))
+    fetch("https://Gameshub-API.boomboommushroom.repl.co/registerButtonClicks?token="+getCookie("accToken")+"&amount="+getCookie("clicks"))
     .then(d=>{
         console.log(d)
     })
