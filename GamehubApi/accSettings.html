@@ -51,6 +51,8 @@
 <br>
 <button onclick='window.location.replace("./pfp_upload")'>Upload Profile Picture</button>
 <br>
+<a src="../GoogleConnect"><button><img src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_16dp.png">Connect Account to Google</button></a>
+<br>
 <button id="logout" onclick="logout()">Logout</button>
 <br>
 <button style="color:red" onclick='document.getElementById("deleteAccountPopup").style.display = "block"'>Delete Account</button>
@@ -97,7 +99,8 @@ function setCookie(cname, cvalue, exdays){
   document.cookie = cname+"="+cvalue+";"+expires+";path=/";
 }
 
-const token = getCookie("accToken")
+//const token = getCookie("accToken")
+const token = "F4U6vhDv5B5vnhbL"
 
 function logout(){
   setCookie('accToken','',365*10);
