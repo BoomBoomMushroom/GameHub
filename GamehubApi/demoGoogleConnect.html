@@ -1,37 +1,54 @@
 <html>
   <body>
+      <script src="https://accounts.google.com/gsi/client" async defer></script>      
       <script src="https://accounts.google.com/gsi/client" async defer></script>
-      <div id="g_id_onload"
-         data-client_id="1014890641437-4l37tqeqt3p542f4scnmoos3rn3669i0.apps.googleusercontent.com"
-         data-login_uri="https://dillion-weaver.netlify.app"
-         data-auto_prompt="false">
-      </div>
-      <div class="g_id_signin"
-         data-type="standard"
-         data-size="large"
-         data-theme="outline"
-         data-text="sign_in_with"
-         data-shape="rectangular"
-         data-logo_alignment="left">
-      </div>
+      <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
       
-      <script src="https://accounts.google.com/gsi/client" async defer></script>
       <script>
-      	const clientId = "1014890641437-4l37tqeqt3p542f4scnmoos3rn3669i0.apps.googleusercontent.com"
+      	function getCookie(cname){
+          let name = cname + "=";
+          let decodedCookie = decodeURIComponent(document.cookie);
+          let ca = decodedCookie.split(';');
+          for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
+        }
       
         function handleCredentialResponse(response) {
+        	//let responsePayload = decodeJwtResponse(response.credential);
+					let responsePayload = jwt_decode(response.credential);
+          //console.log(responsePayload)
+          var token = getCookie("accToken")
+          let params = "?token="+token+"&googleToken="+response.credential
+          let url = "https://Gameshub-API.boomboommushroom.repl.co/connectGoogle"
+          fetch(url + params)
+          .then(d=>d.json())
+          .then(data=>{
+            alert(data)
+            console.log(data)
+          })
+          
           console.log("Encoded JWT ID token: " + response.credential);
         }
         window.onload = function () {
           google.accounts.id.initialize({
-            client_id: clientId,
+            client_id: "1014890641437-4l37tqeqt3p542f4scnmoos3rn3669i0.apps.googleusercontent.com",
             callback: handleCredentialResponse
           });
+          google.accounts.id.disableAutoSelect()
+
           google.accounts.id.renderButton(
             document.getElementById("buttonDiv"),
             { theme: "outline", size: "large" }  // customization attributes
           );
-          google.accounts.id.prompt(); // also display the One Tap dialog
+          //google.accounts.id.prompt(); // also display the One Tap dialog
         }
     </script>
     <div id="buttonDiv"></div> 
