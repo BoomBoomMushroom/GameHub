@@ -1,9 +1,23 @@
 <html>
+  <head>
+    <style>
+    body{
+      background-color: #333333;
+      color: white;
+      text-align: center !important;
+      margin: auto !important;
+    }
+    </style>
+  </head>
   <body>
+      <h1>Google Account Connector</h1>
+      <h4>Connect your Google account with your GamesHub account!</h4>
+      <button style="color:red" onclick="disconnectGoogle()">Disconnect Google Account</button>
+      <br><br>
+  
       <script src="https://accounts.google.com/gsi/client" async defer></script>      
       <script src="https://accounts.google.com/gsi/client" async defer></script>
       <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
-      
       <script>
       	function getCookie(cname){
           let name = cname + "=";
@@ -19,6 +33,17 @@
             }
           }
           return "";
+        }
+      
+      	function disconnectGoogle(){
+      		let params = "?token="+getCookie("accToken")
+          let url = "https://Gameshub-API.boomboommushroom.repl.co/disconnectGoogle"
+          fetch(url + params)
+          .then(d=>d.json())
+          .then(data=>{
+            alert(data)
+            console.log(data)
+          })
         }
       
         function handleCredentialResponse(response) {
