@@ -304,13 +304,14 @@ function openBox(){
   setTimeout(()=>{
     b.classList.remove("animateOpen")
     httpFetchJSON("https://Gameshub-API.boomboommushroom.repl.co/openBox?token="+getCookie("accToken"),(d)=>{
-      if(d.length == null){
-      	loadItem(window.items[d].displayName)
-    		b.getElementsByClassName("boxText")[0].innerText = window.items[d].displayName
+      if(d.constructor == ({}).constructor){
+      	loadItem(d.displayName)
+    	b.getElementsByClassName("boxText")[0].innerText = d.displayName
       }
       else{
       	b.getElementsByClassName("boxText")[0].innerText = d
       }
+      console.log(d)
     },(e)=>{console.error(e.message)})
   },2000)
 }
