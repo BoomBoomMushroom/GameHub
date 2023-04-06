@@ -88,7 +88,7 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
   }
   
   function loadPlayer(){
-    var token = getCookie("AccToken")
+    var token = getCookie("accToken")
     var url = "https://gameshub-api.boomboommushroom.repl.co/tokeninfo?token="+token
     httpFetchJSON(url, (data)=>{
       let items = data.Misc.Items
