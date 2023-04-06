@@ -1,4 +1,5 @@
 var singleplayerGames = [
+    {name:"Holy Unblocker", url: "https://school-api-k5mb.onrender.com/"},
     {name:"Snake", url: "./games/snake"},
     {name:"Pet the Dog!", url: "https://pet-the-dog.netlify.app/"},
     {name:"Solar System Simulator", url: "./games/solarsystemsimulator"},
@@ -33,15 +34,12 @@ var server = [
     {name:"Login / Signup", url: "./gamehubapi/signup"},
     {name:"Account Settings", url: "./gamehubapi/accsettings"},
     {name:"Search Accounts", url: "./gamehubapi/accsearch"},
+    {name:"Leaderboards", url: "./gamehubapi/leaderboard"},
+]
+var economy = [
     {name:"Gameshub Shop", url: "./gamehubapi/shop"},
     {name:"Loot Boxes", url: "./gamehubapi/openBox"},
     {name:"Inventory", url: "./gamehubapi/inventory"},
-    {name:"Leaderboards", url: "./gamehubapi/leaderboard"},
-]
-var unblocked = [
-    {name:"Holy Unblocker", url: "https://school-api-k5mb.onrender.com/"}
-]
-var gambling = [
     {name:"Blackjack", url: "./games/blackjack"},
     {name:"Slot Machines", url: "./games/slotMachines"},
     {name:"Rooulette", url: "./games/rooulette"},
@@ -54,7 +52,6 @@ function insertAfter(newNode, existingNode) {
 if(singleplayerGames.length==0){document.getElementById("single").style.display = "none"}
 if(multiplayerGames.length==0){document.getElementById("multi").style.display = "none"}
 if(server.length==0){document.getElementById("server").style.display = "none"}
-if(unblocked.length==0){document.getElementById("unblocked").style.display = "none"}
 
 for(var x=0;x<singleplayerGames.length;x++){
   var t = "<a href="+singleplayerGames[x].url+">"+singleplayerGames[x].name+"</a>"
@@ -68,11 +65,7 @@ for(var x=0;x<server.length;x++){
    var t = "<a href="+server[x].url+">"+server[x].name+"</a>"
   document.getElementById("server").innerHTML += t
 }
-for(var x=0;x<unblocked.length;x++){
-   var t = "<a href="+unblocked[x].url+">"+unblocked[x].name+"</a>"
-  document.getElementById("unblocked").innerHTML += t
-}
-for(var x=0;x<gambling.length;x++){
-   var t = "<a href="+gambling[x].url+">"+gambling[x].name+"</a>"
-  document.getElementById("gambling").innerHTML += t
+for(var x=0;x<economy.length;x++){
+   var t = "<a href="+economy[x].url+">"+economy[x].name+"</a>"
+  document.getElementById("economy").innerHTML += t
 }
