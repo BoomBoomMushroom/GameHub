@@ -40,6 +40,7 @@ var economy = [
     {name:"Gameshub Shop", url: "./gamehubapi/shop"},
     {name:"Loot Boxes", url: "./gamehubapi/openBox"},
     {name:"Inventory", url: "./gamehubapi/inventory"},
+    {name:"", url: ""}, // Spacing, to make it look less cluttered
     {name:"Blackjack", url: "./games/blackjack"},
     {name:"Slot Machines", url: "./games/slotMachines"},
     {name:"Rooulette", url: "./games/rooulette"},
