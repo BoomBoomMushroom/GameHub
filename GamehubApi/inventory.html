@@ -1,108 +1,139 @@
-const rarities = ["common","uncommon","rare","epic","legendary","mythic", "derpy", "supa Duper Legendary", "void", "ultra Rare Super DeluxeTM"]
-const WIDTH = 64
-var breakLine = Math.floor(window.innerWidth/WIDTH)
-document.onload = ()=>{
-	breakLine = Math.floor(window.innerWidth/WIDTH)
+<h1>Your Inventory:</h1>
+<div id="itemsBox"></div>
+
+<style>
+body{
+  background-color: #333333;
+  color: white;
+  user-select: none;
+  transition-duration: 0.5s;
+}
+img{ border: 2px solid black; }
+span{ font-family: "Lucida Console", "Courier New", monospace; }
+.floatingText{
+  position: absolute;
+  background-color: white;
 }
 
-function httpFetchJSON(url,callback,onError){
-	fetch(url)
-  .then(response=>response.json())
-  .then(data=>callback(data))
-  .catch(error=>onError(error))
-}
-function updateRarity(){
-  for(var i=0;i<rarities.length;i++){
-    var b = rarities[i].replaceAll(" ","")
-    var a = document.getElementsByClassName(b)
-    for(var j=0;j<a.length;j++){
-    	var t = "["+ addFullTitles(titleCase(rarities[i])) +"] "
-      a[j].innerText = t + a[j].innerText
-      //a[j].parentElement.getElementsByClassName("itemName")[0].innerText = ""
-    }
-  }
-}
-function titleCase(string) {
-  var sentence = string.toLowerCase().split(" ");
-	for(var i = 0; i< sentence.length; i++){
-  	sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
-  }
-  return sentence.join(" ")
-}
-function addFullTitles(string){
-	var s = string.replaceAll("tm", "™")
-  return s
-}
+.common{ color: gray; }
+.uncommon{ color: green; }
+.rare{ color: blue; }
+.epic{ color: purple; }
+.legendary{ color: gold; text-shadow: 0 0 10px gold, 0 0 20px gold; }
+.mythic{ color: red; text-shadow: 0 0 10px red, 0 0 20px red; }
+.derpy{ color: #9c7041; text-shadow: 0 0 10px #9c7041, 0 0 20px #9c7041, 0 0 30px #9c7041, 0 0 40px #9c7041; }
+.supaDuperLegendary{ color: #bf4eb2; text-shadow: 0 0 10px #bf4eb2, 0 0 20px #bf4eb2, 0 0 30px #bf4eb2, 0 0 40px #bf4eb2; }
+.void{ color: black; text-shadow: 0 0 10px black, 0 0 20px black, 0 0 30px black, 0 0 40px black; }
+.ultraRareSuperDeluxeTM{ color: orange; text-shadow: 0 0 10px orange, 0 0 20px orange, 0 0 30px orange, 0 0 40px orange; }
+</style>
 
-httpFetchJSON("https://Gameshub-API.boomboommushroom.repl.co/getitems",(d)=>{
-	var d = JSON.parse(d)
-  window.items = d
-  //console.log(d)
-  loadPlayer()
-  console.log("Loaded Items")
-},(e)=>{console.error(e.message)})
-function getCookie(cname){
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for (let i=0; i<ca.length;i++){
-    let c = ca[i];
-    while (c.charAt(0)==' '){
-    c = c.substring(1);
-    }
-    if(c.indexOf(name)==0){
-    return c.substring(name.length,c.length);
+<script>
+  const rarities = ["common","uncommon","rare","epic","legendary","mythic", "derpy", "supa Duper Legendary", "void", "ultra Rare Super DeluxeTM"]
+  const WIDTH = 64
+  var breakLine = Math.floor(window.innerWidth/WIDTH)
+  document.onload = ()=>{
+    breakLine = Math.floor(window.innerWidth/WIDTH)
+  }
+  
+  function httpFetchJSON(url,callback,onError){
+    fetch(url)
+    .then(response=>response.json())
+    .then(data=>callback(data))
+    .catch(error=>onError(error))
+  }
+  function updateRarity(){
+    for(var i=0;i<rarities.length;i++){
+      var b = rarities[i].replaceAll(" ","")
+      var a = document.getElementsByClassName(b)
+      for(var j=0;j<a.length;j++){
+        var t = "["+ addFullTitles(titleCase(rarities[i])) +"] "
+        a[j].innerText = t + a[j].innerText
+        //a[j].parentElement.getElementsByClassName("itemName")[0].innerText = ""
+      }
     }
   }
-  return "";
-}
-
-function loadPlayer(){
-	var token = getCookie("AccToken")
-  var url = "https://gameshub-api.boomboommushroom.repl.co/tokeninfo?token="+token
-  httpFetchJSON(url, (data)=>{
-    let items = data.Misc.Items
-    var b = 0
-    for(var i=0;i<items.length;i++){
-    	b += 1
-      let item = items[i]
-      
-      var z = document.createElement("span")
-      z.classList.add("itemShower")
-      z.id = i
-      z.onmouseenter = ()=>{
-      	var id = event.target.id;
-        document.getElementById(id+"_span").style.display = "block"
-        
-        var left = event.target.getBoundingClientRect().left
-        var bottom = event.target.getBoundingClientRect().bottom
-        document.getElementById(id+"_span").style.top = bottom+"px"
-        document.getElementById(id+"_span").style.left = left+"px"
-      }
-      z.onmouseleave = ()=>{
-      	var id = event.target.id;
-      	document.getElementById(id+"_span").style.display = "none"
-      }
-      itemsBox.appendChild(z)
-      
-      var a = document.createElement("img")
-      a.src = window.items[item].image
-      a.width = WIDTH
-      z.appendChild(a)
-      
-      var b = document.createElement("span")
-      b.innerText = window.items[item].displayName
-      b.style.display = "none"
-      b.id = i+"_span"
-      b.classList.add( window.items[item].rarity )
-      b.classList.add("floatingText")
-      z.appendChild(b)
-      if(b>=breakLine){
-      	b = 0;
-        itemsBox.appendChild( document.createElement("BR") )
-      }
-      // console.log(item)
+  function titleCase(string) {
+    var sentence = string.toLowerCase().split(" ");
+    for(var i = 0; i< sentence.length; i++){
+      sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
     }
-    updateRarity()
+    return sentence.join(" ")
+  }
+  function addFullTitles(string){
+    var s = string.replaceAll("tm", "™")
+    return s
+  }
+  
+  httpFetchJSON("https://Gameshub-API.boomboommushroom.repl.co/getitems",(d)=>{
+    var d = JSON.parse(d)
+    window.items = d
+    //console.log(d)
+    loadPlayer()
+    console.log("Loaded Items")
   },(e)=>{console.error(e.message)})
-}
+  function getCookie(cname){
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i=0; i<ca.length;i++){
+      let c = ca[i];
+      while (c.charAt(0)==' '){
+      c = c.substring(1);
+      }
+      if(c.indexOf(name)==0){
+      return c.substring(name.length,c.length);
+      }
+    }
+    return "";
+  }
+  
+  function loadPlayer(){
+    var token = getCookie("AccToken")
+    var url = "https://gameshub-api.boomboommushroom.repl.co/tokeninfo?token="+token
+    httpFetchJSON(url, (data)=>{
+      let items = data.Misc.Items
+      var b = 0
+      for(var i=0;i<items.length;i++){
+        b += 1
+        let item = items[i]
+        
+        var z = document.createElement("span")
+        z.classList.add("itemShower")
+        z.id = i
+        z.onmouseenter = ()=>{
+          var id = event.target.id;
+          document.getElementById(id+"_span").style.display = "block"
+          
+          var left = event.target.getBoundingClientRect().left
+          var bottom = event.target.getBoundingClientRect().bottom
+          document.getElementById(id+"_span").style.top = bottom+"px"
+          document.getElementById(id+"_span").style.left = left+"px"
+        }
+        z.onmouseleave = ()=>{
+          var id = event.target.id;
+          document.getElementById(id+"_span").style.display = "none"
+        }
+        itemsBox.appendChild(z)
+        
+        var a = document.createElement("img")
+        a.src = window.items[item].image
+        a.width = WIDTH
+        z.appendChild(a)
+        
+        var b = document.createElement("span")
+        b.innerText = window.items[item].displayName
+        b.style.display = "none"
+        b.id = i+"_span"
+        b.classList.add( window.items[item].rarity )
+        b.classList.add("floatingText")
+        z.appendChild(b)
+        if(b>=breakLine){
+          b = 0;
+          itemsBox.appendChild( document.createElement("BR") )
+        }
+        // console.log(item)
+      }
+      updateRarity()
+    },(e)=>{console.error(e.message)})
+  }
+</script>
