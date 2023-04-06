@@ -34,6 +34,7 @@ var server = [
     {name:"Account Settings", url: "./gamehubapi/accsettings"},
     {name:"Search Accounts", url: "./gamehubapi/accsearch"},
     {name:"Gameshub Shop", url: "./gamehubapi/shop"},
+    {name:"Loot Boxes", url: "./gamehubapi/openBox"},
     {name:"Inventory", url: "./gamehubapi/inventory"},
     {name:"Leaderboards", url: "./gamehubapi/leaderboard"},
 ]
