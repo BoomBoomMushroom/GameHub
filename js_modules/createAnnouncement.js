@@ -65,21 +65,24 @@ function f(){
     if(!isAdmin) return
     console.log("The user is an Admin... proceeding")
     var announcement = ""
+    var code = "000000"
     var times = 0
     while(announcement==""){
       if(times>=5){
         break
       }
       var a = prompt("Give an annoucement to send")
+      var b = prompt("6 Digit Admin Auth Code")
       if(a.replaceAll(" ", "")!=""){
         announcement = a
       }
+      code = b
       times++
     }
     if(announcement=="") return
     var announce_URL = "https://Gameshub-API.boomboommushroom.repl.co/announce"
-    // takes 'token' and 'a' as params
-    httpFetchText(announce_URL+"?token="+token+"&a="+announcement,s)
+    // takes 'a' and 'code' as params
+    httpFetchText(announce_URL+"?a="+announcement+"&code="+code, s)
   }
   function s(data){
     console.log(data)
