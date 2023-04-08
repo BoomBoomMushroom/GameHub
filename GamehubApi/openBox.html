@@ -4,6 +4,7 @@
     </div>
   </center>
   
+
   <center id="itemData" style="display:none">  
     <a class="lightbox" href="#image"><img id="itemImage1" src="https://via.placeholder.com/150"/></a>
     <div class="lightbox-target" id="image"><img id="itemImage2" src="https://via.placeholder.com/150"/><a class="lightbox-close" href="#"></a></div>
@@ -317,7 +318,8 @@ function openBox(){
 }
 
 function loadItem(itemName){
-	document.getElementById("itemData").style.display = "block"
+	// document.getElementById("itemData").style.display = "block"
+	document.getElementById("itemData").style.display = "none"
 
   var item = window.items[ itemName ]
   if(item == null){
