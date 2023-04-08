@@ -44,6 +44,7 @@ var economy = [
     {name:"Blackjack", url: "./games/blackjack"},
     {name:"Slot Machines", url: "./games/slotMachines"},
     {name:"Rooulette", url: "./games/rooulette"},
+    {name:"", url: ""}, // Spacing, to make it look less cluttered
     {name:"Coder Job (Earn Money)", url: "./job/coder_job"},
 ]
 
