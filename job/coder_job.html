@@ -1,0 +1,164 @@
+<pre id="textHolder"></pre>
+<h3 id="score">0 / 0</h3>
+<h3 id="file"></h3>
+<style>
+body{
+  background-color: #111111;
+  color: #61eb34;
+}
+#score{
+  position: fixed;
+  right: 10px;
+  top: 0px;
+  user-select: none;
+}
+#file{
+  position: fixed;
+  right: 10px;
+  top: 20px;
+  user-select: none;
+}
+</style>
+
+<script>
+const urlBase = "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/"
+const urls = [
+	"index.html",
+	"coming_soon.html",
+	"404.html",
+	"about_me.html",
+	"js_modules/HttpFetcher.js",
+	"js_modules/announcement.js",
+	"js_modules/bigRedButton.js",
+	"js_modules/createAnnouncement.js",
+	"js_modules/gameshubBackground.js",
+	"js_modules/konamiCodeEnter.js",
+	"js_modules/loadAccount.js",
+	"js_modules/loadGames.js",
+	"extras/4qr.html",
+	"extras/multiplayer.html",
+	"extras/old_landing.html",
+	"extras/privacy.html",
+	"extras/singleplayer.html",
+  "games/2dPlatformer.html",
+  "games/CardsAgainstHumanity.html",
+  "games/RaycastingTest.html",
+  "games/SolarSystemSimulator.html",
+  "games/WebsocketExample.html",
+  "games/appleCollection.html",
+  "games/battleRoyale.html",
+  "games/blackjack.html",
+  "games/bonfire.html",
+  "games/conways_game_of_life.html",
+  "games/demoGameCreator.html",
+  "games/doomsDay.html",
+  "games/existanceSim3D.html",
+  "games/existanceSimulator.html",
+  "games/getting_over_it.html",
+  "games/gunGame.html",
+  "games/latin-words.html",
+  "games/life.html",
+  "games/market.html",
+  "games/matter_test.html",
+  "games/mcbotcreator.html",
+  "games/money_miner.html",
+  "games/monpoke.html",
+  "games/monpoke_pc.html",
+  "games/movement3dTest.html",
+  "games/pageCounter.html",
+  "games/pageCounter3D.html",
+  "games/pixelArtMaker.html",
+  "games/place.html",
+  "games/rooulette.html",
+  "games/rota.html",
+  "games/roulette.html",
+  "games/scp871.html",
+  "games/slotMachines.html",
+  "games/snake.html",
+  "games/snakeAiBattle.html",
+  "games/snakeEcosystem.html",
+  "games/snake_ai-v2.html",
+  "games/sproutsSolo.html",
+  "games/wordle.html",
+  "games/wordleNew.html",
+  "games/wordleSolver.html",
+  "GamehubApi/GoogleConnect.html",
+  "GamehubApi/accSearch.html",
+  "GamehubApi/accSettings.html",
+  "GamehubApi/cookies.html",
+  "GamehubApi/inventory.html",
+  "GamehubApi/leaderboard.html",
+  "GamehubApi/moneyLeaderboard.html",
+  "GamehubApi/openBox.html",
+  "GamehubApi/pfp_upload.html",
+  "GamehubApi/redButtonLeaderboard.html",
+  "GamehubApi/shop.html",
+  "GamehubApi/signin.html",
+  "GamehubApi/signup.html",
+  "GamehubApi/snakeLeaderboard.html",
+  "GamehubApi/viewAcc.html",
+  "job/coder_job.html",
+]
+function httpFetchJSON(url,callback,onError){
+	fetch(url)
+  .then(response=>response.text())
+  .then(data=>callback(data))
+  .catch(error=>onError(error))
+}
+function random(min,max){
+  return Math.floor(Math.random() * (max-min+1))+min
+}
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length===2) return parts.pop().split(';').shift();
+}
+
+var text = ''
+var textFile = urls[ random(0,urls.length) ]
+httpFetchJSON(urlBase+textFile, (d)=>{
+	text = d
+  start()
+}, (e)=>{console.error(e.message)})
+var done = false
+
+function start(){
+  var textInto = 0
+  var hasCursor = false
+  var isTyping = false
+
+  document.onkeydown = ()=>{
+  	if(textInto >= text.length){
+    	textInto = text.length
+      score.innerText = textInto + " / " + text.length
+      clearInterval(window.a)
+      if(done == false){
+      	done = true
+        var base = "https://Gameshub-API.boomboommushroom.repl.co/awardmoney"
+        var m = Math.ceil(text.length/2)
+        var addition = "?token="+getCookie("accToken")+"&amount="+m
+        httpFetchJSON(base+addition, (d)=>{
+        	console.log(d)
+        }, (e)=>{console.error(e.message)})
+      }
+      return
+    }
+    textInto += random(1, 20)
+    textHolder.innerText = text.slice(0, textInto)
+    window.scroll(0, 1000000)
+    isTyping = true
+    score.innerText = textInto + " / " + text.length
+    file.innerText = textFile
+  }
+  document.onkeyup = ()=>{
+    isTyping = false
+  }
+
+  window.a = setInterval(()=>{
+    if(isTyping){return}
+    if(hasCursor){ textHolder.innerText = text.slice(0, textInto); }
+    else{ textHolder.innerText = text.slice(0, textInto) + "_"; }
+    hasCursor = !hasCursor
+  },500)
+}
+</script>
