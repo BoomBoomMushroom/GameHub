@@ -14,6 +14,9 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
   position: absolute;
   background-color: white;
 }
+.blackText{
+  color: black;
+}
 
 .common{ color: gray; }
 .uncommon{ color: green; }
@@ -88,7 +91,8 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
   }
   
   function loadPlayer(){
-    var token = getCookie("accToken")
+    //var token = getCookie("accToken")
+    var token = "F4U6vhDv5B5vnhbL"
     var url = "https://gameshub-api.boomboommushroom.repl.co/tokeninfo?token="+token
     httpFetchJSON(url, (data)=>{
       let items = data.Misc.Items
@@ -103,15 +107,22 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
         z.onmouseenter = ()=>{
           var id = event.target.id;
           document.getElementById(id+"_span").style.display = "block"
+          document.getElementById(id+"_spanDesc").style.display = "block"
           
-          var left = event.target.getBoundingClientRect().left
-          var bottom = event.target.getBoundingClientRect().bottom
+          var bb = event.target.getBoundingClientRect()
+          var left = bb.left
+          var bottom = bb.bottom
+          var height = document.getElementById(id+"_span").scrollHeight
           document.getElementById(id+"_span").style.top = bottom+"px"
           document.getElementById(id+"_span").style.left = left+"px"
+          
+          document.getElementById(id+"_spanDesc").style.top = (bottom+height)+"px"
+          document.getElementById(id+"_spanDesc").style.left = left+"px"
         }
         z.onmouseleave = ()=>{
           var id = event.target.id;
           document.getElementById(id+"_span").style.display = "none"
+          document.getElementById(id+"_spanDesc").style.display = "none"
         }
         itemsBox.appendChild(z)
         
@@ -126,7 +137,16 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
         b.id = i+"_span"
         b.classList.add( window.items[item].rarity )
         b.classList.add("floatingText")
+        
+        var c = document.createElement("span")
+        c.innerText = window.items[item].description
+        c.style.display = "none"
+        c.id = i+"_spanDesc"
+        c.classList.add("floatingText")
+        c.classList.add("blackText")
+        
         z.appendChild(b)
+        z.appendChild(c)
         if(b>=breakLine){
           b = 0;
           itemsBox.appendChild( document.createElement("BR") )
