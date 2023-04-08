@@ -99,8 +99,8 @@ function setCookie(cname, cvalue, exdays){
   document.cookie = cname+"="+cvalue+";"+expires+";path=/";
 }
 
-//const token = getCookie("accToken")
-const token = "F4U6vhDv5B5vnhbL"
+const token = getCookie("accToken")
+//const token = "F4U6vhDv5B5vnhbL"
 
 function logout(){
   setCookie('accToken','',365*10);
