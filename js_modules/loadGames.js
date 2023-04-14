@@ -57,18 +57,18 @@ if(multiplayerGames.length==0){document.getElementById("multi").style.display = 
 if(server.length==0){document.getElementById("server").style.display = "none"}
 
 for(var x=0;x<singleplayerGames.length;x++){
-  var t = "<a href="+singleplayerGames[x].url+">"+singleplayerGames[x].name+"</a>"
+  var t = "<a class='gameItem' href="+singleplayerGames[x].url+">"+singleplayerGames[x].name+"</a>"
   document.getElementById("single").innerHTML += t
 }
 for(var x=0;x<multiplayerGames.length;x++){
-   var t = "<a href="+multiplayerGames[x].url+">"+multiplayerGames[x].name+"</a>"
+   var t = "<a class='gameItem' href="+multiplayerGames[x].url+">"+multiplayerGames[x].name+"</a>"
   document.getElementById("multi").innerHTML += t
 }
 for(var x=0;x<server.length;x++){
-   var t = "<a href="+server[x].url+">"+server[x].name+"</a>"
+   var t = "<a class='gameItem' href="+server[x].url+">"+server[x].name+"</a>"
   document.getElementById("server").innerHTML += t
 }
 for(var x=0;x<economy.length;x++){
-   var t = "<a href="+economy[x].url+">"+economy[x].name+"</a>"
+   var t = "<a class='gameItem' href="+economy[x].url+">"+economy[x].name+"</a>"
   document.getElementById("economy").innerHTML += t
 }
