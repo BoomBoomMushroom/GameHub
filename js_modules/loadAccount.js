@@ -29,7 +29,7 @@ fetch('https://Gameshub-API.boomboommushroom.repl.co/tokeninfo?token='+getCookie
     else{
         document.getElementById("currentAcc").href = "./gamehubapi/viewacc?q=" + JSON.parse(data).UUID
         //document.getElementById("currentAcc").href = "./gamehubapi/accSettings"
-        document.getElementById("currentAcc").innerText = "Currently signed in as " + JSON.parse(data).Username
+        document.getElementById("currentAcc").innerText = "Welcome back, " + JSON.parse(data).Username + "!"
         document.getElementById("tr1").style.display = "none"
         document.getElementById("tr2").style.display = "none"
     }
