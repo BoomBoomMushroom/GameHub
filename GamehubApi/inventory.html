@@ -37,7 +37,6 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
   document.onload = ()=>{
     breakLine = Math.floor(window.innerWidth/WIDTH)
   }
-  
   function httpFetchJSON(url,callback,onError){
     fetch(url)
     .then(response=>response.json())
@@ -93,6 +92,10 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
   function loadPlayer(){
     var token = getCookie("accToken")
     var url = "https://gameshub-api.boomboommushroom.repl.co/tokeninfo?token="+token
+    var tUrl = new URL(window.location.toLocaleString())
+    if(tUrl.searchParams.keys().next().value == "uuid"){
+    	url = "https://Gameshub-API.boomboommushroom.repl.co/getaccount?uuid=" + tUrl.searchParams.values().next()
+    }
     httpFetchJSON(url, (data)=>{
       let items = data.Misc.Items
       var b = 0
@@ -110,7 +113,7 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
           
           var bb = event.target.getBoundingClientRect()
           var left = bb.left
-          var bottom = bb.bottom
+          var bottom = bb.bottom + document.documentElement.scrollTop
           var height = document.getElementById(id+"_span").scrollHeight
           document.getElementById(id+"_span").style.top = bottom+"px"
           document.getElementById(id+"_span").style.left = left+"px"
