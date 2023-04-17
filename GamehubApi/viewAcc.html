@@ -3,6 +3,7 @@
 <img id="pfp" src="" style="border:1px solid black;background-color:white;border-radius:10%;" width=150 height=150>
 <p id="accountUsername">{USERNAME}</p>
 <em><p id="accountUUID">{UUID}</p></em>
+<a href="./inventory.html?uuid=" id="inventoryLink">View Inventory</a>
 
 <br>
 
@@ -87,6 +88,7 @@ function loadData(m){
     document.getElementById("accountUsername").innerHTML = m.Username + " - Money: " + m.GameshubData.Money +" - Invailid Date"
   }
   document.getElementById("accountUUID").innerHTML = "UUID: "+m.UUID
+  document.getElementById("inventoryLink").href = "./inventory?uuid="+m.UUID
   
   try{
     // Past Usernames loader
