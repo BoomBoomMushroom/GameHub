@@ -94,7 +94,7 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
     var url = "https://gameshub-api.boomboommushroom.repl.co/tokeninfo?token="+token
     var tUrl = new URL(window.location.toLocaleString())
     if(tUrl.searchParams.keys().next().value == "uuid"){
-    	url = "https://Gameshub-API.boomboommushroom.repl.co/getaccount?uuid=" + tUrl.searchParams.values().next()
+    	url = "https://Gameshub-API.boomboommushroom.repl.co/getaccount?uuid=" + tUrl.searchParams.values().next().value
     }
     httpFetchJSON(url, (data)=>{
       let items = data.Misc.Items
