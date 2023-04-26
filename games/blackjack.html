@@ -95,7 +95,7 @@ var emptyMessageSender = setInterval(()=>{
   if(server==null){return}
   var player = getPlayer(playerId)
   if(server.inGame==0){
-  	document.getElementById('roomUrl').value = "https://gameshub.dev/blackjack?code="+server.name
+  	document.getElementById('roomUrl').value = "https://dillion-weaver.netlify.app/games/blackjack?code="+server.name
   }
   if(player==null){return}
   if(player.roomOwner==true){document.getElementById('startGame').disabled=false}
