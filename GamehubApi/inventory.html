@@ -88,15 +88,25 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
     }
     return "";
   }
+  function sell(item, price){
+    let params = "?token="+getCookie("accToken")+"&item="+item
+    httpFetchJSON("https://gameshub-api.boomboommushroom.repl.co/uploadToMarketplace"+params,(d)=>{
+      console.log(d)
+      alert(d)
+      window.location.reload()
+    },(e)=>{console.error(e.message)})
+}
   
   function loadPlayer(){
     var token = getCookie("accToken")
     var url = "https://gameshub-api.boomboommushroom.repl.co/tokeninfo?token="+token
     var tUrl = new URL(window.location.toLocaleString())
+    var canSell = true
     if(tUrl.searchParams.keys().next().value == "uuid"){
     	url = "https://Gameshub-API.boomboommushroom.repl.co/getaccount?uuid=" + tUrl.searchParams.values().next().value
+      canSell = false
     }
-    //url = "https://Gameshub-API.boomboommushroom.repl.co/getaccount?uuid=AVyS6qQtxFcVeRGR1iRoRDnilU3OTeuD"
+    url = "https://Gameshub-API.boomboommushroom.repl.co/getaccount?uuid=AVyS6qQtxFcVeRGR1iRoRDnilU3OTeuD"
     httpFetchJSON(url, (data)=>{
       let items = data.Misc.Items
       var b = 0
@@ -107,10 +117,12 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
         var z = document.createElement("span")
         z.classList.add("itemShower")
         z.id = i
+        z.item = items[i]
         z.onmouseenter = ()=>{
           var id = event.target.id;
           document.getElementById(id+"_span").style.display = "block"
           document.getElementById(id+"_spanDesc").style.display = "block"
+          document.getElementById(id+"_spanSell").style.display = "block"
           
           var bb = event.target.getBoundingClientRect()
           var left = bb.left
@@ -121,11 +133,25 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
           
           document.getElementById(id+"_spanDesc").style.top = (bottom+height)+"px"
           document.getElementById(id+"_spanDesc").style.left = left+"px"
+          
+          document.getElementById(id+"_spanSell").style.top = (bottom+height*2)+"px"
+          document.getElementById(id+"_spanSell").style.left = left+"px"
         }
         z.onmouseleave = ()=>{
           var id = event.target.id;
           document.getElementById(id+"_span").style.display = "none"
           document.getElementById(id+"_spanDesc").style.display = "none"
+          document.getElementById(id+"_spanSell").style.display = "none"
+        }
+        z.onclick = ()=>{
+          let item = event.target.parentElement.item
+          console.log(item)
+          let confirm = prompt("Are you sure you want to sell this '"+item+"'? y/n")
+          if(confirm == 'y'){
+						let price = parseInt(prompt("Enter a price..."))
+            if(price != NaN){ sell(item, price) }
+            else{alert("Please enter a valid number!")}
+          }
         }
         itemsBox.appendChild(z)
         
@@ -148,8 +174,17 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
         c.classList.add("floatingText")
         c.classList.add("blackText")
         
+        if(canSell){
+        	var d = document.createElement("button")
+          d.innerText = "Sell"
+          d.style.display = "none"
+          d.id = i+"_spanSell"
+          d.classList.add("floatingText")
+        }
+        
         z.appendChild(b)
         z.appendChild(c)
+        if(canSell){ z.appendChild(d) }
         if(b>=breakLine){
           b = 0;
           itemsBox.appendChild( document.createElement("BR") )
