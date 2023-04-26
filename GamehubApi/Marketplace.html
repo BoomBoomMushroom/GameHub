@@ -1,0 +1,218 @@
+<h1>Marketplace</h1>
+
+<div id="itemsBox"></div>
+
+<style>
+body{
+  background-color: #333333;
+  color: white;
+  user-select: none;
+  transition-duration: 0.5s;
+}
+img{ border: 2px solid black; }
+span{ font-family: "Lucida Console", "Courier New", monospace; }
+.floatingText{
+  position: absolute;
+  background-color: white;
+}
+.blackText{
+  color: black;
+}
+.price{
+  background-color: #777777;
+  color: gold;
+}
+
+.common{ color: gray; }
+.uncommon{ color: green; }
+.rare{ color: blue; }
+.epic{ color: purple; }
+.legendary{ color: gold; text-shadow: 0 0 10px gold, 0 0 20px gold; }
+.mythic{ color: red; text-shadow: 0 0 10px red, 0 0 20px red; }
+.derpy{ color: #9c7041; text-shadow: 0 0 10px #9c7041, 0 0 20px #9c7041, 0 0 30px #9c7041, 0 0 40px #9c7041; }
+.supaDuperLegendary{ color: #bf4eb2; text-shadow: 0 0 10px #bf4eb2, 0 0 20px #bf4eb2, 0 0 30px #bf4eb2, 0 0 40px #bf4eb2; }
+.void{ color: black; text-shadow: 0 0 10px black, 0 0 20px black, 0 0 30px black, 0 0 40px black; }
+.ultraRareSuperDeluxeTM{ color: orange; text-shadow: 0 0 10px orange, 0 0 20px orange, 0 0 30px orange, 0 0 40px orange; }
+</style>
+
+<script>
+const rarities = ["common","uncommon","rare","epic","legendary","mythic", "derpy", "supa Duper Legendary", "void", "ultra Rare Super DeluxeTM"]
+const WIDTH = 64
+var breakLine = Math.floor(window.innerWidth/WIDTH)
+document.onload = ()=>{
+	breakLine = Math.floor(window.innerWidth/WIDTH)
+}
+
+function httpFetchJSON(url,callback,onError){
+	fetch(url)
+  .then(response=>response.json())
+  .then(data=>callback(data))
+  .catch(error=>onError(error))
+}
+function updateRarity(){
+  for(var i=0;i<rarities.length;i++){
+    var b = rarities[i].replaceAll(" ","")
+    var a = document.getElementsByClassName(b)
+    for(var j=0;j<a.length;j++){
+    	var t = "["+ addFullTitles(titleCase(rarities[i])) +"] "
+      a[j].innerText = t + a[j].innerText
+      //a[j].parentElement.getElementsByClassName("itemName")[0].innerText = ""
+    }
+  }
+}
+function titleCase(string) {
+  var sentence = string.toLowerCase().split(" ");
+	for(var i = 0; i< sentence.length; i++){
+  	sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+  }
+  return sentence.join(" ")
+}
+function addFullTitles(string){
+	var s = string.replaceAll("tm", "™")
+  return s
+}
+function getCookie(cname){
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i=0; i<ca.length;i++){
+    let c = ca[i];
+    while (c.charAt(0)==' '){
+    c = c.substring(1);
+    }
+    if(c.indexOf(name)==0){
+    return c.substring(name.length,c.length);
+    }
+  }
+  return "";
+}
+function buy(uuid){
+	let params = "?token="+getCookie("accToken")+"&uuid="+uuid
+  httpFetchJSON("https://gameshub-api.boomboommushroom.repl.co/buyMarketplaceItem"+params,(d)=>{
+ 		console.log(d)
+    alert(d)
+    window.location.reload()
+	},(e)=>{console.error(e.message)})
+}
+
+httpFetchJSON("https://gameshub-api.boomboommushroom.repl.co/getmarketplace",(d)=>{
+	let a = JSON.parse(d)
+  console.log(a)
+  window.marketplace = a
+  loadItems()
+},(e)=>{console.error(e.message)})
+
+function loadItems(){
+	httpFetchJSON("https://Gameshub-API.boomboommushroom.repl.co/getitems",(d)=>{
+    var d = JSON.parse(d)
+    window.items = d
+    //console.log(d)
+    loadMarket()
+    console.log("Loaded Items")
+  },(e)=>{console.error(e.message)})
+}
+function loadMarket(){
+	let items = window.marketplace
+  let itemNames = Object.keys(items)
+  var b = 0
+  for(var i=0;i<itemNames.length;i++){
+    b += 1
+    let item = window.items[items[itemNames[i]].item]
+
+    var z = document.createElement("span")
+    z.classList.add("itemShower")
+    z.id = i
+    z.uuid = items[itemNames[i]].UUID
+    z.item = items[itemNames[i]].item
+    z.onmouseenter = ()=>{
+      var id = event.target.id;
+      document.getElementById(id+"_span").style.display = "block"
+      document.getElementById(id+"_spanDesc").style.display = "block"
+      document.getElementById(id+"_spanPrice").style.display = "block"
+      document.getElementById(id+"_buttonBuy").style.display = "block"
+  
+      var bb = event.target.getBoundingClientRect()
+      var left = bb.left
+      var bottom = bb.bottom
+      var height = document.getElementById(id+"_span").scrollHeight
+      document.getElementById(id+"_span").style.top = bottom+"px"
+      document.getElementById(id+"_span").style.left = left+"px"
+      
+      document.getElementById(id+"_spanDesc").style.top = (bottom+height)+"px"
+      document.getElementById(id+"_spanDesc").style.left = left+"px"
+      
+      document.getElementById(id+"_spanPrice").style.top = (bottom+(height*2))+"px"
+      document.getElementById(id+"_spanPrice").style.left = left+"px"
+      
+      document.getElementById(id+"_buttonBuy").style.top = (bottom+(height*3))+"px"
+      document.getElementById(id+"_buttonBuy").style.left = left+"px"
+    }
+    z.onmouseleave = ()=>{
+      var id = event.target.id;
+      document.getElementById(id+"_span").style.display = "none"
+      document.getElementById(id+"_spanDesc").style.display = "none"
+      document.getElementById(id+"_spanPrice").style.display = "none"
+      document.getElementById(id+"_buttonBuy").style.display = "none"
+    }
+    z.onclick = ()=>{
+    	let UUID = event.target.parentElement.uuid
+      let item = event.target.parentElement.item
+      //console.log(UUID)
+      let confirm = prompt("Are you sure you want to buy a '"+item+"'? y/n")
+      if(confirm == 'y'){ buy(UUID) }
+    }
+    itemsBox.appendChild(z)
+
+    var a = document.createElement("img")
+    a.src = item.image
+    a.width = WIDTH
+    z.appendChild(a)
+
+    var b = document.createElement("span")
+    b.innerText = item.displayName
+    b.style.display = "none"
+    b.id = i+"_span"
+    b.classList.add( item.rarity )
+    b.classList.add("floatingText")
+    
+    var c = document.createElement("span")
+    c.innerText = item.description
+    c.style.display = "none"
+    c.id = i+"_spanDesc"
+    c.classList.add("floatingText")
+    c.classList.add("blackText")
+    
+    var d = document.createElement("span")
+    d.innerText = items[itemNames[i]].price + " Coin" + (items[itemNames[i]].price == 1 ? "" : "s")
+    d.style.display = "none"
+    d.id = i+"_spanPrice"
+    d.classList.add("floatingText")
+    d.classList.add("price")
+    
+    var e = document.createElement("button")
+    //e.innerText = (items[i].BIN == true ? "Buy" : "Bid")
+    e.innerText = "Buy"
+    e.style.display = "none"
+    e.id = i+"_buttonBuy"
+    e.classList.add("floatingText")
+    
+    z.appendChild(b)
+    z.appendChild(c)
+    z.appendChild(d)
+    z.appendChild(e)
+    if(b>=breakLine){
+      b = 0;
+      itemsBox.appendChild( document.createElement("BR") )
+    }
+    // console.log(item)
+  }
+  updateRarity()
+}
+
+function epochMS(){
+	return Date.now()
+}
+function epoch(){
+	return Date.now() / 1000
+}
+</script>
