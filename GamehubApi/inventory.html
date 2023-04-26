@@ -89,7 +89,7 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
     return "";
   }
   function sell(item, price){
-    let params = "?token="+getCookie("accToken")+"&item="+item
+    let params = "?token="+getCookie("accToken")+"&item="+item+"&price="+price
     httpFetchJSON("https://gameshub-api.boomboommushroom.repl.co/uploadToMarketplace"+params,(d)=>{
       console.log(d)
       alert(d)
