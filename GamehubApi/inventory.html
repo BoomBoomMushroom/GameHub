@@ -144,6 +144,7 @@ span{ font-family: "Lucida Console", "Courier New", monospace; }
           document.getElementById(id+"_spanSell").style.display = "none"
         }
         z.onclick = ()=>{
+	  if(canSell==false){return}
           let item = event.target.parentElement.item
           console.log(item)
           let confirm = prompt("Are you sure you want to sell this '"+item+"'? y/n")
