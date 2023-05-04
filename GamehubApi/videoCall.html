@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>P2P Video Chat</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="menu">
+      <p>Your ID:</p>
+      <p id="uuid"></p>
+      <input type="text" placeholder="Peer id" />
+      <button onclick="callUser()">Connect</button>
+      <br>
+      <button id="audioToggle" onclick="toggleAudio()">Voice: On</button>
+      <button id="cameraToggle" onclick="toggleCamera()">Camera: On</button>
+    </div>
+    <div id="incomingCall" style="display:none;">
+      <p id='incomeText'>{BLANK} is calling you!</p>
+      <button onclick="callResponse(true)">Answer</button>
+      <button onclick="callResponse(false)">Decline</button>
+    </div>
+    <div id="live">
+      <video id="remote-video"></video>
+      <video id="local-video" muted="true"></video>
+      <button id="end-call" onclick="endCall()">End Call</button>
+      
+      <div id="globalChat">
+        <div class='chat' id="chatDiv">
+          <span></span>
+        </div>
+
+        <div id="controls" style="position:fixed;">
+          <input class='chat' id="msgInput" placeholder='Type your message here...'>
+          <button class='chat' id="sendMsg" onclick='sendMsg()'>Send Message</button>
+        </div>
+        <script>
+          function addChat(msg){
+            const output = document.getElementById('chatDiv');
+            output.style.width = window.innerHeight * .4 + "px";
+            output.style.height = window.innerHeight * .4 + "px"
+            var ele = document.createElement('P');
+            ele.innerText = msg
+            ele.style.wordWrap = 'break-word'
+            ele.style.color = "black"
+            output.appendChild(ele);
+            output.scrollTop = output.scrollHeight
+          }
+          function sendMsg(){
+            if(document.getElementById("msgInput").value!=""){
+              connection.send(document.getElementById("msgInput").value);
+              addChat("You: "+document.getElementById("msgInput").value)
+              document.getElementById("msgInput").value="";
+            }
+          }
+          document.addEventListener("keydown",(e)=>{
+            e = e || window.event
+            if(e.keyCode == 13){
+              sendMsg();
+            }
+          })
+
+        </script>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+body{
+  background-color: #333333;
+  color: white;
+}
+#chatDiv{ position: absolute; border: 1px solid black; top: 0%; right: 1%; overflow: auto; background-color: #ffffff; width: 50%; height: 70%; }
+
+#live {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: none;
+}
+#local-video {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 250px;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  margin: 16px;
+  border: 2px solid #fff;
+}
+#remote-video {
+  position: absolute;
+  max-width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#end-call {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 8px;
+  background-color: red;
+  color: white;
+  border: none;
+  margin: 16px;
+}
+</style>
+
+<script>
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+// Get Account
+window.account = null;
+
+fetch('https://Gameshub-API.boomboommushroom.repl.co/tokeninfo?token='+getCookie("accToken"),{})
+.then(response => response.text())
+.then(data => {
+    d = JSON.parse(data)
+    console.log(JSON.parse(data))
+    window.account = JSON.parse(data)
+})
+
+
+var element = document.getElementById('chatDiv');
+var resizer = document.createElement('div');
+resizer.className = 'resizer';
+resizer.style.width = '10px';
+resizer.style.height = '10px';
+resizer.style.background = 'red';
+resizer.style.position = 'absolute';
+resizer.style.right = 0;
+resizer.style.bottom = 0;
+resizer.style.cursor = 'se-resize';
+element.appendChild(resizer);
+resizer.addEventListener('mousedown', initResize, false);
+
+function initResize(e) {
+   window.addEventListener('mousemove', Resize, false);
+   window.addEventListener('mouseup', stopResize, false);
+}
+function Resize(e) {
+   element.style.width = (e.clientX - element.offsetLeft) + 'px';
+   element.style.height = (e.clientY - element.offsetTop) + 'px';
+}
+function stopResize(e) {
+    window.removeEventListener('mousemove', Resize, false);
+    window.removeEventListener('mouseup', stopResize, false);
+}
+</script>
+
+<script>
+var doAudio = true
+var doVideo = true
+
+var connection = null
+var peer;
+var currentCall;
+
+var tempCall = null
+
+var connector = setInterval(()=>{
+	if(window.account==null){return}
+  clearInterval(connector)
+
+	var userID = ""
+  if(window.account == "COULDNT_FIND_TOKEN"){
+  	var userID = window.account.Username
+  }
+  
+  peer = new Peer(userID);
+  peer.on("open", function (id) {
+    document.getElementById("uuid").textContent = id;
+  });
+
+  peer.on('connection', function(conn) {
+    conn.on('open',function(){
+      if(connection!=null){return}
+
+      connection = peer.connect(conn.peer);
+      connection.on('open', function(){
+        connection.send(peer.id+' connected back!');
+      });
+    })
+    conn.on('data', function(data){
+    	addChat(conn.peer + ": "+data)
+      console.log(data);
+    });
+  });
+  
+  peer.on("call", (call) => {
+    tempCall = call
+    document.getElementById('incomingCall').style.display='block'
+    document.getElementById('incomeText').innerText = call.peer+" is calling you!"
+  });
+},100)
+
+async function callUser() {
+  // get the id entered by the user
+  const peerId = document.querySelector("input").value;
+// grab the camera and mic
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: doVideo,
+    audio: doAudio,
+  });
+// switch to the video call and play the camera preview
+  document.getElementById("menu").style.display = "none";
+  document.getElementById("live").style.display = "block";
+  document.getElementById("local-video").srcObject = stream;
+  document.getElementById("local-video").play();
+  
+  connection = peer.connect(peerId);
+  connection.on('open', function(){
+    connection.send(peer.id+' Connected to you!');
+  });
+  
+// make the call
+  const call = peer.call(peerId, stream);
+  call.on("stream", (stream) => {
+    document.getElementById("remote-video").srcObject = stream;
+    document.getElementById("remote-video").play();
+  });
+  call.on("data", (stream) => {
+    document.querySelector("#remote-video").srcObject = stream;
+  });
+  call.on("error", (err) => {
+    console.log(err);
+  });
+  call.on('close', () => {
+    endCall()
+  })
+// save the close function
+  currentCall = call;
+}
+
+function toggleAudio(){
+	doAudio = !doAudio;
+  document.getElementById('audioToggle').innerText = "Voice: " + (doAudio ? "On" : "Off")
+}
+function toggleCamera(){
+	doVideo = !doVideo;
+  document.getElementById('cameraToggle').innerText = "Camera: " + (doVideo ? "On" : "Off")
+}
+
+function callResponse(res){
+	let call = tempCall
+  document.getElementById('incomingCall').style.display='none'
+  if(res==false){
+  	return call.close()
+	}
+	// grab the camera and mic
+  navigator.mediaDevices
+    .getUserMedia({ video: doVideo, audio: doAudio })
+    .then((stream) => {
+      // play the local preview
+      document.querySelector("#local-video").srcObject = stream;
+      document.querySelector("#local-video").play();
+// answer the call
+      call.answer(stream);
+// save the close function
+      currentCall = call;
+// change to the video view
+      document.querySelector("#menu").style.display = "none";
+      document.querySelector("#live").style.display = "block";
+      call.on("stream", (remoteStream) => {
+        // when we receive the remote stream, play it
+        document.getElementById("remote-video").srcObject = remoteStream;
+        document.getElementById("remote-video").play();
+      });
+    })
+    .catch((err) => {
+      console.log("Failed to get local stream:", err);
+    });
+}
+
+function endCall() {
+  // Go back to the menu
+  document.querySelector("#menu").style.display = "block";
+  document.querySelector("#live").style.display = "none";
+// If there is no current call, return
+  if (!currentCall) return;
+// Close the call, and reset the function
+  try {
+    currentCall.close();
+  } catch(e) {}
+  currentCall = undefined;
+}
+</script>
