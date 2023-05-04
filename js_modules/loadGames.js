@@ -32,6 +32,7 @@ var multiplayerGames = [
     {name:"Cards Against Humanity", url: "./games/CardsAgainstHumanity"},
 ]
 var server = [
+    {name:"Video Call", url: "./gamehubapi/videoCall"},
     {name:"Login / Signup", url: "./gamehubapi/signup"},
     {name:"Account Settings", url: "./gamehubapi/accsettings"},
     {name:"Search Accounts", url: "./gamehubapi/accsearch"},
