@@ -1,5 +1,6 @@
 var singleplayerGames = [
     {name:"Holy Unblocker", url: "https://school-api-k5mb.onrender.com/"},
+    {name:"Snake", url: "./games/auto_incorrect"},
     {name:"Jupyter Notebook", url: "https://jupyternotebook-server.boomboommushroom.repl.co/"},
     {name:"Snake", url: "./games/snake"},
     {name:"Pet the Dog!", url: "https://pet-the-dog.netlify.app/"},
