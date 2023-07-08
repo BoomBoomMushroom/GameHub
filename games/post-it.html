@@ -89,7 +89,7 @@ function edit(id){
     editButton.innerText = "Edit"
     let txt = content.value
     
-    fetch(URL+'/editnote?note='+txt+'&token='+getCookie('token')+'&uuid='+id,{})
+    fetch(URL+'/editnote?note='+txt+'&token='+getCookie("accToken")+'&uuid='+id,{})
     .then(response => response.text())
     .then(data => {
       console.log(data)
@@ -195,7 +195,7 @@ function dragElement(elmnt, pos) {
     let pos = [x, y]
     console.log(pos)
     */
-    let token = getCookie('token')
+    let token = ggetCookie("accToken")
     fetch(URL+'/movenote?x='+x+'&y='+y+'&token='+token+'&uuid='+elmnt.id,{})
     .then(response => response.text())
     .then(data => {
