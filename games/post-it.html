@@ -195,7 +195,7 @@ function dragElement(elmnt, pos) {
     let pos = [x, y]
     console.log(pos)
     */
-    let token = ggetCookie("accToken")
+    let token = getCookie("accToken")
     fetch(URL+'/movenote?x='+x+'&y='+y+'&token='+token+'&uuid='+elmnt.id,{})
     .then(response => response.text())
     .then(data => {
