@@ -24,6 +24,7 @@ var singleplayerGames = [
     {name:"Artificial Life w/ Settings", url: "./games/life"},
     {name:"Talking Ben", url: "./FiledGames/ben"},
     {name:"Rota", url: "./games/rota"},
+    {name:"Post-It Together!", url: "./games/post-it"},
 ]
 var multiplayerGames = [
     {name:"Existance Simulator", url: "./games/existancesimulator"},
