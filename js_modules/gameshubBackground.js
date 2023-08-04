@@ -8,13 +8,16 @@ function getDay(){
 	return new Date().getUTCDate()
 }
 
-var backgrounds = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background.png",
+var backgrounds = [
+	/*
+ 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background.png",
 	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background2.png",
 	 "https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background3.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background4.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background5.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background6.png",
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/GH_Background7.png",
+		   */
 	"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/you_wouldn't_get_it.png"]
 var spookySet = ["https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background1.png",
 		"https://raw.githubusercontent.com/BoomBoomMushroom/GameHub/main/GamehubApi/images/Holloween_Background2.png",
