@@ -29,6 +29,7 @@ var singleplayerGames = [
 var multiplayerGames = [
     {name:"Existance Simulator", url: "./games/existancesimulator"},
     {name:"Existance Simulator 3D", url: "./FiledGames/games/existancesimulator3d/"},
+    {name:"Existance Simulator Desktop Edition", url: "github.com/Circuitbreaker08/Existence-Simulator-Desktop-Edition"},
     {name:"Sprouts (In Person Req)", url: "./games/sproutssolo"},
     {name:"Battle Royale", url: "./games/battleroyale"},
     {name:"Cards Against Humanity", url: "./games/CardsAgainstHumanity"},
