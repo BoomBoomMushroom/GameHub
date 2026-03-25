@@ -72,7 +72,7 @@ wsURL = "ws://127.0.0.1:3000"; // atm connect to lcoal host to show it off in my
 const ws = new WebSocket(wsURL)
 const wsStatus = document.getElementById("wsStatus")
 const serverCount = document.getElementById("serverCount")
-const cardBack = "https://gameshub.dev/GameAssets/BlackJack/playing_cards/card_back.png"
+const cardBack = "https://gameshub-bbm.netlify.app/GameAssets/BlackJack/playing_cards/card_back.png"
 var activeServers = []
 var server = null
 var playerId = null
@@ -97,7 +97,7 @@ var emptyMessageSender = setInterval(()=>{
   if(server==null){return}
   var player = getPlayer(playerId)
   if(server.inGame==0){
-  	document.getElementById('roomUrl').value = "https://dillion-weaver.netlify.app/games/blackjack?code="+server.name
+  	document.getElementById('roomUrl').value = "https://gameshub-bbm.netlify.app/games/blackjack?code="+server.name
   }
   if(player==null){return}
   if(player.roomOwner==true){document.getElementById('startGame').disabled=false}
@@ -255,7 +255,7 @@ function loadPlayers(){
       png.src = player.profilePictureURL
     }
     else{
-      png.src = "https://avatars.dicebear.com/api/identicon/"+player.displayName+".png"
+      png.src = "https://api.dicebear.com/9.x/thumbs/svg?seed="+player.displayName
     }
     png.style.backgroundColor = "rgb(255,255,255)"
     png.style.width = "7%"
@@ -340,7 +340,7 @@ function getCard(face,suit){
 	var fileName = face+"_of_"+suit
   if(face=="queen"||face=="king"||face=="jack"){fileName += "2"}
   fileName += ".svg"
-  return "https://gameshub.dev/GameAssets/BlackJack/playing_cards/"+fileName
+  return "https://gameshub-bbm.netlify.app/GameAssets/BlackJack/playing_cards/"+fileName
 }
 function getPlayer(id){
 	if(server==null){return}
