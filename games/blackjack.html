@@ -66,8 +66,10 @@ body{
 
 <script>
 // Server : https://replit.com/@AcademyofCode1/BlackJack-Server
+let wsURL = "wss://BlackJack-Server.academyofcode1.repl.co";
+wsURL = "ws://127.0.0.1:3000"; // atm connect to lcoal host to show it off in my interview
 
-const ws = new WebSocket("wss://BlackJack-Server.academyofcode1.repl.co")
+const ws = new WebSocket(wsURL)
 const wsStatus = document.getElementById("wsStatus")
 const serverCount = document.getElementById("serverCount")
 const cardBack = "https://gameshub.dev/GameAssets/BlackJack/playing_cards/card_back.png"
